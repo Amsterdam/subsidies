@@ -1,0 +1,294 @@
+<br>
+<div class="row">
+        <div class="col-xs-12 col-md-4" >
+        <p>gereserveerd voor omschrijvende teksten</p>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class='graph_head'>Aangevraagd en toegekend</div>
+            <div class='graph_content' id="graph_aangevraagd_toegekend"></div>
+            <div class='graph_text'>Totaal aangevraagd bedrag tegenover het werkelijk toegekende bedrag. </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class='graph_head'>Verdeling per type</div>
+            <div class='graph_content' id="graph_periodiek"></div>
+            <div class='graph_text'>Toegekend subsidiebedrag verdeeld over de type "Periodiek" & "Eenmalig." </div>
+        </div>
+    </div>
+        <br>
+<div class="row">
+        <div class="col-xs-12  col-md-4">
+            <p>gereserveerd voor omschrijvende teksten</p>
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <div class='graph_head'>Toegekend bedrag per thema</div>
+            <div class='graph_content' id="graph_thema"></div>
+            <div class='graph_text'>Verdeling van het totaal toegekend bebdrag per thema. </div>
+        </div>
+</div>
+
+<!--<script src="//d3js.org/d3.v3.min.js"></script>-->
+        
+<script>
+    var margin = {top: 20, right: 20, bottom: 30, left: 80},
+        width = 200 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    
+function draw_aangevraagd_toegekend(data){    
+    
+        //console.log("starting the onload");
+        
+        var canvas = d3.select("#graph_aangevraagd_toegekend").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10);
+    
+            x.domain(data.map(function(d) { return d.key; }));
+            y.domain([0, d3.max(data, function(d) { return d.value; })]);
+    
+    
+      canvas.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      canvas.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(-15,0)")
+          .call(yAxis)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("uitgekeerd bedrag (in duizenden)");
+
+      canvas.selectAll(".bar")
+          .data(data)
+          .enter().append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d) { return x(d.key); })
+          .attr("width", x.rangeBand())
+          .attr("y", function(d) { return y(d.value); })
+          .attr("height", function(d) { return height - y(d.value); })
+                .on("mouseover", function(d) {
+                            var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() / 2;
+                            var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
+          
+                            svg.append("text")
+                            .attr("id", "tooltip")
+                            .attr("x", xPosition)
+                            .attr("y", yPosition)
+                            .text(d.value);
+            ;})
+            .on("mouseout", function() {
+                //Remove the tooltip
+                d3.select("#tooltip").remove();
+                });
+    };
+    
+function draw_periodiek(data){   
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10);
+
+    var svg = d3.select("#graph_periodiek").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+        
+        x.domain(data.map(function(d) { return d.key; }));
+        y.domain([0, d3.max(data, function(d) { return d.values; })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-15,0)")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("uitgekeerd bedrag (in duizenden)");
+
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.key); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.values); })
+            .attr("height", function(d) { return height - y(d.values); })
+                .on("mouseover", function(d) {
+                            var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() / 2;
+                            var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
+
+                            svg.append("text")
+                            .attr("id", "tooltip")
+                            .attr("x", xPosition)
+                            .attr("y", yPosition)
+                            .text(d.values);
+            ;})
+            .on("mouseout", function() {
+                //Remove the tooltip
+                d3.select("#tooltip").remove();
+                });
+
+    };
+    
+    
+    var margin_2 = {top: 20, right: 20, bottom: 120, left: 80},
+        width_2 = 500 - margin_2.left - margin_2.right,
+        height_2 = 500 - margin_2.top - margin_2.bottom;
+    
+function draw_thema(data){
+
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width_2], .1);
+
+    var y = d3.scale.linear()
+        .range([height_2, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10);
+
+    var svg = d3.select("#graph_thema").append("svg")
+                .attr("width", width_2 + margin_2.left + margin_2.right)
+                .attr("height", height_2 + margin_2.top + margin_2.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin_2.left + "," + margin_2.top + ")");
+        
+        
+        x.domain(data.map(function(d) { return d.key; }));
+        y.domain([0, d3.max(data, function(d) { return d.values; })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0 ," + height_2 + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .attr("y", 0)
+            .attr("x", -8)
+            .attr("dy", ".40em")
+            .attr("transform", "rotate(-45  )")
+            .style("text-anchor", "end");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-15,0)")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("uitgekeerd bedrag (in duizenden)");
+
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.key); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.values); })
+            .attr("height", function(d) { return height_2 - y(d.values); })
+                .on("mouseover", function(d) {
+                            var xPosition = parseFloat(d3.select(this).attr("x")) + x.rangeBand() / 2;
+                            var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
+
+                            svg.append("text")
+                            .attr("id", "tooltip")
+                            .attr("x", xPosition)
+                            .attr("y", yPosition)
+                            .text(d.values);
+            ;})
+            .on("mouseout", function() {
+                //Remove the tooltip
+                d3.select("#tooltip").remove();
+                });
+
+
+};
+        
+function type(d) {
+  d.BEDRAG_VERLEEND = +d.BEDRAG_VERLEEND;
+  d.BEDRAG_AANGEVRAAGD = +d.BEDRAG_AANGEVRAAGD; 
+  d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;    
+  return d;
+};
+    
+    
+    
+    // dataload function 
+    var ssv = d3.dsv(';')
+    ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
+        if (error) throw error;
+    
+        // filter the data on the choosen year
+        data_csv = data_csv.filter( function(row) {return row['SUBSIDIEJAAR'] = 2016;});
+    
+        var data_vraag_verleend=[{'key':'Aangevraagd', 'value':d3.sum(data_csv, function(d){return d.BEDRAG_AANGEVRAAGD;})},
+            {'key':'Verleend', 'value':d3.sum(data_csv, function(d){return d.BEDRAG_VERLEEND;})}];
+        
+        draw_aangevraagd_toegekend(data_vraag_verleend);
+        
+        var data_periode = d3.nest()
+          .key(function(d) { return d.TYPE_PERIODICITEIT;})
+          .rollup(function(d) { 
+           return d3.sum(d, function(g) {return g.BEDRAG_VERLEEND / 1000; });
+          }).entries(data_csv);
+        
+        draw_periodiek(data_periode);
+        
+        var data_thema = d3.nest()
+          .key(function(d) { return d.AFDELINGNAAM_BELEID;})
+          .rollup(function(d) { 
+           return d3.sum(d, function(g) {return g.BEDRAG_VERLEEND / 1000; });
+          }).entries(data_csv);
+        
+        draw_thema(data_thema);
+        
+    });
+    
+    
+</script>

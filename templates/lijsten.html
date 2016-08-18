@@ -1,0 +1,257 @@
+
+<div id='base' class='row'>
+    <div id='filter' class="col-md-2">
+        <h4> Filter opties</h4>
+        <hr>
+        <label>Verleend bedrag</label>
+        min.<input type="text" id="bedragVanaf"><br>
+        max.<input type="text" id="bedragTot"><br>
+        <hr>
+        <label>Jaar</label>
+        <input type="number" id="jaar", value=2015><br>
+        <hr>
+        <label>Periode</label>
+        <label class='check'><input name='tijd' type="checkbox" id ='Periodiek'>Periodiek</label>
+        <label class='check'><input name='tijd' type="checkbox" id ='Eenmalig'>Eenmalig</label>
+        <hr>
+        <label>Type</label>
+        <label class='check'><input name='type' type="checkbox" id ='Directie Communicatie'>Directie Communicatie</label>
+        <label class='check'><input name='type' type="checkbox" id ='Diversiteit'>Diversiteit</label>
+        <label class='check'><input name='type' type="checkbox" id ='Duurzaamheid'>Duurzaamheid</label>
+        <label class='check'><input name='type' type="checkbox" id ='Economie'>Economie</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Centrum'>Gebiedspool Centrum</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Nieuw-West'>Gebiedspool Nieuw-West</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Noord'>Gebiedspool Noord</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Oost'>Gebiedspool Oost</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool West'>Gebiedspool West</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Zuid'>Gebiedspool Zuid</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gebiedspool Zuidoost'>Gebiedspool Zuidoost</label>
+        <label class='check'><input name='type' type="checkbox" id ='Gemeentebreed (algemeen)'>Gemeentebreed (algemeen)</label>
+        <label class='check'><input name='type' type="checkbox" id ='Jeugd'>Jeugd</label>
+        <label class='check'><input name='type' type="checkbox" id ='Jongeren- en studentenhuisvesting'>Jongeren- en studentenhuisvesting</label>
+        <label class='check'><input name='type' type="checkbox" id ='Kunst en Cultuur'>Kunst en Cultuur</label>
+        <label class='check'><input name='type' type="checkbox" id ='ONBEKEND'>ONBEKEND</label>
+        <label class='check'><input name='type' type="checkbox" id ='Onderwijs'>Onderwijs</label>
+        <label class='check'><input name='type' type="checkbox" id ='Openbare Orde en Veiligheid'>Openbare Orde en Veiligheid</label>
+        <label class='check'><input name='type' type="checkbox" id ='Participatie'>Participatie</label>
+        <label class='check'><input name='type' type="checkbox" id ='Ruimte'>Ruimte</label>
+        <label class='check'><input name='type' type="checkbox" id ='Sport'>Sport</label>
+        <label class='check'><input name='type' type="checkbox" id ='Wonen'>Wonen</label>
+        <label class='check'><input name='type' type="checkbox" id ='Zorg'>Zorg</label>
+        <hr>
+        <!--  <input onchange="filterme()" type="checkbox" name="type" value="Periodiek">Periodiek
+          <input onchange="filterme()" type="checkbox" name="type" value="Eenmalig">Eenmalig-->
+    </div>
+    <div id='tablecontainer' class='col-md-10' style="padding-left:50px; padding-right:50px"><h4 align='Right'>Toegekende subsidies</h4><hr>
+    </div>
+</div>
+
+    <script>
+
+/*
+AANVRAGER	Aanvrager
+REGELINGNAAM	Regelingnaam
+ORGANISATIEONDERDEEL	Organisatie onderdeel
+PROJECT_NAAM	Project
+TYPE_PERIODICITEIT	Type
+SUBSIDIEJAAR	Jaar
+AANGEVRAAGD	Aangevraagd
+VERLEEND	Verleend
+*/
+               var NL = d3.locale({
+                    "decimal": ",",
+                    "thousands": ".",
+                    "grouping": [3],
+                    "currency": ["€ ", ""],
+                    "dateTime": "%a %b %e %X %Y",
+                    "date": "%m/%d/%Y",
+                    "time": "%H:%M:%S",
+                    "periods": ["AM", "PM"],
+                    "days": ["Zondag", "Maandag", "Dinsgag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
+                    "shortDays": ["Zo", "Ma", "Di", "Woe", "Do", "Vrij", "Zat"],
+                    "months": ["januarie", "februarie", "Maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
+                    "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+                })
+               
+               var eur = NL.numberFormat("$,.2f");  
+                //-------------------------     
+        
+            /********
+            *   this is done to give logical names to the table headers. Be aware that the lists must be the same length
+            */
+            var tableHeaders = ['Aanvrager', 'Project', 'Regelingnaam', 'Organisatie onderdeel', 'Jaar', 'Type', 'Aangevraagd', 'Verleend'];
+            var fileHeaders = ["AANVRAGER",	"PROJECT_NAAM",	"REGELINGNAAM",	"AFDELINGNAAM_BELEID", "SUBSIDIEJAAR", "TYPE_PERIODICITEIT",	"BEDRAG_AANGEVRAAGD","BEDRAG_VERLEEND"];
+            var tanles;
+            
+            function populateTable(data){
+                //console.log('received a data update', data.length, ' records');
+                
+                d3.select("#subsidieTable_wrapper").remove(); 
+                
+                // append the subsiditable
+                var table = d3.select("#tablecontainer").append("table").attr("id", "subsidieTable");
+
+                // append the header row
+                var headers = table.append('thead')
+                                .append('tr')
+                                .selectAll('th')
+                                .data(tableHeaders).enter()
+                                .append('th')
+                                .text(function(d){return d; });
+
+                var rows = table.append('tbody');
+
+                /**********
+                * the base of the table is drawn
+                */
+
+                var brows = rows.selectAll('tr')
+                                .data(data).enter()
+                                .append('tr'); 
+                    
+                    brows.selectAll('td')
+                        .data(function (d) {
+                            return fileHeaders.map(function (k) {    //k are the items in the column array, the function is returning value pairs (dictionary)
+                            //console.log(k, { 'value': d[k], 'name': k});
+                            return { 'value': d[k], 'name': k};
+                            });
+                        }).enter()
+                        .append('td')
+                        .text( function(d){ return d.value;});
+                    
+                $(document).ready(function() { 
+                        var cTable = $('#subsidieTable').DataTable({
+                                "processing": true, 
+                                "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+                        
+                            });
+                       
+                                            
+                        // Event listener to the two range filtering inputs to redraw on input
+                        $('#jaar').change( function() {cTable.draw(); } );
+                        $('#jaar').keyup( function() {cTable.draw(); } );
+                    
+                        $('#bedragVanaf').keyup( function() {cTable.draw(); } );
+                        $('#bedragTot').keyup( function() {cTable.draw(); } );
+                    
+                        $('#Periodiek').click( function() {cTable.draw(); });
+                        $('#Eenmalig').click( function() {cTable.draw(); });
+                    
+                        $('#Directie Communicatie').click( function() {cTable.draw(); });
+                        $('#Diversiteit').click( function() {cTable.draw(); });
+                        $('#Duurzaamheid').click( function() {cTable.draw(); });
+                        $('#Economie').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Centrum').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Nieuw-West').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Noord').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Oost').click( function() {cTable.draw(); });
+                        $('#Gebiedspool West').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Zuid').click( function() {cTable.draw(); });
+                        $('#Gebiedspool Zuidoost').click( function() {cTable.draw(); });
+                        $('#Gemeentebreed algemeen').click( function() {cTable.draw(); });
+                        $('#Jeugd').click( function() {cTable.draw(); });
+                        $('#Jongeren- en studentenhuisvesting').click( function() {cTable.draw(); });
+                        $('#Kunst en Cultuur').click( function() {cTable.draw(); });
+                        $('#ONBEKEND').click( function() {cTable.draw(); });
+                        $('#Onderwijs').click( function() {cTable.draw(); });
+                        $('#Openbare Orde en Veiligheid').click( function() {cTable.draw(); });
+                        $('#Participatie').click( function() {cTable.draw(); });
+                        $('#Ruimte').click( function() {cTable.draw(); });
+                        $('#Sport').click( function() {cTable.draw(); });
+                        $('#Wonen').click( function() {cTable.draw(); });
+                        $('#Zorg').click( function() {cTable.draw(); });
+                    
+                    });
+                    
+            };
+            
+            function getData(){
+                
+                var ssv = d3.dsv(';');
+                ssv('../static/data/subsidie_out2.csv', type, function(error, data){
+                    if( error ) throw error;
+                    populateTable(data);    
+                    
+                    
+                });
+                
+            };
+            
+            function type(d){
+                
+
+
+                
+                
+                
+            
+                d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;
+                d.BEDRAG_AANGEVRAAGD = eur(+d.BEDRAG_AANGEVRAAGD);
+                d.BEDRAG_VERLEEND = eur(+d.BEDRAG_VERLEEND);
+                
+                return d;
+            };
+            
+            getData();
+            
+            
+        $.fn.dataTable.ext.search.push( 
+            function(settings, data, dataIndex){
+                var returnValue = true;
+                
+                
+                var value = $("#jaar").val();
+                    //console.log(data[3], value, data[3] != value);
+                    if( data[4] != value){ 
+                        returnValue = false; 
+                    };
+                
+                if( returnValue ){
+                    var minvalue = $("#bedragVanaf").val();
+                    var maxvalue = $("#bedragTot").val();
+                    
+                    if(
+                        (( minvalue != '') && (data[7] < eur(+minvalue)))
+                        ||
+                        (( maxvalue !='') && (data[7] > eur(+maxvalue)))
+                        )
+                    {
+                        returnValue = false
+                    }
+                    
+                };
+                
+                if( returnValue ){
+                    var tijdFilter = $('input:checkbox[name="tijd"]:checked').map(function() {
+                                        return this.id;
+                                    }).get()
+
+                    //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
+                    if( (tijdFilter.indexOf(data[5]) === -1) &&  !(tijdFilter.length === 0) ){
+                        returnValue = false;
+                    }
+
+                };
+                if( returnValue){
+                    var typeFilter = $('input:checkbox[name="type"]:checked').map(function() {
+                                    return this.id;
+                                  }).get()
+
+                    //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
+                    if( ((typeFilter.indexOf(data[3]) === -1) &&  !(typeFilter.length === 0) )){
+                        returnValue = false;
+                    }
+                };
+
+    
+                return returnValue;
+
+                
+        })
+
+
+        
+        
+    </script>
+
+</html>
