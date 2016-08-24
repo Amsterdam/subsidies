@@ -90,12 +90,31 @@ th.aes:after {
 .site_footer{
     background-color: #333333;
     color: white;
-    height: 60px;
+    //height: 60px;
     padding: auto;
     margin-top: 30px;
     padding-top: 30px;
     width: 98%;  
     color: white; 
-    margin:0 auto;
-    
+    margin:0 auto;   
+}
+.inner_footer{
+    background-color: #666666;
+    padding: 10px 0px 0px 25px;
+    height: 250px;
+}
+
+.footer_table, .footer_table th, .footer_table tr, .footer_table td{
+    width: 250px;
+    background-color: #666666;
+}
+
+.link_list_ul li {
+   list-style: none;
+   margin-left: 0px;
+   padding-left: 1em;
+   text-indent: -1em;
+}
+.link_list_ul a{
+    color: white;
 }

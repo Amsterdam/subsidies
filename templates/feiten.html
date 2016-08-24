@@ -9,7 +9,7 @@
         </div>
         <div class="col-xs-12 col-md-4">
             <div class='graph_head'>Aangevraagd en toegekend</div>
-            <div class='graph_content' id="graph_aangevraagd_toegekend"></div>
+            <div class='graph_content' id="graph_aangevraagd_toegekend" align="center"></div>
             <div class='graph_text'>Totaal aangevraagd bedrag tegenover het werkelijk toegekende bedrag. </div>
             <hr>
             <div class='graph_table' id='table_aangevraagd' align='center'>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-xs-12 col-md-4">
             <div class='graph_head'>Verdeling per type</div>
-            <div class='graph_content' id="graph_periodiek"></div>
+            <div class='graph_content' id="graph_periodiek"  align="center"></div>
             <div class='graph_text'>Toegekend subsidiebedrag verdeeld over de type "Periodiek" & "Eenmalig." </div>
             <hr>
             <div class='graph_table' id='table_periodiek' align='center'>
@@ -50,10 +50,10 @@
     </div>
         <br>
 <div class="row">
-        <div class="col-xs-12  col-md-4">
+        <div class="col-xs-12  col-md-4" >
             <p>gereserveerd voor omschrijvende teksten</p>
         </div>
-        <div class="col-xs-12 col-md-8">
+        <div class="col-xs-12 col-md-8" align="center">
             <div class='graph_head'>Toegekend bedrag per thema</div>
             <div class='graph_content' id="graph_thema"></div>
             <div class='graph_text'>Verdeling van het totaal toegekend bebdrag per thema. </div>
@@ -347,7 +347,8 @@ function getDataAndRender(){
 
         var data_vraag_verleend=[{'key':'Aangevraagd', 'value':d3.sum(data_csv, function(d){return d.BEDRAG_AANGEVRAAGD / 1000;})},
             {'key':'Verleend', 'value':d3.sum(data_csv, function(d){return d.BEDRAG_VERLEEND / 1000;})}];
-
+        
+        data_vraag_verleend.sort(function(a,b){return d3.ascending(a.key, b.key);})
         t1.redraw(data_vraag_verleend);
 
         d3.select('#aangevraagd').text(eur(data_vraag_verleend[0].value * 1000))
@@ -359,6 +360,7 @@ function getDataAndRender(){
            return d3.sum(d, function(g) {return g.BEDRAG_VERLEEND / 1000; });
           }).entries(data_csv);
 
+        data_periode.sort(function(a,b){return d3.ascending(a.key, b.key);})
         t2.redraw(data_periode);
         
         d3.select('#periodiek').text(eur(data_periode[0].values * 1000))
@@ -370,7 +372,8 @@ function getDataAndRender(){
           .rollup(function(d) { 
            return d3.sum(d, function(g) {return g.BEDRAG_VERLEEND / 1000; });
           }).entries(data_csv);
-
+        
+        data_thema.sort(function(a,b){return b.values - a.values;})
         t3.redraw(data_thema)
         //draw_thema(data_thema);
 
