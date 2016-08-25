@@ -61,7 +61,7 @@
 </div>
 
 
-<script src="../static/d3/d3.v3.min.js"></script>
+<!--<script src="../static/d3/d3.v3.min.js"></script>-->
 
 <script>
 
@@ -339,7 +339,7 @@ function getDataAndRender(){
     
     var fltrJaar = d3.select("#fltrJaar").property("value");
     var ssv = d3.dsv(';')
-    ssv("../static/data/subsidie_out2.csv", type, function(error, data_csv) {
+    ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) throw error;
 
         // filter the data on the choosen year

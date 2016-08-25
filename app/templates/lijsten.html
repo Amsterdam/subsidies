@@ -17,7 +17,7 @@
         <label class='check'><input name='tijd' type="checkbox" id ='Periodiek'>Periodiek</label>
         <label class='check'><input name='tijd' type="checkbox" id ='Eenmalig'>Eenmalig</label>
         <hr>
-        <label>Type</label>
+        <label>Thema</label>
         <label class='check'><input name='type' type="checkbox" id ='DirectieCommunicatie' value="Directie Communicatie">Directie Communicatie</label>
         <label class='check'><input name='type' type="checkbox" id ='Diversiteit' value="Diversiteit">Diversiteit</label>
         <label class='check'><input name='type' type="checkbox" id ='Duurzaamheid' value="Duurzaamheid">Duurzaamheid</label>
@@ -127,7 +127,7 @@ VERLEEND	Verleend
                                 "sDom": '<Bl<t>ip>',
                                 "processing": true, 
                                 "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
-                                "language": {"url": "../static/DataTables/language.json"}
+                                "language": {"url": "static/DataTables/language.json"}
 
 
                             });
@@ -177,7 +177,7 @@ VERLEEND	Verleend
             function getData(){
                 
                 var ssv = d3.dsv(';');
-                ssv('../static/data/subsidie_out2.csv', type, function(error, data){
+                ssv('static/data/subsidie_out2.csv', type, function(error, data){
                     if( error ) throw error;
                     populateTable(data);    
                     
