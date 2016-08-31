@@ -201,6 +201,7 @@ VERLEEND	Verleend
                 ssv('static/data/subsidie_out2.csv', type, function(error, data){
                     if( error ) throw error;
                     populateTable(data);    
+                   // document.write(JSON.stringify(data));
                     
                     
                 });
