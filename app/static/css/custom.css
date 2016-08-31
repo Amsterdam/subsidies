@@ -51,6 +51,13 @@ h3{
   display: none;
 }
 
+.y.axis.hor path{
+    display: none;
+}
+.x.axis.hor path{
+    display: flex;
+}
+
 label{
      display: block;
 }
