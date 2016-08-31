@@ -24,7 +24,7 @@ function readData() {
     'use strict';
     
     var ssv = d3.dsv(';');
-    ssv("subsidie_out2.csv", type, function(error, data_csv) {
+    ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv;
         dataPrep();
