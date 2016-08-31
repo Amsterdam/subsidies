@@ -127,7 +127,11 @@ VERLEEND	Verleend
                                 "sDom": '<Bl<t>ip>',
                                 "processing": true, 
                                 "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
-                                "language": {"url": "static/DataTables/language.json"}
+                                "language": {"url": "static/DataTables/language.json"},
+                                "columnDefs": [
+                                                { type: 'currency', targets: 6 },
+                                                { type: 'currency', targets: 7 }
+                                              ],
 
 
                             });
@@ -173,7 +177,26 @@ VERLEEND	Verleend
                     });
                     
             };
-            
+        
+        
+            /* 
+                add sorting methods for currency columns
+                this is in combination with the currency cast in the creation of the datatables instance
+                if this is not done, than the currencys are treated as strings
+            */
+            jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+                "currency-pre": function (a) {
+                    a = (a === "-") ? 0 : a.replace(/[^\d\-\,]/g, "");
+                    return parseFloat(a);
+                },
+                "currency-asc": function (a, b) {
+                    return a - b;
+                },
+                "currency-desc": function (a, b) {
+                    return b - a;
+                }
+            });
+
             function getData(){
                 
                 var ssv = d3.dsv(';');
@@ -213,11 +236,19 @@ VERLEEND	Verleend
                     var minvalue = $("#bedragVanaf").val();
                     var maxvalue = $("#bedragTot").val();
                     
+                    var t1 = +minvalue;
+                    var tt = parseFloat((data[7] === "-") ? 0 : data[7].replace(/[^\d\-\,]/g, ""));
+                    var t2 = +maxvalue;
+                    //console.log( t1, t2, ((( minvalue != '') && (data[7] < t1 ))), data[7] )
                     if(
-                        (( minvalue != '') && (data[7] < eur(+minvalue))) || (( maxvalue !='') && (data[7] > eur(+maxvalue)))
+                        (( minvalue != '') && (tt < t1 )) 
                       )
                     {
-                        returnValue = false
+                        returnValue = false;
+                    }
+                    if (( maxvalue !='') && (tt > t2))
+                    {
+                        returnValue = false;
                     }
                     
                 };
@@ -233,6 +264,7 @@ VERLEEND	Verleend
                     }
 
                 };
+                
                 if( returnValue){
                     var typeFilter = $('input:checkbox[name="type"]:checked').map(function() {
                                     return this.value;
