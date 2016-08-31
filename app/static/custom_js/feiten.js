@@ -3,6 +3,23 @@ var graph_aangevraagd_toegekend = null;
 var graph_periodiek = null;
 var graph_thema = null;
 
+var NL = d3.locale({
+        "decimal": ",",
+        "thousands": ".",
+        "grouping": [3],
+        "currency": ["€ ", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%m/%d/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Zondag", "Maandag", "Dinsgag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
+        "shortDays": ["Zo", "Ma", "Di", "Woe", "Do", "Vrij", "Zat"],
+        "months": ["januarie", "februarie", "Maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
+        "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+    });
+
+var eur = NL.numberFormat("$,.2f");  
+
 function readData() {
     'use strict';
     
@@ -60,6 +77,13 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
     graph_aangevraagd_toegekend.setData(data_vraag_verleend);
     graph_periodiek.setData(data_periode);
     graph_thema.setData(data_thema);
+    
+    d3.select('#aangevraagd').text(eur(data_vraag_verleend[0].values * 1000))
+    d3.select('#verleend').text(eur(data_vraag_verleend[1].values * 1000))
+        
+    d3.select('#periodiek').text(eur(data_periode[0].values * 1000))
+    d3.select('#eenmalig').text(eur(data_periode[1].values * 1000))
+        
 };
 
 function initPage () {
