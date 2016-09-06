@@ -46,242 +46,33 @@
           <input onchange="filterme()" type="checkbox" name="type" value="Eenmalig">Eenmalig-->
     </div>
     <div id='tablecontainer' class='col-md-10' style="padding-left:50px; padding-right:50px"><h4 align='Right'>Toegekende subsidies</h4><hr>
+            <table id="example" class="display" width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Project</th>
+                    <th>Regeling</th>
+                    <th>Organisatie Onderdeel</th>
+                    <th>Jaar</th>
+                    <th>Thema</th>
+                    <th>Aangevraagd</th>
+                    <th>Verleend</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Project</th>
+                    <th>Regeling</th>
+                    <th>Organisatie Onderdeel</th>
+                    <th>Jaar</th>
+                    <th>Thema</th>
+                    <th>Aangevraagd</th>
+                    <th>Verleend</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
 
-    <script>
-
-/*
-AANVRAGER	Aanvrager
-REGELINGNAAM	Regelingnaam
-ORGANISATIEONDERDEEL	Organisatie onderdeel
-PROJECT_NAAM	Project
-TYPE_PERIODICITEIT	Type
-SUBSIDIEJAAR	Jaar
-AANGEVRAAGD	Aangevraagd
-VERLEEND	Verleend
-*/
-               var NL = d3.locale({
-                    "decimal": ",",
-                    "thousands": ".",
-                    "grouping": [3],
-                    "currency": ["€ ", ""],
-                    "dateTime": "%a %b %e %X %Y",
-                    "date": "%m/%d/%Y",
-                    "time": "%H:%M:%S",
-                    "periods": ["AM", "PM"],
-                    "days": ["Zondag", "Maandag", "Dinsgag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
-                    "shortDays": ["Zo", "Ma", "Di", "Woe", "Do", "Vrij", "Zat"],
-                    "months": ["januarie", "februarie", "Maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
-                    "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
-                })
-               
-               var eur = NL.numberFormat("$,.2f");  
-                //-------------------------     
-        
-            /********
-            *   this is done to give logical names to the table headers. Be aware that the lists must be the same length
-            */
-            var tableHeaders = ['Aanvrager', 'Project', 'Regelingnaam', 'Organisatie onderdeel', 'Jaar', 'Type', 'Aangevraagd', 'Verleend'];
-            var fileHeaders = ["AANVRAGER",	"PROJECT_NAAM",	"REGELINGNAAM",	"AFDELINGNAAM_BELEID", "SUBSIDIEJAAR", "TYPE_PERIODICITEIT",	"BEDRAG_AANGEVRAAGD","BEDRAG_VERLEEND"];
-            var tanles;
-            
-            function populateTable(data){
-                //console.log('received a data update', data.length, ' records');
-                
-                d3.select("#subsidieTable_wrapper").remove(); 
-                
-                // append the subsiditable
-                var table = d3.select("#tablecontainer").append("table").attr("id", "subsidieTable");
-
-                // append the header row
-                var headers = table.append('thead')
-                                .append('tr')
-                                .selectAll('th')
-                                .data(tableHeaders).enter()
-                                .append('th')
-                                .text(function(d){return d; });
-
-                var rows = table.append('tbody');
-
-                /**********
-                * the base of the table is drawn
-                */
-
-                var brows = rows.selectAll('tr')
-                                .data(data).enter()
-                                .append('tr'); 
-                    
-                    brows.selectAll('td')
-                        .data(function (d) {
-                            return fileHeaders.map(function (k) {    //k are the items in the column array, the function is returning value pairs (dictionary)
-                            //console.log(k, { 'value': d[k], 'name': k});
-                            return { 'value': d[k], 'name': k};
-                            });
-                        }).enter()
-                        .append('td')
-                        .text( function(d){ return d.value;});
-                    
-                $(document).ready(function() { 
-                        var cTable = $('#subsidieTable').DataTable({
-                                "sDom": '<Bl<t>ip>',
-                                "processing": true, 
-                                "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
-                                "language": {"url": "static/DataTables/language.json"},
-                                "columnDefs": [
-                                                { type: 'currency', targets: 6 },
-                                                { type: 'currency', targets: 7 }
-                                              ]
-                            });
-                       
-                                            
-                        // Event listener to the two range filtering inputs to redraw on input
-                        $('#myInputTextField').keyup(function(){cTable.search($(this).val()).draw();})
-                    
-                    
-                        $('#jaar').change( function() {cTable.draw(); } );
-                        $('#jaar').keyup( function() {cTable.draw(); } );
-                    
-                        $('#bedragVanaf').keyup( function() {cTable.draw(); } );
-                        $('#bedragTot').keyup( function() {cTable.draw(); } );
-                    
-                        $('#Periodiek').click( function() {cTable.draw(); });
-                        $('#Eenmalig').click( function() {cTable.draw(); });
-                    
-                        $('#DirectieCommunicatie').click( function(){ cTable.draw(); });
-                        $('#Diversiteit').click( function() {cTable.draw(); });
-                        $('#Duurzaamheid').click( function() {cTable.draw(); });
-                        $('#Economie').click( function() {cTable.draw(); });
-                        $('#GebiedspoolCentrum').click( function() {cTable.draw(); });
-                        $('#GebiedspoolNieuwWest').click( function() {cTable.draw(); });
-                        $('#GebiedspoolNoord').click( function() {cTable.draw(); });
-                        $('#GebiedspoolOost').click( function() {cTable.draw(); });
-                        $('#GebiedspoolWest').click( function() {cTable.draw(); });
-                        $('#GebiedspoolZuid').click( function() {cTable.draw(); });
-                        $('#GebiedspoolZuidoost').click( function() {cTable.draw(); });
-                        $('#GemeentebreedAlgemeen').click( function() {cTable.draw(); });
-                        $('#Jeugd').click( function() {cTable.draw(); });
-                        $('#JongerenEnStudentenhuisvesting').click( function() {cTable.draw(); });
-                        $('#KunstEnCultuur').click( function() {cTable.draw(); });
-                        $('#ONBEKEND').click( function() {cTable.draw(); });
-                        $('#Onderwijs').click( function() {cTable.draw(); });
-                        $('#OpenbareOrdeEnVeiligheid').click( function() {cTable.draw(); });
-                        $('#Participatie').click( function() {cTable.draw(); });
-                        $('#Ruimte').click( function() {cTable.draw(); });
-                        $('#Sport').click( function() {cTable.draw(); });
-                        $('#Wonen').click( function() {cTable.draw(); });
-                        $('#Zorg').click( function() {cTable.draw(); });
-                    
-                    });
-                    
-            };
-        
-        
-            /* 
-                add sorting methods for currency columns
-                this is in combination with the currency cast in the creation of the datatables instance
-                if this is not done, than the currencys are treated as strings
-            */
-            jQuery.extend(jQuery.fn.dataTableExt.oSort, {
-                "currency-pre": function (a) {
-                    a = (a === "-") ? 0 : a.replace(/[^\d\-\,]/g, "");
-                    return parseFloat(a);
-                },
-                "currency-asc": function (a, b) {
-                    return a - b;
-                },
-                "currency-desc": function (a, b) {
-                    return b - a;
-                }
-            });
-
-            function getData(){
-                
-                var ssv = d3.dsv(';');
-                ssv('static/data/subsidie_out2.csv', type, function(error, data){
-                    if( error ) throw error;
-                    populateTable(data);    
-                   // document.write(JSON.stringify(data));
-                    
-                    
-                });
-                
-            };
-            
-            function type(d){
-                
-                d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;
-                d.BEDRAG_AANGEVRAAGD = eur(+d.BEDRAG_AANGEVRAAGD);
-                d.BEDRAG_VERLEEND = eur(+d.BEDRAG_VERLEEND);
-                
-                return d;
-            };
-            
-            getData();
-            
-            
-        $.fn.dataTable.ext.search.push( 
-            function(settings, data, dataIndex){
-                var returnValue = true;
-                
-                
-                var value = $("#jaar").val();
-                    //console.log(data[3], value, data[3] != value);
-                    if( data[4] != value){ 
-                        returnValue = false; 
-                    };
-                
-                if( returnValue ){
-                    var minvalue = $("#bedragVanaf").val();
-                    var maxvalue = $("#bedragTot").val();
-                    
-                    var t1 = +minvalue;
-                    var tt = parseFloat((data[7] === "-") ? 0 : data[7].replace(/[^\d\-\,]/g, ""));
-                    var t2 = +maxvalue;
-                    //console.log( t1, t2, ((( minvalue != '') && (data[7] < t1 ))), data[7] )
-                    if(
-                        (( minvalue != '') && (tt < t1 )) 
-                      )
-                    {
-                        returnValue = false;
-                    }
-                    if (( maxvalue !='') && (tt > t2))
-                    {
-                        returnValue = false;
-                    }
-                    
-                };
-                
-                if( returnValue ){
-                    var tijdFilter = $('input:checkbox[name="tijd"]:checked').map(function() {
-                                        return this.id;
-                                    }).get()
-
-                    //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
-                    if( (tijdFilter.indexOf(data[5]) === -1) &&  !(tijdFilter.length === 0) ){
-                        returnValue = false;
-                    }
-
-                };
-                
-                if( returnValue){
-                    var typeFilter = $('input:checkbox[name="type"]:checked').map(function() {
-                                    return this.value;
-                                  }).get()
-                    //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
-                    if( ((typeFilter.indexOf(data[3]) === -1) &&  !(typeFilter.length === 0) )){
-                        returnValue = false;
-                    }
-                };
-
-    
-                return returnValue;
-
-                
-        })
-
-
-        
-        
-    </script>
-
+<script src="../static/custom_js/lijst.js" type="text/javascript"></script>
