@@ -1,6 +1,6 @@
 var HorBarChart = function (opts) {
     'use strict';
-    
+    this.upper = 10;
     this.data = opts.data || [];
     this.placeholder = opts.placeholder || '';
     
@@ -36,7 +36,7 @@ HorBarChart.prototype.initScales = function () {
     'use strict';
     
     this.x = d3.scale.linear()
-        .range([0, this.innerWidth]);
+        .range([0, this.innerWidth]).clamp(true);
     
     this.y = d3.scale.ordinal()
         .rangeRoundBands([0, this.innerHeight], .1);
@@ -73,8 +73,7 @@ HorBarChart.prototype.initAxes = function () {
 HorBarChart.prototype.redrawData = function () {
     'use strict';
     var _this = this; // done to overcome the scoping issue
-
-    this.x.domain([0, d3.max(this.data, function(d) { return d.values; })]);
+    this.x.domain([0, this.upper]);//d3.max(this.data, function(d) { return d.values; })]);
     this.y.domain(this.data.map(function(d) { return d.key; }));
     
     this.canvas.select('.x.axis').transition().duration(300).call(this.xAxis);

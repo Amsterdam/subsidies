@@ -7,8 +7,8 @@
         <input type="text" id="myInputTextField"> 
         <hr>
         <label>Verleend bedrag</label>
-        min.<br><input type="text" id="bedragVanaf"><br>
-        max.<br><input type="text" id="bedragTot"><br>
+        min.<br><input type="number" id="bedragVanaf"><br>
+        max.<br><input type="number" id="bedragTot"><br>
         <hr>
         <label>Jaar</label>
         <input type="number" id="jaar", value=2015><br>
@@ -17,7 +17,7 @@
         <label class='check'><input name='tijd' type="checkbox" id ='Periodiek'>Periodiek</label>
         <label class='check'><input name='tijd' type="checkbox" id ='Eenmalig'>Eenmalig</label>
         <hr>
-        <label>Thema</label>
+        <label>Organisatie</label>
         <label class='check'><input name='type' type="checkbox" id ='DirectieCommunicatie' value="Directie Communicatie">Directie Communicatie</label>
         <label class='check'><input name='type' type="checkbox" id ='Diversiteit' value="Diversiteit">Diversiteit</label>
         <label class='check'><input name='type' type="checkbox" id ='Duurzaamheid' value="Duurzaamheid">Duurzaamheid</label>
@@ -45,28 +45,28 @@
         <!--  <input onchange="filterme()" type="checkbox" name="type" value="Periodiek">Periodiek
           <input onchange="filterme()" type="checkbox" name="type" value="Eenmalig">Eenmalig-->
     </div>
-    <div id='tablecontainer' class='col-md-10' style="padding-left:50px; padding-right:50px"><h4 align='Right'>Toegekende subsidies</h4><hr>
+    <div id='tablecontainer' class='col-md-10' style="padding-left:50px; padding-right:50px"><h4 align='Right'></h4><hr>
             <table id="example" class="display" width="100%">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Naam</th>
                     <th>Project</th>
                     <th>Regeling</th>
-                    <th>Organisatie Onderdeel</th>
+                    <th>Organisatie</th>
                     <th>Jaar</th>
-                    <th>Thema</th>
+                    <th>Periode</th>
                     <th>Aangevraagd</th>
                     <th>Verleend</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Name</th>
+                    <th>Naam</th>
                     <th>Project</th>
                     <th>Regeling</th>
-                    <th>Organisatie Onderdeel</th>
+                    <th>Organisatie</th>
                     <th>Jaar</th>
-                    <th>Thema</th>
+                    <th>Periode</th>
                     <th>Aangevraagd</th>
                     <th>Verleend</th>
                 </tr>

@@ -21,6 +21,11 @@ var getData = function () {
     var ssv = d3.dsv(';');
     ssv('static/data/subsidie_out2.csv', type, function(error, data){
         if( error ) {throw error;};
+        
+        var i = document.getElementById("bedragTot"); // d3.max(data, function(d){return d.BEDRAG_VERLEEND;}) );
+        i.setAttribute("value", d3.max(data, function(d){return d.OrgBedragVerleend;}));
+        i = document.getElementById("bedragVanaf");
+        i.setAttribute("value", 0)
         buildTable( data );
     });
 };
@@ -28,6 +33,7 @@ var getData = function () {
 var type = function( d ){
     d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;
     d.BEDRAG_AANGEVRAAGD = eur(+d.BEDRAG_AANGEVRAAGD);
+    d.OrgBedragVerleend = +d.BEDRAG_VERLEEND;
     d.BEDRAG_VERLEEND = eur(+d.BEDRAG_VERLEEND);
     return d;   
 };
@@ -124,7 +130,8 @@ var buildTable = function(data) {
                          {"data":"REGELINGNAAM"},
                          {"data":"AFDELINGNAAM_BELEID"}, 
                          {"data":"SUBSIDIEJAAR"}, 
-                         {"data":"TYPE_PERIODICITEIT"},	{"data":"BEDRAG_AANGEVRAAGD"},
+                         {"data":"TYPE_PERIODICITEIT"},	
+                         {"data":"BEDRAG_AANGEVRAAGD"},
                          {"data":"BEDRAG_VERLEEND"} 
                        ],
             "columnDefs": [
