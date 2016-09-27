@@ -17,19 +17,55 @@ var NL = d3.locale({
 
 var eur = NL.numberFormat("$,.2f");  
 
+
+/*
+    method gets data
+    with the data the filter checkboxes are set
+*/
 var getData = function () {
     var ssv = d3.dsv(';');
     ssv('static/data/subsidie_out2.csv', type, function(error, data){
         if( error ) {throw error;};
         
+        
+        // routine to populate the filter menu with checkboxes for the type
+        var nested = d3.nest().key( function(d){ return d.AFDELINGNAAM_BELEID; }).entries(data);    
+        nested = nested.sort(function(a,b){return d3.ascending(a.key, b.key);});
+        nested.forEach( function(d){ 
+
+            var checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.name = "type";
+            checkbox.value = d.key;
+            checkbox.id = d.key.replace(/[^\w]/g,'')
+
+            var label = document.createElement('label')
+            label.htmlFor = d.key.replace(/[^\w]/g,'');
+            label.className = 'check';
+            label.appendChild(document.createTextNode(d.key));
+            
+            var aelement = document.getElementById('tst');
+            aelement.appendChild(checkbox);
+            aelement.appendChild(label);
+            aelement.appendChild(document.createElement('br'));
+
+        });
+        document.getElementById('tst').appendChild(document.createElement('hr'));
+        
+        // sets the filter values for high and low value
         var i = document.getElementById("bedragTot"); // d3.max(data, function(d){return d.BEDRAG_VERLEEND;}) );
         i.setAttribute("value", d3.max(data, function(d){return d.OrgBedragVerleend;}));
         i = document.getElementById("bedragVanaf");
         i.setAttribute("value", 0)
+        
+        // give data too the routine that populates the datatable
         buildTable( data );
     });
 };
 
+/*
+    method for typecasting
+*/
 var type = function( d ){
     d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;
     d.BEDRAG_AANGEVRAAGD = eur(+d.BEDRAG_AANGEVRAAGD);
@@ -64,7 +100,7 @@ $.fn.dataTable.ext.search.push(
 
         var value = $("#jaar").val();
             //console.log(data[3], value, data[3] != value);
-            if( data[4] != value){ 
+            if( data[5] != value){ 
                 returnValue = false; 
             };
 
@@ -73,7 +109,7 @@ $.fn.dataTable.ext.search.push(
             var maxvalue = $("#bedragTot").val();
 
             var t1 = +minvalue;
-            var tt = parseFloat((data[7] === "-") ? 0 : data[7].replace(/[^\d\-\,]/g, ""));
+            var tt = parseFloat((data[8] === "-") ? 0 : data[8].replace(/[^\d\-\,]/g, ""));
             var t2 = +maxvalue;
             //console.log( t1, t2, ((( minvalue != '') && (data[7] < t1 ))), data[7] )
             if(
@@ -95,7 +131,7 @@ $.fn.dataTable.ext.search.push(
                             }).get()
 
             //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
-            if( (tijdFilter.indexOf(data[5]) === -1) &&  !(tijdFilter.length === 0) ){
+            if( (tijdFilter.indexOf(data[6]) === -1) &&  !(tijdFilter.length === 0) ){
                 returnValue = false;
             }
 
@@ -125,14 +161,16 @@ var buildTable = function(data) {
             "processing": true, 
             "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
             "language": {"url": "static/DataTables/language.json"},
-            "columns": [ {"data":"AANVRAGER"},
-                         {"data":"PROJECT_NAAM"},	
-                         {"data":"REGELINGNAAM"},
-                         {"data":"AFDELINGNAAM_BELEID"}, 
-                         {"data":"SUBSIDIEJAAR"}, 
-                         {"data":"TYPE_PERIODICITEIT"},	
-                         {"data":"BEDRAG_AANGEVRAAGD"},
-                         {"data":"BEDRAG_VERLEEND"} 
+            "columns": [ {"data":"AANVRAGER", "width": "10%"},
+                         {"data":"PROJECT_NAAM", "width": "15%"},	
+                         {"data":"REGELINGNAAM", "width": "15%"},
+                         {"data":"AFDELINGNAAM_BELEID", "width": "10%"}, 
+                         {"data":"AFDELINGNAAM_BELEID", "width": "10%"}, 
+                         {"data":"SUBSIDIEJAAR", "width": "5%"}, 
+                         {"data":"TYPE_PERIODICITEIT", "width": "5%"},	
+                         {"data":"BEDRAG_AANGEVRAAGD", "width": "10%"},
+                         {"data":"BEDRAG_VERLEEND", "width": "10%"},
+                         {"data":"BEDRAG_VERLEEND", "width": "10%"}
                        ],
             "columnDefs": [
                             { type: 'currency', targets: 6 },
@@ -156,30 +194,15 @@ var buildTable = function(data) {
 
             $('#Periodiek').click( function() {cTable.draw(); });
             $('#Eenmalig').click( function() {cTable.draw(); });
+    
+            // routine for placing event listners on the type checkboxes
+            var aSet = document.getElementsByName('type');
+            console.log( aSet );
+            aSet.forEach( function(d){
+                console.log(d.id)
+                $('#'+ d.id).click( function(){ cTable.draw() });
+            });
 
-            $('#DirectieCommunicatie').click( function(){ cTable.draw(); });
-            $('#Diversiteit').click( function() {cTable.draw(); });
-            $('#Duurzaamheid').click( function() {cTable.draw(); });
-            $('#Economie').click( function() {cTable.draw(); });
-            $('#GebiedspoolCentrum').click( function() {cTable.draw(); });
-            $('#GebiedspoolNieuwWest').click( function() {cTable.draw(); });
-            $('#GebiedspoolNoord').click( function() {cTable.draw(); });
-            $('#GebiedspoolOost').click( function() {cTable.draw(); });
-            $('#GebiedspoolWest').click( function() {cTable.draw(); });
-            $('#GebiedspoolZuid').click( function() {cTable.draw(); });
-            $('#GebiedspoolZuidoost').click( function() {cTable.draw(); });
-            $('#GemeentebreedAlgemeen').click( function() {cTable.draw(); });
-            $('#Jeugd').click( function() {cTable.draw(); });
-            $('#JongerenEnStudentenhuisvesting').click( function() {cTable.draw(); });
-            $('#KunstEnCultuur').click( function() {cTable.draw(); });
-            $('#ONBEKEND').click( function() {cTable.draw(); });
-            $('#Onderwijs').click( function() {cTable.draw(); });
-            $('#OpenbareOrdeEnVeiligheid').click( function() {cTable.draw(); });
-            $('#Participatie').click( function() {cTable.draw(); });
-            $('#Ruimte').click( function() {cTable.draw(); });
-            $('#Sport').click( function() {cTable.draw(); });
-            $('#Wonen').click( function() {cTable.draw(); });
-            $('#Zorg').click( function() {cTable.draw(); });
     };
 
 

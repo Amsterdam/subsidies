@@ -36,8 +36,12 @@ h3{
   fill: brown;
 }
 
+.bar.notshown {
+    fill: grey;
+}
+
 .axis {
-  font: 10px sans-serif;
+  font: 12px sans-serif;
 }
 
 .axis path,
@@ -53,9 +57,15 @@ h3{
 
 .y.axis.hor path{
     display: none;
+    shape-rendering: crispEdges;
+    font-size: 12px;
 }
 .x.axis.hor path{
     display: flex;
+}
+
+.bartext{
+    font: 12px sans-serif;
 }
 
 label{
@@ -63,8 +73,9 @@ label{
 }
 
 .check{
-    font-weight: 100;
+    display: inline;
     font-size: 12px;
+    font-weight: 100;
 }
 
 table{

@@ -103,14 +103,6 @@ function dataPrep() {
         
     data_thema.sort(function(a,b){return d3.descending(a.values, b.values);})
     
-    
-    var maxValue;
-    maxValue = d3.max(data_thema, function(d) { return d.values; });
-    var i = document.getElementById("input");
-    i.setAttribute("max", maxValue);
-    i.setAttribute("value", maxValue);
-    graph_thema.upper = maxValue;
-    
     giveData(data_vraag_verleend, data_periode, data_thema);
 };                  
 

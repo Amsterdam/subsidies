@@ -1,49 +1,36 @@
 
 <div id='base' class='row'>
     <div id='filter' class="col-md-2">
-        <h4> Filter opties</h4>
-        <hr>
+        <div id='FilterOpties'>
+            <h4> Filter opties</h4>
+            <hr>
+        </div>
+        <div>
         <label>Zoeken</label>
         <input type="text" id="myInputTextField"> 
         <hr>
+        </div>
+        <div>
         <label>Verleend bedrag</label>
         min.<br><input type="number" id="bedragVanaf"><br>
         max.<br><input type="number" id="bedragTot"><br>
         <hr>
+        </div>
+        <div>
         <label>Jaar</label>
         <input type="number" id="jaar", value=2015><br>
         <hr>
+        </div>
+        <div>
         <label>Periode</label>
         <label class='check'><input name='tijd' type="checkbox" id ='Periodiek'>Periodiek</label>
+        <br>
         <label class='check'><input name='tijd' type="checkbox" id ='Eenmalig'>Eenmalig</label>
         <hr>
+        </div>
+        <div id='tst'>
         <label>Organisatie</label>
-        <label class='check'><input name='type' type="checkbox" id ='DirectieCommunicatie' value="Directie Communicatie">Directie Communicatie</label>
-        <label class='check'><input name='type' type="checkbox" id ='Diversiteit' value="Diversiteit">Diversiteit</label>
-        <label class='check'><input name='type' type="checkbox" id ='Duurzaamheid' value="Duurzaamheid">Duurzaamheid</label>
-        <label class='check'><input name='type' type="checkbox" id ='Economie' value="Economie">Economie</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolCentrum' value="Gebiedspool Centrum">Gebiedspool Centrum</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolNieuwWest' value="Gebiedspool Nieuw-West">Gebiedspool Nieuw-West</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolNoord' value="Gebiedspool Noord">Gebiedspool Noord</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolOost' value="Gebiedspool Oost">Gebiedspool Oost</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolWest' value="Gebiedspool West">Gebiedspool West</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolZuid' value="Gebiedspool Zuid">Gebiedspool Zuid</label>
-        <label class='check'><input name='type' type="checkbox" id ='GebiedspoolZuidoost' value="Gebiedspool Zuidoost">Gebiedspool Zuidoost</label>
-        <label class='check'><input name='type' type="checkbox" id ='GemeentebreedAlgemeen' value="Gemeentebreed (algemeen)">Gemeentebreed (algemeen)</label>
-        <label class='check'><input name='type' type="checkbox" id ='Jeugd' value="Jeugd">Jeugd</label>
-        <label class='check'><input name='type' type="checkbox" id ='JongerenEnStudentenhuisvesting' value="Jongeren- en studentenhuisvesting">Jongeren- en studentenhuisvesting</label>
-        <label class='check'><input name='type' type="checkbox" id ='KunstEnCultuur' value="Kunst en Cultuur">Kunst en Cultuur</label>
-        <label class='check'><input name='type' type="checkbox" id ='ONBEKEND' value="ONBEKEND">ONBEKEND</label>
-        <label class='check'><input name='type' type="checkbox" id ='Onderwijs' value="Onderwijs">Onderwijs</label>
-        <label class='check'><input name='type' type="checkbox" id ='OpenbareOrdeEnVeiligheid' value="Openbare Orde en Veiligheid">Openbare Orde en Veiligheid</label>
-        <label class='check'><input name='type' type="checkbox" id ='Participatie' value="Participatie">Participatie</label>
-        <label class='check'><input name='type' type="checkbox" id ='Ruimte' value="Ruimte">Ruimte</label>
-        <label class='check'><input name='type' type="checkbox" id ='Sport' value="Sport">Sport</label>
-        <label class='check'><input name='type' type="checkbox" id ='Wonen' value="Wonen">Wonen</label>
-        <label class='check'><input name='type' type="checkbox" id ='Zorg' value="Zorg">Zorg</label>
-        <hr>
-        <!--  <input onchange="filterme()" type="checkbox" name="type" value="Periodiek">Periodiek
-          <input onchange="filterme()" type="checkbox" name="type" value="Eenmalig">Eenmalig-->
+        </div>
     </div>
     <div id='tablecontainer' class='col-md-10' style="padding-left:50px; padding-right:50px"><h4 align='Right'></h4><hr>
             <table id="example" class="display" width="100%">
@@ -53,10 +40,12 @@
                     <th>Project</th>
                     <th>Regeling</th>
                     <th>Organisatie</th>
+                    <th>Thema</th>
                     <th>Jaar</th>
-                    <th>Periode</th>
+                    <th>Periodiciteit</th>
                     <th>Aangevraagd</th>
                     <th>Verleend</th>
+                    <th>Vastgesteld</th>
                 </tr>
             </thead>
             <tfoot>
@@ -65,10 +54,12 @@
                     <th>Project</th>
                     <th>Regeling</th>
                     <th>Organisatie</th>
+                    <th>Thema</th>
                     <th>Jaar</th>
-                    <th>Periode</th>
+                    <th>Periodiciteit</th>
                     <th>Aangevraagd</th>
                     <th>Verleend</th>
+                    <th>Vastgesteld</th>
                 </tr>
             </tfoot>
         </table>
