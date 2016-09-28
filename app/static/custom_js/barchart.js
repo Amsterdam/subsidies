@@ -5,8 +5,8 @@ var BarChart = function (opts) {
     this.placeholder = opts.placeholder || '';
     
     // object dimensions
-    this.width = 250;
-    this.height = 300;
+    this.width = opts.width || 250;
+    this.height = opts.height || 300;
     this.margin = {
         top: 20,
         right: 20,
@@ -69,7 +69,7 @@ BarChart.prototype.initAxes = function () {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("toegekend bedrag (in duizenden)");
+        .text("Verleend bedrag (in duizenden)");
 };
 
 BarChart.prototype.redrawData = function () {

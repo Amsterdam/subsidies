@@ -25,14 +25,14 @@
         </div>
         <div class="col-xs-12 col-md-7">
             <div class="col-xs-12 col-md-12" align="right">            
-                <br>
+                <p>laatste data update:<span id='dataupdate'></span></p>
                 <p>Toon statistieken voor:  <select id='fltrJaar'></select></p>
                 <br>
             </div>
             <div class="col-xs-12 col-md-6"> 
-                <div class='graph_head'>Aangevraagd en toegekend</div>
+                <div class='graph_head'>Aangevraagd, verleend en vastgesteld</div>
                 <div class='graph_content' id="graph_aangevraagd_toegekend" align="center"></div>
-                <div class='graph_text'>Totaal aangevraagd bedrag tegenover het werkelijk toegekende bedrag. </div>
+                <div class='graph_text' align='center'>Verhouding aangevraagd, verleend en vastgesteld.</div>
                 <hr>
                 <div class='graph_table' id='table_aangevraagd' align='center'>
                     <table>
@@ -45,14 +45,18 @@
                             <td>Verleend:</td>
                             <td id='verleend'></td>
                         </tr>
+                        <tr>
+                            <td>Vastgesteld</td>
+                            <td id='vastgesteld'></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col-xs-12 col-md-6">
-                <div class='graph_head'>Periodiek</div>
+                <div class='graph_head'>Soort</div>
                 <div class='graph_content' id="graph_periodiek"  align="center"></div>
-                <div class='graph_text'>Toegekend subsidiebedrag verdeeld over "Periodiek" & "Eenmalig." </div>
+                <div class='graph_text' align='center'>Verleend subsidiebedrag weergegeven in "Periodiek" & "Eenmalig." </div>
                 <hr>
                 <div class='graph_table' id='table_periodiek' align='center'>
                     <table>
@@ -69,10 +73,11 @@
                     </table>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-12"> 
-                <div class='graph_head'>Toegekend bedrag per thema</div>
+            <div class="col-xs-12 col-md-12">
+                <br>
+                <div class='graph_head'>Verleend bedrag per thema</div>
                 <div class='graph_content' id="graph_thema"></div>
-                <div class='graph_text'><p>Verdeling van het totaal toegekend bedrag per thema.</p><p>Door de balk behorende bij een categorie te selecteren wordt de balk ingekort, waardoor de verhoudingen tussen de overige categorieën beter zichtbaar wordt. Door nogmaals op de balk te klikken krijgt de categorie zijn oorspronkelijke schaal.</p> </div>
+                <div class='graph_text'><p>Verdeling van het totaal verleend bedrag per thema.</p><p>Door de balk behorende bij een categorie te selecteren wordt de balk ingekort, waardoor de verhoudingen tussen de overige categorieën beter zichtbaar wordt. Door nogmaals op de balk te klikken krijgt de categorie zijn oorspronkelijke schaal.</p> </div>
             </div>
         </div>
     </div>

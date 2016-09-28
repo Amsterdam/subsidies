@@ -43,7 +43,7 @@ HorBarChart.prototype.buid = function (){
         .attr('transform', 'translate(10,0)')
         .call(this.yAxis);
     
-    this.canvas.append('g').attr("transform", 'translate('+ (this.width - this.margin.left - 10) +', 0)').append('text').text('Toegekend bedrag (in duizenden)').style("text-anchor", "end").attr("font-size", "12px");
+    this.canvas.append('g').attr("transform", 'translate('+ (this.width - this.margin.left - 10) +', 0)').append('text').text('Verleend bedrag (in duizenden)').style("text-anchor", "end").attr("font-size", "12px");
 };
 
 HorBarChart.prototype.redraw = function() {

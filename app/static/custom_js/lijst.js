@@ -15,21 +15,20 @@ var NL = d3.locale({
         "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
     })
 
-var eur = NL.numberFormat("$,.2f");  
-
+var eur = NL.numberFormat("$,.0f");  
 
 /*
     method gets data
     with the data the filter checkboxes are set
 */
 var getData = function () {
-    var ssv = d3.dsv(';');
+    var ssv = d3.dsv(',');
     ssv('static/data/subsidie_out2.csv', type, function(error, data){
         if( error ) {throw error;};
         
         
         // routine to populate the filter menu with checkboxes for the type
-        var nested = d3.nest().key( function(d){ return d.AFDELINGNAAM_BELEID; }).entries(data);    
+        var nested = d3.nest().key( function(d){ return d.ORGANISATIEONDERDEEL; }).entries(data);    
         nested = nested.sort(function(a,b){return d3.ascending(a.key, b.key);});
         nested.forEach( function(d){ 
 
@@ -51,13 +50,39 @@ var getData = function () {
 
         });
         document.getElementById('tst').appendChild(document.createElement('hr'));
+
+        // routine to populate the filter menu with checkboxes for the type
+        var nested = d3.nest().key( function(d){ return d.BELEIDSTERREIN; }).entries(data);    
+        nested = nested.sort(function(a,b){return d3.ascending(a.key, b.key);});
+        nested.forEach( function(d){ 
+
+            var checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            checkbox.name = "thema";
+            checkbox.value = d.key;
+            checkbox.id = d.key.replace(/[^\w]/g,'')
+
+            var label = document.createElement('label')
+            label.htmlFor = d.key.replace(/[^\w]/g,'');
+            label.className = 'check';
+            label.appendChild(document.createTextNode(d.key));
+            
+            var aelement = document.getElementById('ftlrThema');
+            aelement.appendChild(checkbox);
+            aelement.appendChild(label);
+            aelement.appendChild(document.createElement('br'));
+
+        });
+        document.getElementById('ftlrThema').appendChild(document.createElement('hr'));
         
         // sets the filter values for high and low value
         var i = document.getElementById("bedragTot"); // d3.max(data, function(d){return d.BEDRAG_VERLEEND;}) );
-        i.setAttribute("value", d3.max(data, function(d){return d.OrgBedragVerleend;}));
+        i.setAttribute("value", d3.max(data, function(d){return d.BEDRAG_VERLEEND;}));
         i = document.getElementById("bedragVanaf");
         i.setAttribute("value", 0)
         
+        var x = data[0].DATUM_OVERZICHT;
+        document.getElementById('dataupdate').textContent = x.getDay() + "-" + x.getMonth() + "-" + x.getFullYear();
         // give data too the routine that populates the datatable
         buildTable( data );
     });
@@ -68,9 +93,10 @@ var getData = function () {
 */
 var type = function( d ){
     d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;
-    d.BEDRAG_AANGEVRAAGD = eur(+d.BEDRAG_AANGEVRAAGD);
-    d.OrgBedragVerleend = +d.BEDRAG_VERLEEND;
-    d.BEDRAG_VERLEEND = eur(+d.BEDRAG_VERLEEND);
+    d.BEDRAG_AANGEVRAAGD = +d.BEDRAG_AANGEVRAAGD;
+    d.BEDRAG_VERLEEND = +d.BEDRAG_VERLEEND;
+    d.BEDRAG_VASTGESTELD = +d.BEDRAG_VASTGESTELD;
+    d.DATUM_OVERZICHT = new Date(d.DATUM_OVERZICHT);
     return d;   
 };
 
@@ -109,9 +135,9 @@ $.fn.dataTable.ext.search.push(
             var maxvalue = $("#bedragTot").val();
 
             var t1 = +minvalue;
-            var tt = parseFloat((data[8] === "-") ? 0 : data[8].replace(/[^\d\-\,]/g, ""));
+            var tt = +data[8]//parseFloat((data[8] === "-") ? 0 : data[8].replace(/[^\d\-\,]/g, ""));
             var t2 = +maxvalue;
-            //console.log( t1, t2, ((( minvalue != '') && (data[7] < t1 ))), data[7] )
+            //console.log( t1, t2, ((( minvalue != '') && (+data[8] < t1 ))), +data[8], tt )
             if(
                 (( minvalue != '') && (tt < t1 )) 
               )
@@ -146,11 +172,18 @@ $.fn.dataTable.ext.search.push(
                 returnValue = false;
             }
         };
-
-
+        
+        if( returnValue){
+            var typeFilter = $('input:checkbox[name="thema"]:checked').map(function() {
+                            return this.value;
+                          }).get()
+            //console.log(data[0], tFilter, tFilter.length, tFilter.indexOf(data[0]));
+            if( ((typeFilter.indexOf(data[4]) === -1) &&  !(typeFilter.length === 0) )){
+                returnValue = false;
+            }
+        };
+        
         return returnValue;
-
-
 })
 
 
@@ -162,23 +195,68 @@ var buildTable = function(data) {
             "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
             "language": {"url": "static/DataTables/language.json"},
             "columns": [ {"data":"AANVRAGER", "width": "10%"},
-                         {"data":"PROJECT_NAAM", "width": "15%"},	
+                         {"data":"PROJECT_NAAM", "width": "10%"},	
                          {"data":"REGELINGNAAM", "width": "15%"},
-                         {"data":"AFDELINGNAAM_BELEID", "width": "10%"}, 
-                         {"data":"AFDELINGNAAM_BELEID", "width": "10%"}, 
+                         {"data":"ORGANISATIEONDERDEEL", "width": "10%"}, 
+                         {"data":"BELEIDSTERREIN", "width": "10%"}, 
                          {"data":"SUBSIDIEJAAR", "width": "5%"}, 
                          {"data":"TYPE_PERIODICITEIT", "width": "5%"},	
-                         {"data":"BEDRAG_AANGEVRAAGD", "width": "10%"},
-                         {"data":"BEDRAG_VERLEEND", "width": "10%"},
-                         {"data":"BEDRAG_VERLEEND", "width": "10%"}
+                         {"data":function(row, type, val, meta ){ 
+                             if(type === 'set'){ 
+                                 row.BEDRAG_AANGEVRAAGD = val; 
+                                 return; 
+                             } else if(type === 'display'){ 
+                                 return eur( row.BEDRAG_AANGEVRAAGD ); 
+                             }
+                             return row.BEDRAG_AANGEVRAAGD;  
+                         }, "width": "10%" },
+                         {"data":function(row, type, val, meta ){ 
+                             if(type === 'set'){ 
+                                 row.BEDRAG_VERLEEND = val; 
+                                 return; 
+                             } else if(type === 'display'){ 
+                                 return eur( row.BEDRAG_VERLEEND ); 
+                             }
+                             else if (type === 'filter') {
+                                return row.BEDRAG_VERLEEND;
+                              }
+                             return row.BEDRAG_VERLEEND;  
+                         }, "width": "10%"},
+                         {"data":function(row, type, val, meta ){ 
+                             if(type === 'set'){ 
+                                 row.BEDRAG_VASTGESTELD = val; 
+                                 return; 
+                             } else if(type === 'display'){ 
+                                 return isNaN(row.BEDRAG_VASTGESTELD) ? '' : eur( row.BEDRAG_VASTGESTELD ); 
+                             }
+                             return row.BEDRAG_VASTGESTELD;  
+                         }, "width": "10%"}
+                        
                        ],
             "columnDefs": [
-                            { type: 'currency', targets: 6 },
-                            { type: 'currency', targets: 7 }
+                            {
+                                targets:7,
+                                data: function( row, type, val, meta) {
+                                    if( type === 'set'){
+                                        row.BEDRAG_AANGEVRAAGD = 'x';
+                                        return;
+                                    }
+                                    return row.BEDRAG_AANGEVRAAGD;
+                                }
+                            },
+                            //{ type: 'currency', targets: 7 },
+                            //{ type: 'currency', targets: 8 },
+                            //{ type: 'currency', targets: 9 }
                           ],
             "buttons": [
                             'excel'
-                        ]
+                        ],
+            
+            fixedHeader: {
+                            header: false,  // staat uit... door huidige opzet vindt dit ook plaats wanneer je op de hoogd pagina zit
+                            footer: false
+                            }
+            
 
             } );
 
@@ -197,12 +275,15 @@ var buildTable = function(data) {
     
             // routine for placing event listners on the type checkboxes
             var aSet = document.getElementsByName('type');
-            console.log( aSet );
             aSet.forEach( function(d){
-                console.log(d.id)
                 $('#'+ d.id).click( function(){ cTable.draw() });
             });
 
+            // routine for placing event listners on the type checkboxes
+            var aSet = document.getElementsByName('thema');
+            aSet.forEach( function(d){
+                $('#'+ d.id).click( function(){ cTable.draw() });
+            });
     };
 
 

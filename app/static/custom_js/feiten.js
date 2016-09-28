@@ -21,7 +21,7 @@ var NL = d3.locale({
         "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
     });
 
-var eur = NL.numberFormat("$,.2f");  
+var eur = NL.numberFormat("$,.0f");  
 
 /*
     read data from source, place in local variable and start further initialization of the app
@@ -29,13 +29,19 @@ var eur = NL.numberFormat("$,.2f");
 function readData() {
     'use strict';
     
-    var ssv = d3.dsv(';');
+    var ssv = d3.dsv(',');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv;
+        setLastUpdateDate();
         buildYearSelecter();
         dataPrep();
     });  
+};
+
+var setLastUpdateDate = function() {
+    var x = data[0].DATUM_OVERZICHT;
+    document.getElementById('dataupdate').textContent = x.getDay() + "-" + x.getMonth() + "-" + x.getFullYear();
 };
 
 /*
@@ -52,11 +58,15 @@ var buildYearSelecter = function(){
     nest = nest.filter(function(d) { return d.values > minEntries })
 
     var select_i = d3.select('#fltrJaar').on('change',dataPrep);
+    
+    var high = d3.max(nest, function(d){ return d.key });
 
     select_i.selectAll("option")
         .data(nest).enter()
         .append('option')
+        .property("selected", function(d){ return d.key === high; })
         .text(function(d){return d.key;});
+    
 }
 
 /*
@@ -66,7 +76,9 @@ function type(d) {
     'use strict';
     d.BEDRAG_VERLEEND = +d.BEDRAG_VERLEEND;
     d.BEDRAG_AANGEVRAAGD = +d.BEDRAG_AANGEVRAAGD; 
-    d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;    
+    d.BEDRAG_VASTGESTELD = +d.BEDRAG_VASTGESTELD;
+    d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;  
+    d.DATUM_OVERZICHT = new Date(d.DATUM_OVERZICHT);
     return d;
 };
 
@@ -83,9 +95,11 @@ function dataPrep() {
 
     var data_vraag_verleend = [
         {'key':'Aangevraagd', 'values':d3.sum(data_filterd, function(d){return d.BEDRAG_AANGEVRAAGD / 1000;})},
-        {'key':'Verleend', 'values':d3.sum(data_filterd, function(d){return d.BEDRAG_VERLEEND / 1000;})}];
+        {'key':'Verleend', 'values':d3.sum(data_filterd, function(d){return d.BEDRAG_VERLEEND / 1000;})},
+        {'key':'Vastgesteld', 'values':d3.sum(data_filterd, function(d){return d.BEDRAG_VASTGESTELD / 1000;})}
+    ];
     
-    data_vraag_verleend.sort(function(a,b){return d3.ascending(a.key, b.key);})
+    //data_vraag_verleend.sort(function(a,b){return d3.ascending(a.key, b.key);})
     
     var data_periode = d3.nest()
           .key(function(d) { return d.TYPE_PERIODICITEIT;})
@@ -96,7 +110,7 @@ function dataPrep() {
     data_periode.sort(function(a,b){return d3.ascending(a.key, b.key);})
     
     var data_thema = d3.nest()
-          .key(function(d) { return d.AFDELINGNAAM_BELEID;})
+          .key(function(d) { return d.BELEIDSTERREIN;})
           .rollup(function(d) { 
            return d3.sum(d, function(g) {return g.BEDRAG_VERLEEND / 1000; });
           }).entries(data_filterd);
@@ -117,7 +131,8 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
     
     d3.select('#aangevraagd').text(eur(data_vraag_verleend[0].values * 1000))
     d3.select('#verleend').text(eur(data_vraag_verleend[1].values * 1000))
-        
+    d3.select('#vastgesteld').text(eur(data_vraag_verleend[2].values * 1000))
+    
     d3.select('#periodiek').text(eur(data_periode[0].values * 1000))
     d3.select('#eenmalig').text(eur(data_periode[1].values * 1000))
         
@@ -128,7 +143,7 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
 */
 function initPage () {
     'use strict';
-    graph_aangevraagd_toegekend = new BarChart({placeholder:"graph_aangevraagd_toegekend"});
+    graph_aangevraagd_toegekend = new BarChart({placeholder:"graph_aangevraagd_toegekend", width:320});
     graph_periodiek = new BarChart({placeholder:"graph_periodiek"});
     graph_thema = new HorBarChart({placeholder:"graph_thema"});
 };
