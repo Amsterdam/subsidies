@@ -281,7 +281,7 @@ var buildTable = function(data) {
             });
 
             // routine for placing event listners on the type checkboxes
-            var aSet = Array.from( document.getElementsByName('thema'));
+            var aSet = document.getElementsByName('thema');
             aSet = Array.prototype.slice.call(aSet,0); 
             aSet.forEach( function(d){
                 $('#'+ d.id).click( function(){ cTable.draw() });
