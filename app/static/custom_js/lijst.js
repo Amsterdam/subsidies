@@ -82,7 +82,7 @@ var getData = function () {
         i.setAttribute("value", 0)
         
         var x = data[0].DATUM_OVERZICHT;
-        document.getElementById('dataupdate').textContent = x.getDay() + "-" + x.getMonth() + "-" + x.getFullYear();
+        document.getElementById('dataupdate').textContent = x.getDate() + "-" + ( x.getMonth() + 1) + "-" + x.getFullYear();
         // give data too the routine that populates the datatable
         buildTable( data );
     });
