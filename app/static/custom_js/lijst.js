@@ -274,13 +274,13 @@ var buildTable = function(data) {
             $('#Eenmalig').click( function() {cTable.draw(); });
     
             // routine for placing event listners on the type checkboxes
-            var aSet = document.getElementsByName('type');
+            var aSet = Array.from( document.getElementsByName('type') ); 
             aSet.forEach( function(d){
                 $('#'+ d.id).click( function(){ cTable.draw() });
             });
 
             // routine for placing event listners on the type checkboxes
-            var aSet = document.getElementsByName('thema');
+            var aSet = Array.from( document.getElementsByName('thema'));
             aSet.forEach( function(d){
                 $('#'+ d.id).click( function(){ cTable.draw() });
             });
