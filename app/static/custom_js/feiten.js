@@ -40,8 +40,8 @@ function readData() {
 };
 
 var setLastUpdateDate = function() {
-    var x = data[1].DATUM_OVERZICHT;
-    document.getElementById('dataupdate').textContent = x.getDate() + "-" + ( x.getMonth() + 1) + "-" + x.getFullYear();
+    var x = data[0].DATUM_OVERZICHT;
+    document.getElementById('dataupdate').textContent = "28-9-2016"; // x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
 };
 
 /*
