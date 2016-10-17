@@ -23,6 +23,29 @@ var NL = d3.locale({
 
 var eur = NL.numberFormat("$,.0f");  
 
+
+/**Parses string formatted as YYYY-MM-DD to a Date object.
+* If the supplied string does not match the format, an 
+* invalid Date (value NaN) is returned.
+* @param {string} dateStringInRange format YYYY-MM-DD, with year in
+* range of 0000-9999, inclusive.
+* @return {Date} Date object representing the string.
+*/
+function parseISO8601(dateStringInRange) {
+var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+    date = new Date(NaN), month,
+    parts = isoExp.exec(dateStringInRange);
+
+    if(parts) {
+      month = +parts[2];
+      date.setFullYear(parts[1], month - 1, parts[3]);
+      if(month != date.getMonth() + 1) {
+        date.setTime(NaN);
+      }
+    }
+    return date;
+}
+
 /*
     read data from source, place in local variable and start further initialization of the app
 */
@@ -32,7 +55,7 @@ function readData() {
     var ssv = d3.dsv(',');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
-        data = data_csv;
+        data = data_csv.filter( function(d){return d.SUBSIDIEJAAR > 2015 } );
         setLastUpdateDate();
         buildYearSelecter();
         dataPrep();
@@ -41,7 +64,7 @@ function readData() {
 
 var setLastUpdateDate = function() {
     var x = data[0].DATUM_OVERZICHT;
-    document.getElementById('dataupdate').textContent = "28-9-2016" ;// x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
+    document.getElementById('dataupdate').textContent = x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
 };
 
 /*
@@ -78,7 +101,7 @@ function type(d) {
     d.BEDRAG_AANGEVRAAGD = +d.BEDRAG_AANGEVRAAGD; 
     d.BEDRAG_VASTGESTELD = +d.BEDRAG_VASTGESTELD;
     d.SUBSIDIEJAAR = +d.SUBSIDIEJAAR;  
-    d.DATUM_OVERZICHT = new Date(d.DATUM_OVERZICHT);
+    d.DATUM_OVERZICHT = parseISO8601(d.DATUM_OVERZICHT.substring(0, 10));
     return d;
 };
 

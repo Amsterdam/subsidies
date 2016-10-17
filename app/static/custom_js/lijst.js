@@ -17,6 +17,22 @@ var NL = d3.locale({
 
 var eur = NL.numberFormat("$,.0f");  
 
+
+function parseISO8601(dateStringInRange) {
+var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+    date = new Date(NaN), month,
+    parts = isoExp.exec(dateStringInRange);
+
+    if(parts) {
+      month = +parts[2];
+      date.setFullYear(parts[1], month - 1, parts[3]);
+      if(month != date.getMonth() + 1) {
+        date.setTime(NaN);
+      }
+    }
+    return date;
+}
+
 /*
     method gets data
     with the data the filter checkboxes are set
@@ -26,6 +42,7 @@ var getData = function () {
     ssv('static/data/subsidie_out2.csv', type, function(error, data){
         if( error ) {throw error;};
         
+        data = data.filter( function(d){ return d.SUBSIDIEJAAR > 2015 } ) // request to filter in client.... would have wanted in the source data
         
         // routine to populate the filter menu with checkboxes for the type
         var nested = d3.nest().key( function(d){ return d.ORGANISATIEONDERDEEL; }).entries(data);    
@@ -36,10 +53,10 @@ var getData = function () {
             checkbox.type = "checkbox";
             checkbox.name = "type";
             checkbox.value = d.key;
-            checkbox.id = d.key.replace(/[^\w]/g,'')
+            checkbox.id = "type_" + d.key.replace(/[^\w]/g,'')
 
             var label = document.createElement('label')
-            label.htmlFor = d.key.replace(/[^\w]/g,'');
+            label.htmlFor = "type_" + d.key.replace(/[^\w]/g,'');
             label.className = 'check';
             label.appendChild(document.createTextNode(d.key));
             
@@ -60,10 +77,10 @@ var getData = function () {
             checkbox.type = "checkbox";
             checkbox.name = "thema";
             checkbox.value = d.key;
-            checkbox.id = d.key.replace(/[^\w]/g,'')
+            checkbox.id = "thema_" + d.key.replace(/[^\w]/g,'')
 
             var label = document.createElement('label')
-            label.htmlFor = d.key.replace(/[^\w]/g,'');
+            label.htmlFor = "thema_" + d.key.replace(/[^\w]/g,'');
             label.className = 'check';
             label.appendChild(document.createTextNode(d.key));
             
@@ -82,7 +99,7 @@ var getData = function () {
         i.setAttribute("value", 0)
         
         var x = data[0].DATUM_OVERZICHT;
-        document.getElementById('dataupdate').textContent = "28-9-2016"; //x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
+        document.getElementById('dataupdate').textContent = x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
         // give data too the routine that populates the datatable
         buildTable( data );
     });
@@ -96,7 +113,7 @@ var type = function( d ){
     d.BEDRAG_AANGEVRAAGD = +d.BEDRAG_AANGEVRAAGD;
     d.BEDRAG_VERLEEND = +d.BEDRAG_VERLEEND;
     d.BEDRAG_VASTGESTELD = +d.BEDRAG_VASTGESTELD;
-    d.DATUM_OVERZICHT = new Date(d.DATUM_OVERZICHT);
+    d.DATUM_OVERZICHT = parseISO8601(d.DATUM_OVERZICHT.substring(0,10));
     return d;   
 };
 
@@ -277,14 +294,14 @@ var buildTable = function(data) {
             var aSet = document.getElementsByName('type')
             aSet = Array.prototype.slice.call(aSet,0); 
             aSet.forEach( function(d){
-                $('#'+ d.id).click( function(){ cTable.draw() });
+                $('#'+d.id).click( function(){ cTable.draw() });
             });
 
             // routine for placing event listners on the type checkboxes
             var aSet = document.getElementsByName('thema');
             aSet = Array.prototype.slice.call(aSet,0); 
             aSet.forEach( function(d){
-                $('#'+ d.id).click( function(){ cTable.draw() });
+                $('#'+d.id).click( function(){ cTable.draw() });
             });
     };
 
