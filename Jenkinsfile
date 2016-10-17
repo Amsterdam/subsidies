@@ -30,7 +30,7 @@ node {
 
     stage "Build master image"
     tryStep "build", {
-        def image = docker.build("admin.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
+        def image = docker.build("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.push()
         image.push("master")
     }
@@ -57,7 +57,7 @@ input "Deploy to Production?"
 node {
     stage 'Build production image'
     tryStep "image tagging", {
-        def image = docker.image("admin.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
+        def image = docker.image("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.pull()
 
         image.push("master")
