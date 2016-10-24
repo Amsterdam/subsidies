@@ -44,6 +44,25 @@ var getData = function () {
         
         data = data.filter( function(d){ return d.SUBSIDIEJAAR > 2015 } ) // request to filter in client.... would have wanted in the source data
         
+        // routine to populate the year selector from the data given
+        var jaren = d3.nest()
+            .key( function(d){return d.SUBSIDIEJAAR;})
+            .rollup(function(leaves) { return leaves.length; })
+            .entries(data)
+            
+        // op verzoek van eindgebruiker uitgezet
+        //var minEntries = 50
+        //jaren = jaren.filter(function(d) { return d.values > minEntries })
+        var high = d3.min(jaren, function(d){ return d.key });
+        
+        var selector = d3.select("#jaar")
+                        .selectAll("option")
+                        .data(jaren).enter()
+                        .append('option')
+                        .property("selected", function(d){ return d.key === high; })
+                        .text(function(d){ return d.key;});
+        
+        
         // routine to populate the filter menu with checkboxes for the type
         var nested = d3.nest().key( function(d){ return d.ORGANISATIEONDERDEEL; }).entries(data);    
         nested = nested.sort(function(a,b){return d3.ascending(a.key, b.key);});
@@ -104,6 +123,33 @@ var getData = function () {
         buildTable( data );
     });
 };
+
+var minEntries = 20
+
+var buildYearSelecter = function(){
+    'use strict';
+    
+    console.log("building")
+    
+    var nest = d3.nest()
+        .key( function(d){return d.SUBSIDIEJAAR;})
+        .rollup(function(leaves) { return leaves.length; })
+        .entries(data)
+    
+    nest = nest.filter(function(d) { return d.values > minEntries })
+
+    var select_i = d3.select('#jaar')
+    
+    var high = d3.max(nest, function(d){ return d.key });
+
+    select_i.selectAll("option")
+        .data(nest).enter()
+        .append('option')
+        .property("selected", function(d){ return d.key === high; })
+        .text(function(d){return d.key;});
+    
+}
+
 
 /*
     method for typecasting

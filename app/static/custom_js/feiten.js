@@ -78,11 +78,12 @@ var buildYearSelecter = function(){
         .rollup(function(leaves) { return leaves.length; })
         .entries(data)
     
-    nest = nest.filter(function(d) { return d.values > minEntries })
+    // op verzoek van eindgebruiker uitgezet
+    //nest = nest.filter(function(d) { return d.values > minEntries })
 
     var select_i = d3.select('#fltrJaar').on('change',dataPrep);
     
-    var high = d3.max(nest, function(d){ return d.key });
+    var high = d3.min(nest, function(d){ return d.key });
 
     select_i.selectAll("option")
         .data(nest).enter()
