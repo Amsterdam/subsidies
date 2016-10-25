@@ -157,8 +157,8 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
     d3.select('#verleend').text(eur(data_vraag_verleend[1].values * 1000))
     d3.select('#vastgesteld').text(eur(data_vraag_verleend[2].values * 1000))
     
-    d3.select('#periodiek').text(eur(data_periode[0].values * 1000))
-    d3.select('#eenmalig').text(eur(data_periode[1].values * 1000))
+    d3.select('#eenmalig').text(eur(data_periode[0].values * 1000))
+    d3.select('#periodiek').text(eur(data_periode[1].values * 1000))
         
 };
 
