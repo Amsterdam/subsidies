@@ -25,7 +25,7 @@ node {
     tryStep "build", {
         def image = docker.build("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.push()
-        image.push("master")
+        image.push("acceptance")
         }
     }
 }
@@ -53,7 +53,7 @@ node {
         def image = docker.image("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.pull()
 
-        image.push("master")
+        image.push("production")
         image.push("latest")
         }
     }
