@@ -51,7 +51,7 @@ var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
 function readData() {
     'use strict';
     
-    var ssv = d3.dsv(',');
+    var ssv = d3.dsv(',', "iso-8859-1");
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv.filter( function(d){return d.SUBSIDIEJAAR > 2015 } );
