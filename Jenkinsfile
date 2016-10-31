@@ -18,26 +18,21 @@ def tryStep(String message, Closure block, Closure tearDown = null) {
 
 
 node {
-
-    stage "Checkout"
-    checkout scm
-
-
-    stage "Build base image"
-    tryStep "build", {
-        sh "docker-compose build"
+    stage("Checkout") {
+        checkout scm
     }
-
-    stage "Build master image"
+    stage("Build develop image") {
     tryStep "build", {
         def image = docker.build("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.push()
         image.push("master")
+        }
     }
 }
-
+String BRANCH = "${env.BRANCH_NAME}"
+if (BRANCH == "master") {
 node {
-    stage name: "Deploy to ACC", concurrency: 1
+    stage("Deploy to ACC") {
     tryStep "deployment", {
         build job: 'Subtask_Openstack_Playbook',
                 parameters: [
@@ -45,28 +40,26 @@ node {
                         [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy-subsidies.yml'],
                         [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                 ]
+        }
     }
 }
-
-
-stage name: 'Waiting for approval'
-
-input "Deploy to Production?"
-
-
+stage('Waiting for approval') {
+    slackSend channel: '#ci-channel', color: 'warning', message: 'Subsidies is waiting for Production Release - please confirm'
+    input "Deploy to Production?"
+}
 node {
-    stage 'Build production image'
+    stage('Push production image') {
     tryStep "image tagging", {
         def image = docker.image("build.datapunt.amsterdam.nl:5000/dataservices/subsidies:${env.BUILD_NUMBER}")
         image.pull()
 
         image.push("master")
         image.push("latest")
+        }
     }
 }
-
 node {
-    stage name: "Deploy to PROD", concurrency: 1
+    stage("Deploy") {
     tryStep "deployment", {
         build job: 'Subtask_Openstack_Playbook',
                 parameters: [
@@ -75,4 +68,6 @@ node {
                         [$class: 'StringParameterValue', name: 'BRANCH', value: 'master'],
                 ]
     }
+}
+}
 }
