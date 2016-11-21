@@ -111,10 +111,3 @@ BarChart.prototype.setData = function (newData) {
     this.data = newData;
     this.redrawData()
 };
-
-/*
-var tst = new BarChart({placeholder: 'jscontainer'});
-
-setTimeout(function(){
-    tst.setData([{key: 'A', values:120},{key: 'B', values:40},{key: 'C', values: 70}]);
-}, 2000);*/
