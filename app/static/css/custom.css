@@ -62,13 +62,7 @@
         margin-bottom: 10;
     }
 
-    #logo-img {
-        display: block;
-        margin: 5px 10px 15px 5px;
-        box-sizing: border-box;
-        line-height: 1;
-        float: left;
-    }
+    
 
 
     p {
@@ -234,7 +228,16 @@
     .graph-table tr:nth-of-type(odd) { 
         background: #eee; 
     }
+
 /*
+    #logo-img {
+            display: block;
+            margin: 5px 10px 15px 5px;
+            box-sizing: border-box;
+            line-height: 1;
+            float: left;
+        }
+*/
 
     #logo-Adam {
         margin: 5px;
@@ -254,7 +257,6 @@
         margin-left: 20px;
         
     }
-*/
 
     #logo-Site {
         display: block;
