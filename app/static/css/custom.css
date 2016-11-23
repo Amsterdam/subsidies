@@ -83,7 +83,8 @@
     #subsidieTable {
         font-family: verdana;
         font-size: 11px;
-        overflow: scroll;
+        overflow: visible;
+        width: 100%;
     }
 
     #subsidieTable th {
