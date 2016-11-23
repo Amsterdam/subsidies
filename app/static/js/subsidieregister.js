@@ -651,7 +651,7 @@ function buildTables(data) {
     
     
             
-     $('#loading').hide();
+     //$('#loading').hide();
     
 };
 
