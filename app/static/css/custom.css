@@ -84,12 +84,19 @@
         font-family: verdana;
         font-size: 11px;
         overflow: visible;
-        width: 100%;
     }
 
     #subsidieTable th {
         background-color: black;
         color: white;
+    }
+
+    #subsidieTable tr:nth-of-type(odd) { 
+        background: #eee; 
+    }
+
+    .dataTable {
+        width: 100%;
     }
 
     .check{

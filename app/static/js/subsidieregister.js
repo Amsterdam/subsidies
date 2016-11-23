@@ -321,7 +321,7 @@ function buildPage() {
         tableDiv.id = 'dataTable';
         tableDiv.className = 'col-xs-8 col-md-10'
         tableDiv.innerHTML = `
-                        <table id="subsidieTable">
+                        <table id="subsidieTable" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>Naam</th>
