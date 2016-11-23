@@ -13,6 +13,43 @@
         height: 100%
     }
 
+    #nav-bar {
+        height: 38px;
+        background-color: #333333;
+        margin-bottom: 10px;
+        padding: 0px;
+    }
+
+    .navigation-toggle {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        padding: 0px 0px;
+    }
+
+    .navigation-toggle li {
+        display: inline-block;
+        width: 60px;
+        height: 38px;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 8px;
+    }
+
+    .navigation-toggle a {
+        display: block;
+        text-decoration: none;
+        color: whitesmoke;
+        font-weight: 200;
+
+    }
+
+    .tab.active {
+        background-color: red;
+    }
+
+
     #page-content {
         height: 100%;
         margin-left: 30px;
@@ -141,42 +178,7 @@
         fill: grey;
     }
 
-    #nav-bar {
-        height: 38px;
-        background-color: #333333;
-        margin-bottom: 10px;
-        padding: 0px;
-    }
-
-    .navigation-toggle {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        padding: 0px 0px;
-    }
-
-    .navigation-toggle li {
-        display: inline-block;
-        width: 60px;
-        height: 38px;
-        text-align: center;
-        box-sizing: border-box;
-        padding: 8px;
-    }
-
-    .navigation-toggle a {
-        display: block;
-        text-decoration: none;
-        color: whitesmoke;
-        font-weight: 200;
-
-    }
-
-    .tab.active {
-        background-color: red;
-    }
-
+    
     #feiten_selectie {
         align-content: flex-end;
     }
