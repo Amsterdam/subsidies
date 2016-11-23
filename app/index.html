@@ -18,39 +18,82 @@
         #navbar {
             background-color: #333333;
             height: 34px;
-        }
-        
-        #navbar li {
-            float: left;
+            margin-left: 25px;
+            margin-right: 25px;
         }
         
         #navbar ul {
             list-style-type: none;
+            padding: 0px;
+        }
+        
+        #navbar li {
+            float: left;
+            width: 80px;
         }
         
         #navbar a {
             text-decoration: none;
             display: block;
-            padding: 8px;
+            text-align: center;
+            color: whitesmoke;
+            line-height: 35px;
+        }
+        
+        .active {
+            background-color: red;
         }
         
         #update_date {
             height: 20px;
             background-color: green;
+            margin-left: 25px;
+            margin-right: 25px;
         }
         
         #feiten_content {
-            background-color: blue;
+            margin-left: 25px;
+            margin-right: 25px;
         }
         
         #lijsten_content {
             background-color: red;
+            margin-left: 25px;
+            margin-right: 25px;
+            padding: 0px;
         }
         
         #footer {
             height: 20px;
             background-color: #333333;
+            margin-left: 25px;
+            margin-right: 25px;
         }
+        
+        #feiten_text {
+            max-width: 640px;
+            padding-left: 0px;
+            font-size: 11px;
+        }
+        
+        #feiten_text .ul-main {
+            padding-left: 12px;
+            list-style: square;
+            font-size: 11px;
+        }
+        
+        .ul-inner {
+        list-style-type: none;
+        }
+        .ul-inner> li {
+            text-indent: -15px;
+        }
+        .ul-inner > li:before {
+            content: "- ";
+            text-indent: -25px;
+        }
+        
+        
     </style>
     
     <body>
@@ -60,9 +103,9 @@
             </div>
             
             <div id='navbar' class="row">
-                <ul>
-                    <li><a href="www.nu.nl">Feiten</a></li>
-                    <li><a href="www.nu.nl">Lijsten </a></li>
+                <ul class="navigation-toggle">
+                    <li class="tab active"><a href="#" onclick="return show_div('feiten');">Feiten</a></li>
+                    <li class="tab"><a href="#" onclick="return show_div('lijsten');">Lijst</a></li>
                 </ul>
             </div>
             
@@ -71,7 +114,9 @@
             </div>
             
             <div id='feiten_content' class="row">
-                <div id='feiten_text' class="col-xs-12 col-md-4"> test 
+                <div id='feiten_text' class="col-xs-12 col-md-4"> 
+                    <p>Met het openbaar subsidieregister verbetert Amsterdam de transparantie over de subsidies die de <a href="https://www.amsterdam.nl/subsidies/">gemeente</a> verstrekt. Het register bevat alle door de gemeente Amsterdam behandelde subsidieaanvragen vanaf 2016 die zijn verwerkt in het gemeentelijke subsidiebeheersysteem en wordt wekelijks bijgewerkt. Voor een juist gebruik van het register zijn de volgende uitgangspunten van belang: <ul class="ul-main"><li>Nog niet alle subsidies worden verstrekt via het gemeentelijke subsidiebeheersysteem; de navolgende subsidies zitten dan ook niet in het openbaar subsidieregister:</li> <ul class="ul-inner"> <li>Subsidies op basis van het Kunstenplan;</li><li>Huisvestingsvoorzieningen Amsterdam Onderwijs 2016;</li><li>Subsidies voor drinkwaterinstallaties;</li><li>Erfpachtsubsidies;</li><li>Subsidies voor gevelsanering tegen verkeerslawaai;</li><li>Subsidies voor lang parkeren;</li><li>Loonkostensubsidies.</li></ul><li>Op advies van de Commissie Privacy Amsterdam zijn de namen van particuliere subsidieontvangers weggehaald.</li><li>Op advies van de directie Openbare Orde en Veiligheid worden de namen van  organisaties waarvan de veiligheid van deze organisaties en/of hun werknemers en/of bezoekers in gevaar zouden kunnen komen, niet vermeld in het subsidieregister. Vooralsnog geldt deze maatregel alleen voor de subsidieregeling bijdrage beveiliging bedreigde religieuze en maatschappelijke instellingen.</li><li>De in het register getoonde kolom Project bevat een door de aanvrager ingevoerde projectomschrijving.</li><li>Het overnemen en gebruiken van gegevens is met de volgende bronvermelding toegestaan: Gemeente Amsterdam/Openbaar subsidieregister.</li><li>De inhoud van dit openbaar subsidieregister is met uiterste zorgvuldigheid tot stand gebracht. De inhoud wordt regelmatig gecontroleerd en geactualiseerd. De gemeente Amsterdam kan echter niet aansprakelijk worden gesteld voor de juistheid, volledigheid en actualiteit van het openbaar subsidieregister. De gemeente Amsterdam kan in het bijzonder niet aansprakelijk worden gesteld voor eventuele schade of consequenties ontstaan door direct of indirect gebruik van de inhoud van het openbaar subsidieregister.</li></ul></p>
+        
                 </div>
                 <div id='feiten_graph_holder' class="col-xs-12 col-md-8"> 
                     <div id='feiten_graph1_holder' class="col-xs-12 col-md-6"> 1 </div>
@@ -81,8 +126,8 @@
             </div>
             
             <div id='lijsten_content' class="row">
-                <div id='table_filter' class="col-xs-2"> tst </div>
-                <div id='table_subsidies' class="col-xs-10">
+                <div id='table_filter' class="col-xs-4 col-md-2"> tst </div>
+                <div id='table_subsidies' class="col-xs-8 col-md-10">
                     <table id='subsidie_table' width="100%">
                         <thead>
                             <tr>
@@ -122,4 +167,9 @@
             
         </div>
     </body>
+    
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/js/subsidieregister.js"></script>
+    
 </html>
