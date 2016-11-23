@@ -5,8 +5,8 @@ var BarChart = function (opts) {
     this.placeholder = opts.placeholder || '';
     
     // object dimensions
-    this.width = opts.width || 250;
-    this.height = opts.height || 300;
+    this.width =  parseInt(d3.select('#' + this.placeholder).style('width'), 10);
+    this.height = 1 * this.width;
     this.margin = {
         top: 20,
         right: 20,
@@ -27,8 +27,9 @@ BarChart.prototype.draw = function () {
     'use strict';
     
     this.canvas = d3.select("#" + this.placeholder).append("svg")
-        .attr("width", this.width)
-        .attr("height", this.height)
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 " + this.width + " " + this.height)
+        .classed("svg-content", true)
         .append("g")
         .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 };

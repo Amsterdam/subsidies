@@ -3,8 +3,8 @@ var HorBarChart = function(opts){
     this.placeholder = opts.placeholder || '';
 
     // object dimensions
-    this.width = 800; // d3.select("#holder").node().getBoundingClientRect().width;//200;
-    this.height = 500;
+    this.width = parseInt(d3.select('#' + this.placeholder).style('width'), 10); // d3.select("#holder").node().getBoundingClientRect().width;//200;
+    this.height = 0.7 * this.width;
     this.margin = {
         top: 20,
         right: 100,
@@ -21,8 +21,9 @@ var HorBarChart = function(opts){
 HorBarChart.prototype.buid = function (){
     this.canvas = d3.select("#"+ this.placeholder)
                         .append("svg")
-                        .attr('width', this.width)
-                        .attr('height', this.height)
+                        .attr("preserveAspectRatio", "xMinYMin meet")
+                        .attr("viewBox", "0 0 " + this.width + " " + this.height)
+                        .classed("svg-hor-cont", true)
                         .append("g").attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
     this.x = d3.scale.linear().range([0, this.innerWidth]);
@@ -43,7 +44,12 @@ HorBarChart.prototype.buid = function (){
         .attr('transform', 'translate(10,0)')
         .call(this.yAxis);
     
-    this.canvas.append('g').attr("transform", 'translate('+ (this.width - this.margin.left - 10) +', 0)').append('text').text('Verleend bedrag (in duizenden)').style("text-anchor", "end").attr("font-size", "12px");
+    this.canvas.append('g')
+        .attr("transform", 'translate('+ (this.width - this.margin.left - 10) +', 0)')
+        .append('text')
+        .text('Verleend bedrag (in duizenden)')
+        .style("text-anchor", "end")
+        .attr("font-size", "12px");
 };
 
 HorBarChart.prototype.redraw = function() {
@@ -113,6 +119,7 @@ HorBarChart.prototype.redraw = function() {
             .append("text")
             .attr("class", "bartext")
             .attr("text-anchor", "right")
+            .attr("font-size", "1em")
             .attr("fill", "black")
             .attr("x", function(d){ return that.x(d.values) + 15 ; })
             .attr("y", function(d) {
