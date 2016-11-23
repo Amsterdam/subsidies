@@ -72,12 +72,14 @@
         
         #feiten_text {
             max-width: 640px;
-            padding-left: 0px;
+            padding: 0px 10px 10px 0px;
             font-size: 11px;
         }
         
         #feiten_text .ul-main {
-            padding-left: 12px;
+            margin-left: 0px;
+            padding: 0px 0px 0px 15px;
+            text-indent: 0px;
             list-style: square;
             font-size: 11px;
         }
@@ -93,6 +95,15 @@
             text-indent: -25px;
         }
         
+        .graph_content {
+            border-top: 1px solid black;
+        }
+        
+        .graph_title {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 18px;
+        }
         
     </style>
     
@@ -119,9 +130,24 @@
         
                 </div>
                 <div id='feiten_graph_holder' class="col-xs-12 col-md-8"> 
-                    <div id='feiten_graph1_holder' class="col-xs-12 col-md-6"> 1 </div>
-                    <div id='feiten_graph2_holder' class="col-xs-12 col-md-6"> 2 </div>
-                    <div id='feiten_graph3_holder' class="col-xs-12 col-md-12"> 3 </div>
+                    <div id='feiten_graph1_holder' class="col-xs-12 col-md-6"> 
+                        <p id='graph_1_title' class='graph_title'>Aangevraagd, verleend en vastgesteld</p>
+                        <div id='graph_1' class='graph_content'></div>
+                        <div id='graph_1_txt' class='graph_txt'></div>
+                        <div id='graph_1_table' class='graph_table'></div>
+                    </div>
+                    <div id='feiten_graph2_holder' class="col-xs-12 col-md-6">
+                        <p id='graph_2_title' class='graph_title'>Soort</p>
+                        <div id='graph_2' class='graph_content'></div>
+                        <div id='graph_1_txt' class='graph_txt'></div>
+                        <div id='graph_1_table' class='graph_table'></div>
+                    </div>
+                    <div id='feiten_graph3_holder' class="col-xs-12 col-md-12">
+                        <p id='graph_3_title' class='graph_title'>Verleend bedrag per thema</p>
+                        <div id='graph_3' class='graph_content'></div>
+                        <div id='graph_1_txt' class='graph_txt'></div>
+                        <div id='graph_1_table' class='graph_table'></div>
+                    </div>
                 </div>
             </div>
             
