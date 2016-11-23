@@ -1,201 +1,179 @@
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8">
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css">
-    </head>
-    
     <style>
-        #wraper {
-            margin: 10px;
-            
-        }
-        #header {
-            background-color: aqua;
-            height: 134px;
-        }
-        #navbar {
-            background-color: #333333;
-            height: 34px;
-            margin-left: 25px;
-            margin-right: 25px;
-        }
+     
+    html {
+        font-family: verdana, sans-serif;
+        font-size: 11px;
+    }
+
+    body {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    #main-page {
+        height: 100%
+    }
         
-        #navbar ul {
-            list-style-type: none;
-            padding: 0px;
-        }
         
-        #navbar li {
-            float: left;
-            width: 80px;
-        }
+    #nav-bar {
+        height: 38px;
+        background-color: #333333;
+        margin-bottom: 10px;
+        padding: 0px;
+    }
+
+    .navigation-toggle {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        padding: 0px 0px;
+    }
+
+    .navigation-toggle li {
+        float: left;
+        padding-top: 8px;
+        padding-left: 0px;
+    }
+
+    .navigation-toggle a {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        color: whitesmoke;
+        font-weight: 200;
+        width: 60px;
+        height: 30px;
+
+    }
+
+    .tab.active {
+        background-color: red;
+    }
         
-        #navbar a {
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            color: whitesmoke;
-            line-height: 35px;
-        }
+    #logo-Adam {
+        margin: 5px;
+        height: 90px;
+        background-color: blue;
+        background: url("static/images/amsterdam-logo.png") top left no-repeat;
+        background-size: 25px;
+    }
+
+    #logo-Adam a {
+        display: block;
+        color:  #F00000;
+        font-size: 28px;
+        line-height: 25px;
+        text-decoration: none;
+        font-weight: normal;
+        margin-left: 20px;
         
-        .active {
-            background-color: red;
-        }
-        
-        #update_date {
-            height: 20px;
-            background-color: green;
-            margin-left: 25px;
-            margin-right: 25px;
-        }
-        
-        #feiten_content {
-            margin-left: 25px;
-            margin-right: 25px;
-        }
-        
-        #lijsten_content {
-            background-color: red;
-            margin-left: 25px;
-            margin-right: 25px;
-            padding: 0px;
-        }
-        
-        #footer {
-            height: 20px;
-            background-color: #333333;
-            margin-left: 25px;
-            margin-right: 25px;
-        }
-        
-        #feiten_text {
-            max-width: 640px;
-            padding: 0px 10px 10px 0px;
-            font-size: 11px;
-        }
-        
-        #feiten_text .ul-main {
-            margin-left: 0px;
-            padding: 0px 0px 0px 15px;
-            text-indent: 0px;
-            list-style: square;
-            font-size: 11px;
-        }
-        
-        .ul-inner {
-        list-style-type: none;
-        }
-        .ul-inner> li {
-            text-indent: -15px;
-        }
-        .ul-inner > li:before {
-            content: "- ";
-            text-indent: -25px;
-        }
-        
-        .graph_content {
-            border-top: 1px solid black;
-        }
-        
-        .graph_title {
-            margin-top: 5px;
-            text-align: center;
-            font-size: 18px;
-        }
-        
+    }
+
+    #logo-Site {
+        display: block;
+        color: #F00000;
+        font-size: 28px;
+        line-height: 25px;
+        padding-top: 5px;
+        text-align: right;
+    }
+    
     </style>
     
-    <body>
-        <div id='wraper' class="container-fluid">
-            <div id='header' class="row">
-            
-            </div>
-            
-            <div id='navbar' class="row">
-                <ul class="navigation-toggle">
-                    <li class="tab active"><a href="#" onclick="return show_div('feiten');">Feiten</a></li>
-                    <li class="tab"><a href="#" onclick="return show_div('lijsten');">Lijst</a></li>
-                </ul>
-            </div>
-            
-            <div id='update_date' class="row">
-            
-            </div>
-            
-            <div id='feiten_content' class="row">
-                <div id='feiten_text' class="col-xs-12 col-md-4"> 
-                    <p>Met het openbaar subsidieregister verbetert Amsterdam de transparantie over de subsidies die de <a href="https://www.amsterdam.nl/subsidies/">gemeente</a> verstrekt. Het register bevat alle door de gemeente Amsterdam behandelde subsidieaanvragen vanaf 2016 die zijn verwerkt in het gemeentelijke subsidiebeheersysteem en wordt wekelijks bijgewerkt. Voor een juist gebruik van het register zijn de volgende uitgangspunten van belang: <ul class="ul-main"><li>Nog niet alle subsidies worden verstrekt via het gemeentelijke subsidiebeheersysteem; de navolgende subsidies zitten dan ook niet in het openbaar subsidieregister:</li> <ul class="ul-inner"> <li>Subsidies op basis van het Kunstenplan;</li><li>Huisvestingsvoorzieningen Amsterdam Onderwijs 2016;</li><li>Subsidies voor drinkwaterinstallaties;</li><li>Erfpachtsubsidies;</li><li>Subsidies voor gevelsanering tegen verkeerslawaai;</li><li>Subsidies voor lang parkeren;</li><li>Loonkostensubsidies.</li></ul><li>Op advies van de Commissie Privacy Amsterdam zijn de namen van particuliere subsidieontvangers weggehaald.</li><li>Op advies van de directie Openbare Orde en Veiligheid worden de namen van  organisaties waarvan de veiligheid van deze organisaties en/of hun werknemers en/of bezoekers in gevaar zouden kunnen komen, niet vermeld in het subsidieregister. Vooralsnog geldt deze maatregel alleen voor de subsidieregeling bijdrage beveiliging bedreigde religieuze en maatschappelijke instellingen.</li><li>De in het register getoonde kolom Project bevat een door de aanvrager ingevoerde projectomschrijving.</li><li>Het overnemen en gebruiken van gegevens is met de volgende bronvermelding toegestaan: Gemeente Amsterdam/Openbaar subsidieregister.</li><li>De inhoud van dit openbaar subsidieregister is met uiterste zorgvuldigheid tot stand gebracht. De inhoud wordt regelmatig gecontroleerd en geactualiseerd. De gemeente Amsterdam kan echter niet aansprakelijk worden gesteld voor de juistheid, volledigheid en actualiteit van het openbaar subsidieregister. De gemeente Amsterdam kan in het bijzonder niet aansprakelijk worden gesteld voor eventuele schade of consequenties ontstaan door direct of indirect gebruik van de inhoud van het openbaar subsidieregister.</li></ul></p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         
-                </div>
-                <div id='feiten_graph_holder' class="col-xs-12 col-md-8"> 
-                    <div id='feiten_graph1_holder' class="col-xs-12 col-md-6"> 
-                        <p id='graph_1_title' class='graph_title'>Aangevraagd, verleend en vastgesteld</p>
-                        <div id='graph_1' class='graph_content'></div>
-                        <div id='graph_1_txt' class='graph_txt'></div>
-                        <div id='graph_1_table' class='graph_table'></div>
-                    </div>
-                    <div id='feiten_graph2_holder' class="col-xs-12 col-md-6">
-                        <p id='graph_2_title' class='graph_title'>Soort</p>
-                        <div id='graph_2' class='graph_content'></div>
-                        <div id='graph_1_txt' class='graph_txt'></div>
-                        <div id='graph_1_table' class='graph_table'></div>
-                    </div>
-                    <div id='feiten_graph3_holder' class="col-xs-12 col-md-12">
-                        <p id='graph_3_title' class='graph_title'>Verleend bedrag per thema</p>
-                        <div id='graph_3' class='graph_content'></div>
-                        <div id='graph_1_txt' class='graph_txt'></div>
-                        <div id='graph_1_table' class='graph_table'></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id='lijsten_content' class="row">
-                <div id='table_filter' class="col-xs-4 col-md-2"> tst </div>
-                <div id='table_subsidies' class="col-xs-8 col-md-10">
-                    <table id='subsidie_table' width="100%">
-                        <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Project</th>
-                                <th>Regeling</th>
-                                <th>Organisatie</th>
-                                <th>Thema</th>
-                                <th>Jaar</th>
-                                <th>Periodiciteit</th>
-                                <th>Aangevraagd</th>
-                                <th>Verleend</th>
-                                <th>Vastgesteld</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Project</th>
-                                <th>Regeling</th>
-                                <th>Organisatie</th>
-                                <th>Thema</th>
-                                <th>Jaar</th>
-                                <th>Periodiciteit</th>
-                                <th>Aangevraagd</th>
-                                <th>Verleend</th>
-                                <th>Vastgesteld</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-            
-            <div id='footer' class="row">
-            
-            </div>
-            
+<!--
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="static/DataTables/datatables.min.css">
+        <link rel="stylesheet" type="text/css" href="static/css/custom.css">
+-->        
+        <!-- Piwik -->
+<!--
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//datapunt.amsterdam.nl/piwik/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '5']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//datapunt.amsterdam.nl/piwik/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+-->
+        <!-- End Piwik Code -->
+        
+    </head>
+    
+    <body>
+<!--
+        <div id="loading">
+            <img id="loading-image" src="static/images/ajax-loader.gif" alt="Loading..." />
         </div>
+-->
+        
+        <div id="main-page">
+            <header>
+                <div class="container-fluid">
+                    <div id="header-row" class="row"> 
+                        <div id="logo-Adam" class="col-xs-12 col-md-2">
+                            <a href="http://www.amsterdam.nl">Gemeente<br>Amsterdam</a>
+                        </div>
+                        <div id="logo-Site" class="col-xs-12 col-md-2 pull-right">
+                            Subsidieregister
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div id="page-content" class="container-fluid">
+                <div id="nav-bar" class="row">
+                    <ul class="navigation-toggle">
+                        <li class="tab active"><a href="#" onclick="return show_div('feiten');">Feiten</a></li>
+                        <li class="tab"><a href="#" onclick="return show_div('lijsten');">Lijst</a></li>
+                    </ul>
+                </div>
+                
+                <!-- placeholder for the compleet page, this is being controled by the java component -->
+                <div id="page-main-content"></div>
+                
+                <footer>
+                    <div id="page-footer-main" class="row"></div>
+                    <div id="page-footer-content" class="row">
+                        <div class="col-xs-12 col-md-2">
+                            <h4>Amsterdam.nl</h4>
+                            <p>Amsterdam.nl is de plek online waar u alle nieuws en publieksinformatie van de gemeente en stadsdelen vindt.</p>
+                            <a href="http://www.amsterdam.nl/">> Naar Amsterdam.nl</a>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <h4>Bel of mail de gemeente</h4>
+                            <p>Hebt u een vraag en kunt u het antwoord niet vinden op onze website? </p>
+                            <p>Bel dan het gemeentelijk informatienummer 14 020, op werkdagen van 08.00 tot 18.00 uur. Of stuur een e-mail naar: <a href="mailto:f.coesel@amsterdam.nl?Subject=Vraag%20subsidieregister" target="_top">Mailbox subsidieregister</a>.</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+<!--
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+
+        <script src="static/js/d3.v3.min.js"></script>
+        
+        <script src="static/DataTables/datatables.min.js"></script>
+        <script src="static/js/barChart.js"></script>
+        <script src="static/js/horbarchart.js"></script>
+        <script src="static/js/subsidieregister.js"></script>        
+-->
     </body>
-    
-    <script src="static/js/jquery.min.js"></script>
-    <script src="static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="static/js/subsidieregister.js"></script>
-    
+
+
 </html>
