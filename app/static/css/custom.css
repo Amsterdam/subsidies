@@ -1,4 +1,4 @@
-
+<style>
     html {
         font-family: verdana, sans-serif;
         font-size: 11px;
@@ -11,6 +11,126 @@
 
     #main-page {
         height: 100%
+    }
+
+    #page-content {
+        height: 100%;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+
+    header {
+    /*          height: 100;*/
+        margin-bottom: 10;
+    }
+
+    #logo-img {
+        display: block;
+        margin: 5px 10px 15px 5px;
+        box-sizing: border-box;
+        line-height: 1;
+        float: left;
+    }
+
+
+    p {
+        font-size: 11px;
+    }
+
+    .ul-main {
+        margin: 0;
+        padding: 5;
+        list-style: square;
+        font-size: 11px;
+    }
+
+    .ul-inner {
+        list-style-type: none;
+    }
+    .ul-inner> li {
+        text-indent: -15px;
+    }
+    .ul-inner > li:before {
+        content: "-";
+        text-indent: -25px;
+    }
+
+    #feiten_info {
+        align-self: right;
+    }
+
+    #info_txt {
+        max-width: 650px;
+    }
+
+    .svg-content {
+        display: inline-block;
+        top: 0;
+        left: 0;
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .svg-hor-cont {
+        display: inline-block;
+        top: 0;
+        left: 0;
+        max-width: 600px;
+        max-height: 600px;
+    }
+
+    #subsidieTable {
+        font-family: verdana;
+        font-size: 11px;
+        overflow: scroll;
+    }
+
+    #subsidieTable th {
+        background-color: black;
+        color: white;
+    }
+
+    .check{
+        display: inline;
+        font-size: 11px;
+        font-weight: 100;
+    }
+
+    label{
+         display: block;
+    }
+
+    .bar {
+      fill: #004699;
+    }
+
+    .axis {
+      font: 12px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .y.axis.hor path{
+        display: none;
+        shape-rendering: crispEdges;
+        font-size: 12px;
+    }
+    .x.axis.hor path{
+        display: flex;
+    }
+
+    .bar.notshown {
+        fill: grey;
     }
 
     #nav-bar {
@@ -49,130 +169,6 @@
         background-color: red;
     }
 
-
-    #page-content {
-        height: 100%;
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-
-
-    header {
-    /*          height: 100;*/
-        margin-bottom: 10;
-    }
-
-    
-
-
-    p {
-        font-size: 11px;
-    }
-
-    .ul-main {
-        margin: 5;
-        padding: 5;
-        list-style: square;
-        font-size: 11px;
-    }
-
-    .ul-inner {
-        list-style-type: none;
-    }
-    .ul-inner> li {
-        text-indent: -15px;
-    }
-    .ul-inner > li:before {
-        content: "- ";
-        text-indent: -25px;
-    }
-
-    #feiten_info {
-        align-self: right;
-    }
-
-    #info_txt {
-        max-width: 650px;
-    }
-
-    .svg-content {
-        display: inline-block;
-        top: 0;
-        left: 0;
-        max-width: 300px;
-        max-height: 300px;
-    }
-
-    .svg-hor-cont {
-        display: inline-block;
-        top: 0;
-        left: 0;
-        max-width: 600px;
-        max-height: 600px;
-    }
-
-    #subsidieTable {
-        font-family: verdana;
-        font-size: 11px;
-        overflow: visible;
-    }
-
-    #subsidieTable th {
-        background-color: black;
-        color: white;
-    }
-
-    #subsidieTable tr:nth-of-type(odd) { 
-        background: #eee; 
-    }
-
-    .dataTable {
-        width: 100%;
-    }
-
-    .check{
-        display: inline;
-        font-size: 11px;
-        font-weight: 100;
-    }
-
-    label{
-         display: block;
-    }
-
-    .bar {
-      fill: #004699;
-    }
-
-    .axis {
-      font: 1em sans-serif;
-    }
-
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-    }
-
-    .x.axis path {
-      display: none;
-    }
-
-    .y.axis.hor path{
-        display: none;
-        shape-rendering: crispEdges;
-        font-size: 12px;
-    }
-    .x.axis.hor path{
-        display: flex;
-    }
-
-    .bar.notshown {
-        fill: grey;
-    }
-
-    
     #feiten_selectie {
         align-content: flex-end;
     }
@@ -228,16 +224,6 @@
     .graph-table tr:nth-of-type(odd) { 
         background: #eee; 
     }
-
-/*
-    #logo-img {
-            display: block;
-            margin: 5px 10px 15px 5px;
-            box-sizing: border-box;
-            line-height: 1;
-            float: left;
-        }
-*/
 
     #logo-Adam {
         margin: 5px;
@@ -308,3 +294,5 @@
       left: 40%;
       z-index: 100;
     }
+
+</style>

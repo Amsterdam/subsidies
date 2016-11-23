@@ -321,7 +321,7 @@ function buildPage() {
         tableDiv.id = 'dataTable';
         tableDiv.className = 'col-xs-8 col-md-10'
         tableDiv.innerHTML = `
-                        <table id="subsidieTable" style="width: 100%;">
+                        <table id="subsidieTable">
                                 <thead>
                                     <tr>
                                         <th>Naam</th>
@@ -651,7 +651,7 @@ function buildTables(data) {
     
     
             
-     //$('#loading').hide();
+     $('#loading').hide();
     
 };
 
