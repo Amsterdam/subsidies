@@ -1,178 +1,125 @@
 <html>
-    <style>
-     
-    html {
-        font-family: verdana, sans-serif;
-        font-size: 11px;
-    }
-
-    body {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    #main-page {
-        height: 100%
-    }
-        
-        
-    #nav-bar {
-        height: 38px;
-        background-color: #333333;
-        margin-bottom: 10px;
-        padding: 0px;
-    }
-
-    .navigation-toggle {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        padding: 0px 0px;
-    }
-
-    .navigation-toggle li {
-        float: left;
-        padding-top: 8px;
-        padding-left: 0px;
-    }
-
-    .navigation-toggle a {
-        display: block;
-        text-decoration: none;
-        text-align: center;
-        color: whitesmoke;
-        font-weight: 200;
-        width: 60px;
-        height: 30px;
-
-    }
-
-    .tab.active {
-        background-color: red;
-    }
-        
-    #logo-Adam {
-        margin: 5px;
-        height: 90px;
-        background-color: blue;
-        background: url("static/images/amsterdam-logo.png") top left no-repeat;
-        background-size: 25px;
-    }
-
-    #logo-Adam a {
-        display: block;
-        color:  #F00000;
-        font-size: 28px;
-        line-height: 25px;
-        text-decoration: none;
-        font-weight: normal;
-        margin-left: 20px;
-        
-    }
-
-    #logo-Site {
-        display: block;
-        color: #F00000;
-        font-size: 28px;
-        line-height: 25px;
-        padding-top: 5px;
-        text-align: right;
-    }
-    
-    </style>
-    
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-<!--
-        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="static/DataTables/datatables.min.css">
-        <link rel="stylesheet" type="text/css" href="static/css/custom.css">
--->        
-        <!-- Piwik -->
-<!--
-        <script type="text/javascript">
-          var _paq = _paq || [];
-          _paq.push(['trackPageView']);
-          _paq.push(['enableLinkTracking']);
-          (function() {
-            var u="//datapunt.amsterdam.nl/piwik/";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', '5']);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-          })();
-        </script>
-        <noscript><p><img src="//datapunt.amsterdam.nl/piwik/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
--->
-        <!-- End Piwik Code -->
-        
+        <link rel="stylesheet" type="text/css" href="static/bootstrap/css/bootstrap.min.css">
     </head>
     
-    <body>
-<!--
-        <div id="loading">
-            <img id="loading-image" src="static/images/ajax-loader.gif" alt="Loading..." />
-        </div>
--->
-        
-        <div id="main-page">
-            <header>
-                <div class="container-fluid">
-                    <div id="header-row" class="row"> 
-                        <div id="logo-Adam" class="col-xs-12 col-md-2">
-                            <a href="http://www.amsterdam.nl">Gemeente<br>Amsterdam</a>
-                        </div>
-                        <div id="logo-Site" class="col-xs-12 col-md-2 pull-right">
-                            Subsidieregister
-                        </div>
-                    </div>
-                </div>
-            </header>
+    <style>
+        #wraper {
+            margin: 10px;
             
-            <div id="page-content" class="container-fluid">
-                <div id="nav-bar" class="row">
-                    <ul class="navigation-toggle">
-                        <li class="tab active"><a href="#" onclick="return show_div('feiten');">Feiten</a></li>
-                        <li class="tab"><a href="#" onclick="return show_div('lijsten');">Lijst</a></li>
-                    </ul>
-                </div>
-                
-                <!-- placeholder for the compleet page, this is being controled by the java component -->
-                <div id="page-main-content"></div>
-                
-                <footer>
-                    <div id="page-footer-main" class="row"></div>
-                    <div id="page-footer-content" class="row">
-                        <div class="col-xs-12 col-md-2">
-                            <h4>Amsterdam.nl</h4>
-                            <p>Amsterdam.nl is de plek online waar u alle nieuws en publieksinformatie van de gemeente en stadsdelen vindt.</p>
-                            <a href="http://www.amsterdam.nl/">> Naar Amsterdam.nl</a>
-                        </div>
-                        <div class="col-xs-12 col-md-2">
-                            <h4>Bel of mail de gemeente</h4>
-                            <p>Hebt u een vraag en kunt u het antwoord niet vinden op onze website? </p>
-                            <p>Bel dan het gemeentelijk informatienummer 14 020, op werkdagen van 08.00 tot 18.00 uur. Of stuur een e-mail naar: <a href="mailto:f.coesel@amsterdam.nl?Subject=Vraag%20subsidieregister" target="_top">Mailbox subsidieregister</a>.</p>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
-<!--
-        <script src="static/js/jquery.min.js"></script>
-        <script src="static/js/bootstrap.min.js"></script>
-
-        <script src="static/js/d3.v3.min.js"></script>
+        }
+        #header {
+            background-color: aqua;
+            height: 134px;
+        }
+        #navbar {
+            background-color: #333333;
+            height: 34px;
+        }
         
-        <script src="static/DataTables/datatables.min.js"></script>
-        <script src="static/js/barChart.js"></script>
-        <script src="static/js/horbarchart.js"></script>
-        <script src="static/js/subsidieregister.js"></script>        
--->
+        #navbar li {
+            float: left;
+        }
+        
+        #navbar ul {
+            list-style-type: none;
+        }
+        
+        #navbar a {
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+        }
+        
+        #update_date {
+            height: 20px;
+            background-color: green;
+        }
+        
+        #feiten_content {
+            background-color: blue;
+        }
+        
+        #lijsten_content {
+            background-color: red;
+        }
+        
+        #footer {
+            height: 20px;
+            background-color: #333333;
+        }
+    </style>
+    
+    <body>
+        <div id='wraper' class="container-fluid">
+            <div id='header' class="row">
+            
+            </div>
+            
+            <div id='navbar' class="row">
+                <ul>
+                    <li><a href="www.nu.nl">Feiten</a></li>
+                    <li><a href="www.nu.nl">Lijsten </a></li>
+                </ul>
+            </div>
+            
+            <div id='update_date' class="row">
+            
+            </div>
+            
+            <div id='feiten_content' class="row">
+                <div id='feiten_text' class="col-xs-12 col-md-4"> test 
+                </div>
+                <div id='feiten_graph_holder' class="col-xs-12 col-md-8"> 
+                    <div id='feiten_graph1_holder' class="col-xs-12 col-md-6"> 1 </div>
+                    <div id='feiten_graph2_holder' class="col-xs-12 col-md-6"> 2 </div>
+                    <div id='feiten_graph3_holder' class="col-xs-12 col-md-12"> 3 </div>
+                </div>
+            </div>
+            
+            <div id='lijsten_content' class="row">
+                <div id='table_filter' class="col-xs-2"> tst </div>
+                <div id='table_subsidies' class="col-xs-10">
+                    <table id='subsidie_table' width="100%">
+                        <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Project</th>
+                                <th>Regeling</th>
+                                <th>Organisatie</th>
+                                <th>Thema</th>
+                                <th>Jaar</th>
+                                <th>Periodiciteit</th>
+                                <th>Aangevraagd</th>
+                                <th>Verleend</th>
+                                <th>Vastgesteld</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Project</th>
+                                <th>Regeling</th>
+                                <th>Organisatie</th>
+                                <th>Thema</th>
+                                <th>Jaar</th>
+                                <th>Periodiciteit</th>
+                                <th>Aangevraagd</th>
+                                <th>Verleend</th>
+                                <th>Vastgesteld</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            
+            <div id='footer' class="row">
+            
+            </div>
+            
+        </div>
     </body>
-
-
 </html>
