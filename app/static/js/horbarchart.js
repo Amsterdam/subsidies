@@ -7,7 +7,7 @@ var HorBarChart = function(opts){
     this.height = 0.7 * this.width;
     this.margin = {
         top: 20,
-        right: 100,
+        right: 110,
         bottom: 20,
         left: 180
     };
@@ -47,9 +47,9 @@ HorBarChart.prototype.buid = function (){
     this.canvas.append('g')
         .attr("transform", 'translate('+ (this.width - this.margin.left - 10) +', 0)')
         .append('text')
+        .attr("class", "barsubtext")
         .text('Verleend bedrag (in duizenden)')
-        .style("text-anchor", "end")
-        .attr("font-size", "12px");
+        .style("text-anchor", "end");
 };
 
 HorBarChart.prototype.redraw = function() {
@@ -119,7 +119,6 @@ HorBarChart.prototype.redraw = function() {
             .append("text")
             .attr("class", "bartext")
             .attr("text-anchor", "right")
-            .attr("font-size", "1em")
             .attr("fill", "black")
             .attr("x", function(d){ return that.x(d.values) + 15 ; })
             .attr("y", function(d) {
