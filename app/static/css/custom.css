@@ -333,16 +333,40 @@ label{
 }
 
 #lijsten {
+    width: 100%; 
+    display: flex;
+/*
     width: 100%;
     display: flex;
+*/
 }
+
 #lijstFilter {
-    width: 200px;
+    display:inline;
+    width: 200px; 
+/*    width: 200px;*/
 }
+
 #dataTable {
+    display:inline;
+    width: 100%; 
+    overflow-x: scroll;
+/*
     flex: 1;
     overflow-x: scroll;
+*/
 }
+
+#subsidieTable_wrapper {
+    display:inline;
+    width: 100%; 
+    overflow-x: scroll;
+/*
+    flex: 1;
+    overflow-x: scroll;
+*/
+}
+
 
 .footer-block {
     margin-bottom: 10px;
