@@ -15,6 +15,9 @@ $(document).ready(function () {
             $parent.addClass('active');
         }
         e.preventDefault();
+        graph_periodiek.resized();
+        graph_aangevraagd_toegekend.resized();
+        graph_thema.resized();
     });
 });
 
