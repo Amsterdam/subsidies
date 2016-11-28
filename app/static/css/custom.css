@@ -334,7 +334,7 @@ label{
 
 #lijsten {
     width: 100%; 
-    display: flex;
+    padding-left: 15px;
 /*
     width: 100%;
     display: flex;
@@ -342,14 +342,10 @@ label{
 }
 
 #lijstFilter {
-    display:inline;
-    width: 200px; 
-/*    width: 200px;*/
+    width: 200px;
 }
 
 #dataTable {
-    display:inline;
-    width: 100%; 
     overflow-x: scroll;
 /*
     flex: 1;
@@ -357,15 +353,6 @@ label{
 */
 }
 
-#subsidieTable_wrapper {
-    display:inline;
-    width: 100%; 
-    overflow-x: scroll;
-/*
-    flex: 1;
-    overflow-x: scroll;
-*/
-}
 
 
 .footer-block {
