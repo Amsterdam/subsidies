@@ -1,6 +1,7 @@
 html {
     font-family: verdana, sans-serif;
     font-size: 11px;
+    width: 100%;
 }
 
 body {
@@ -18,6 +19,7 @@ header {
 }
 
 p {
+    font-family: verdana, sans-serif;
     font-size: 11px;
 }
 
@@ -56,14 +58,19 @@ p {
 /*    margin: 0;*/
     padding-left: 11px;
     list-style: square;
+    font-family: verdana, sans-serif;
     font-size: 11px;
 }
 
 .ul-inner {
     list-style-type: none;
+    font-family: verdana, sans-serif;
+    font-size: 11px;
 }
 .ul-inner > li {
     text-indent: -10px;
+    font-family: verdana, sans-serif;
+    font-size: 11px;
 }
 .ul-inner > li:before {
     content: "- ";
@@ -87,7 +94,7 @@ p {
 }
 
 #subsidieTable {
-    font-family: verdana;
+    font-family: verdana, sans-serif;
     font-size: 11px;
     overflow: scroll;
     width: 100%;
@@ -96,6 +103,8 @@ p {
 #subsidieTable th {
     background-color: #333333;
     color: white;
+    font-family: verdana, sans-serif;
+    font-size: 11px;
 }
 
 #subsidieTable tr:nth-child(odd) {
@@ -119,8 +128,9 @@ label{
 }
 
 .axis {
-    font: sans-serif;
-    font-size: 11px;
+    font-size: 10px;
+    font-family: verdana, sans-serif;
+
 }
 
 .axis path,
@@ -199,6 +209,8 @@ label{
     margin-bottom: 10px;
     padding: 0px;
     color: whitesmoke;
+    font-family: verdana, sans-serif;
+    font-size: 11px;
 }
 
 #page-footer-content a {
@@ -240,17 +252,19 @@ label{
 
 .graph-head{
     text-align: center;
+    margin-top: 15px;
+    font-size: 21px;
     min-height: 42px;
     border-bottom: 1px solid;
     border-bottom-color: lightgray;
 }
 .graph-head h3 {
     font-size: 18px;
-
+    min-height: 46px;
 }
 
 .graph_graph {
-    margin: 5px;
+    margin: 0px;
     padding: 0px;
 
 }
@@ -267,12 +281,14 @@ label{
 }
 
 .graph_text li{
+    font-family: verdana, sans-serif;
     max-width: 650px;
     font-size: 11px;
     padding-left: 0px;
 }
 
 .graph_table {
+    font-family: verdana, sans-serif;
     font-size: 11px;
     width: 100%;
 }
@@ -287,10 +303,12 @@ label{
 }
 
 .bartext {
-    font-size: 11px;
+    font-family: verdana, sans-serif;
+    font-size: 10px;
 }
 
 .barsubtext {
+    font-family: verdana, sans-serif;
     font-size: 11px;
 }
 
@@ -329,3 +347,39 @@ label{
 .footer-block {
     margin-bottom: 10px;
 }
+
+/*
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 300px;
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 10;
+    left: 10;
+}
+*/
+
+/*
+.svg-container-hor {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 600px;
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-hor-cont {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+*/
+
+

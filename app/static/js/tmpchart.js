@@ -1,4 +1,4 @@
-var horChart = function( opts ) {
+var aChart = function( opts ) {
      'use strict';
     
     this.data = opts.data || [];

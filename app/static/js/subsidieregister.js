@@ -18,7 +18,6 @@ $(document).ready(function () {
     });
 });
 
-
 //Functon to show divs from the nav menu
 function show_div(toShow)
 {
@@ -82,7 +81,7 @@ function parseISO8601(dateStringInRange) {
 */
 function readData() {
     'use strict';
-    console.log('reading data')
+//    console.log('reading data')
     var ssv = d3.dsv(',');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
@@ -210,9 +209,9 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
 function initCharts(){
     'use strict';
     
-    graph_aangevraagd_toegekend = new BarChart({placeholder:"aangevraagd_toegekend"});
-    graph_periodiek = new BarChart({placeholder:"periodiek"});
-    graph_thema = new HorBarChart({placeholder:"thema"});
+    graph_aangevraagd_toegekend = new barChart({placeholder:"aangevraagd_toegekend"});
+    graph_periodiek = new barChart({placeholder:"periodiek"});
+    graph_thema = new horChart({placeholder:"thema"});
     
     dataPrep();
 };
@@ -242,19 +241,12 @@ function buildFilters(){
                 .text(function(d){ return d.key;});
     
     var bedragFilter = document.createElement('div')
-    bedragFilter.innerHTML= `<label>Verleend bedrag</label>
-        min.<br><input type="number" id="bedragVanaf"><br>
-        max.<br><input type="number" id="bedragTot"><br>
-        <hr>`
+    bedragFilter.innerHTML= '<label>Verleend bedrag</label>min.<br><input type="number" id="bedragVanaf"><br>max.<br><input type="number" id="bedragTot"><br><hr>';
     divHolder.appendChild( bedragFilter ) 
     
 
     var soortFilter = document.createElement('div')
-    soortFilter.innerHTML= `<label>Soort</label>
-                            <label class='check'><input name='tijd' type="checkbox" id ='Periodiek'>Periodiek</label>
-                            <br>
-                            <label class='check'><input name='tijd' type="checkbox" id ='Eenmalig'>Eenmalig</label>
-                            <hr>`
+    soortFilter.innerHTML= "<label>Soort</label><label class='check'><input name='tijd' type= 'checkbox' id ='Periodiek'>Periodiek</label><br><label class='check'><input name='tijd' type='checkbox' id ='Eenmalig'>Eenmalig</label><hr>";
     divHolder.appendChild( soortFilter ) 
     
     
@@ -493,6 +485,15 @@ $.fn.dataTable.ext.search.push(
         
         return returnValue;
 });
+
+
+d3.select(window).on("resize", resized);
+
+function resized(){
+    graph_aangevraagd_toegekend.resized();
+    graph_periodiek.resized();
+    graph_thema.resized();
+};
 
 
 readData();

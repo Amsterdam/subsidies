@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
         <title>Subsidieregister</title>
         
         <noscript>De gebruikte browser support geen Javascript! Kies een andere browser</noscript>
@@ -28,6 +31,23 @@
         <!-- End Piwik Code -->
         
     </head>
+    
+    <style>
+            /*!
+         * IE10 viewport hack for Surface/desktop Windows 8 bug
+         * Copyright 2014-2015 Twitter, Inc.
+         * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+         */
+
+        /*
+         * See the Getting Started docs for more information:
+         * http://getbootstrap.com/getting-started/#support-ie10-width
+         */
+        @-ms-viewport     { width: device-width; }
+        @-o-viewport      { width: device-width; }
+        @viewport         { width: device-width; }
+
+    </style>
     
     <body>
         <div id="loading">
@@ -75,8 +95,8 @@
     
                             <!--start eerste grafiek-->
                             <div id = 'main_aangevraagd_toegekend' class= 'col-xs-12 col-md-6 main_graph'>
-                                <h3 class='graph-head'>Aangevraagd, verleend en vastgesteld<h3>
-                                <div id = 'aangevraagd_toegekend' class='graph_graph'>
+                                <div class='graph-head'>Aangevraagd, verleend en vastgesteld</div>
+                                <div id = 'aangevraagd_toegekend' class=''>
                                     
                                 </div>
                                 <div id = 'aangevraagd_text' class='graph_text' >
@@ -109,9 +129,9 @@
     
  
                             <!--start tweede grafiek-->
-                            <div id = 'main_soort' class= 'col-xs-12 col-md-6 main_graph'>
-                                <h3 class='graph-head'>Soort<h3>
-                                <div id = 'periodiek' class='graph_graph'>
+                            <div id = 'main_soort' class= 'col-xs-12 col-md-6 main_graph '>
+                                <div class='graph-head'>Soort</div>
+                                <div id = 'periodiek' class='graph_graph svg-container'>
                                     
                                 </div>
                                 <div id = 'soort_text' class='graph_text' >
@@ -141,8 +161,8 @@
                                 
                             <!--start derde grafiek-->
                             <div id = 'main_aangevraagd_toegekend' class= 'col-xs-12 col-md-12 main_graph'>
-                                <h3 class='graph-head'>Verleend bedrag per thema<h3>
-                                <div id = 'thema' class='graph_graph'>
+                                <div class='graph-head'>Verleend bedrag per thema</div>
+                                <div id = 'thema' class='graph_graph svg-container-hor'>
                                     
                                 </div>
                                 <div id = 'thema_text' class='graph_text' >
@@ -221,8 +241,24 @@
         <script src="static/js/jquery.min.js"></script>
         <script src="static/DataTables/datatables.min.js"></script>
         <script src="static/js/barChart.js"></script>
+<!--        <script src="static/js/tmpchart.js"></script>-->
+        
         <script src="static/js/horbarchart.js"></script>
+
         <script src="static/js/subsidieregister.js"></script>        
+<!--
+        <script>
+            var chart = $("#chart"),
+                aspect = chart.width() / chart.height(),
+                container = chart.parent();
+            $(window).on("resize", function() {
+                console.log('well');
+                var targetWidth = container.width();
+                                chart.attr("width", targetWidth);
+                                chart.attr("height", Math.round(targetWidth / aspect));
+                                }).trigger("resize");
+        </script>
+-->
     </body>
 
 
