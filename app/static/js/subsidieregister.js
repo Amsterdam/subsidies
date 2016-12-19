@@ -227,12 +227,12 @@ function buildFilters(){
     var divHolder = document.getElementById('lijstFilter');
     
     var zoek = document.createElement('div')
-    zoek.innerHTML= "<label>Zoeken</label><input type='text' id='myInputTextField'><hr>"
+    zoek.innerHTML= "<label class='filter_label'>Zoeken</label><input type='text' id='myInputTextField'><hr>"
     divHolder.appendChild( zoek ) 
     
     
     var jaarFilter = document.createElement('div')
-    jaarFilter.innerHTML= "<label>Jaar</label><select id='jaar'></select><hr></div>"
+    jaarFilter.innerHTML= "<label class='filter_label'>Jaar</label><select id='jaar'></select><hr></div>"
     divHolder.appendChild( jaarFilter ) 
     
     var high = "2017"
@@ -244,12 +244,12 @@ function buildFilters(){
                 .text(function(d){ return d.key;});
     
     var bedragFilter = document.createElement('div')
-    bedragFilter.innerHTML= '<label>Verleend bedrag</label>min.<br><input type="number" id="bedragVanaf"><br>max.<br><input type="number" id="bedragTot"><br><hr>';
+    bedragFilter.innerHTML= '<label class="filter_label">Verleend bedrag</label>min.<br><input type="number" id="bedragVanaf"><br>max.<br><input type="number" id="bedragTot"><br><hr>';
     divHolder.appendChild( bedragFilter ) 
     
 
     var soortFilter = document.createElement('div')
-    soortFilter.innerHTML= "<label>Soort</label><label class='check'><input name='tijd' type= 'checkbox' id ='Periodiek'>Periodiek</label><br><label class='check'><input name='tijd' type='checkbox' id ='Eenmalig'>Eenmalig</label><hr>";
+    soortFilter.innerHTML= "<label class='filter_label'>Soort</label><label class='check'><input name='tijd' type= 'checkbox' id ='Periodiek'>Periodiek</label><br><label class='check'><input name='tijd' type='checkbox' id ='Eenmalig'>Eenmalig</label><hr>";
     divHolder.appendChild( soortFilter ) 
     
     

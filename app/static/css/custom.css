@@ -13,6 +13,7 @@ header {
 /*          height: 100;*/
     margin-bottom: 10px;
     margin-right: 25px;
+    font-family: "Avenir LT W01 85 Heavy","AvenirHeavy",arial,sans-serif;
 }
 
 #header-row {
@@ -186,6 +187,7 @@ label{
     text-decoration: none;
     color: whitesmoke;
     font-weight: 200;
+    font-family: "Avenir LT W01 85 Heavy","AvenirHeavy",arial,sans-serif;
 
 }
 
@@ -205,6 +207,10 @@ label{
     padding: 0px;
 }
 
+#page-footer-content h4 {
+    font-family: "Avenir LT W01 85 Heavy","AvenirHeavy",arial,sans-serif;
+}
+
 #page-footer-content {
     background-color: gray;
     margin-bottom: 10px;
@@ -216,6 +222,7 @@ label{
 
 #page-footer-content a {
     color: whitesmoke;
+    text-decoration: underline;
 }
 
 #logo-Adam {
@@ -252,12 +259,13 @@ label{
 }
 
 .graph-head{
-    text-align: center;
+    text-align: left;
     margin-top: 15px;
     font-size: 21px;
     min-height: 42px;
     border-bottom: 1px solid;
     border-bottom-color: lightgray;
+    font-family: "Avenir LT W01 85 Heavy","AvenirHeavy",arial,sans-serif;
 }
 .graph-head h3 {
     font-size: 18px;
@@ -273,12 +281,14 @@ label{
     padding-left: 0px;
     max-width: 650px;
     font-size: 11px;
+    
 }
 
 .graph_text ul{
     max-width: 650px;
     font-size: 11px;
     padding-left: 11px;
+    list-style: square;
 }
 
 .graph_text li{
@@ -354,11 +364,23 @@ label{
 */
 }
 
-
+.filter_label {
+    font-family: "Avenir LT W01 85 Heavy","AvenirHeavy",arial,sans-serif;
+}
 
 .footer-block {
     margin-bottom: 10px;
 }
+
+#page-main-content a {
+    color: inherit;
+    text-decoration: underline;
+    
+}
+#page-main-content a:hover {
+    color: #F00000;
+}
+
 
 /*
 .svg-container {
