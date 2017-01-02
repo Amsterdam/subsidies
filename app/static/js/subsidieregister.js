@@ -85,7 +85,7 @@ function parseISO8601(dateStringInRange) {
 function readData() {
     'use strict';
 //    console.log('reading data')
-    var ssv = d3.dsv(',');
+    var ssv = d3.dsv(';');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv
@@ -256,7 +256,7 @@ function buildFilters(){
     // routine to populate the filter menu with checkboxes for the type
     var aDiv = document.createElement('div');
     aDiv.id = 'ftlrType'
-    aDiv.innerHTML = '<label>Organisatie</label>'
+    aDiv.innerHTML = '<label class="filter_label">Organisatie</label>'
     divHolder.appendChild(aDiv);
     
     var nested = d3.nest().key( function(d){ return d.ORGANISATIEONDERDEEL; }).entries(data);    
@@ -284,7 +284,7 @@ function buildFilters(){
     // routine to populate the filter menu with checkboxes for the type
     aDiv = document.createElement('div');
     aDiv.id = 'ftlrThema'
-    aDiv.innerHTML = '<label>Organisatie</label>'
+    aDiv.innerHTML = '<label class="filter_label">Thema</label>'
     divHolder.appendChild(aDiv);
     
     var nested = d3.nest().key( function(d){ return d.BELEIDSTERREIN; }).entries(data);    
