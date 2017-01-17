@@ -101,7 +101,7 @@ var horChart = function( opts ) {
                         });
                 that.xScale.domain([0,topValue]);
 
-                // updat the bars
+                // update the bars
                 bars = that.canvas.selectAll(".bar").data(that.data, function(d){ return d.key; }); // bind the data to the bars
                 bars.transition().duration(300).attr("width", function(d){ if( d3.select(this).attr("class") == 'bar notshown') { return 10; } else { return that.xScale(d.values); } } );
 
@@ -129,7 +129,7 @@ var horChart = function( opts ) {
                 return that.yScale(d.key) + that.yScale.rangeBand() / 2 + (8 /2);
             })
             .text(function(d){
-                 return d3.round(d.values);
+                 return eur(d3.round(d.values));
             });
 
         txts.enter()
