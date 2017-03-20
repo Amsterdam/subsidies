@@ -85,7 +85,7 @@ function parseISO8601(dateStringInRange) {
 function readData() {
     'use strict';
 //    console.log('reading data')
-    var ssv = d3.dsv(',');
+    var ssv = d3.dsv(';');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv
