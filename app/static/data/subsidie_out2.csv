@@ -1,7 +1,7 @@
 TABLE_NAME;DOSSIERNUMMER;AANVRAGER;REGELINGNAAM;BELEIDSTERREIN;ORGANISATIEONDERDEEL;PROJECT_NAAM;TYPE_PERIODICITEIT;BEDRAG_AANGEVRAAGD;BEDRAG_VERLEEND;BEDRAG_VASTGESTELD;SUBSIDIEJAAR;DATUM_OVERZICHT
 SB_MI_SUBSIDIEREGISTER;SBA-000090;(Particulier);Subsidie Vrijwilligersinitiatieven in Zuid;Welzijn en Zorg;stadsdeel Zuid;het organiseren van een wekelijkse voor ouderen waar zij kunnen bridgen en klaverjassen;Eenmalig;1850.00;1850.00;NULL;2016;2017-03-27 01:00:12.527
 SB_MI_SUBSIDIEREGISTER;SBA-000019;(Particulier);Subsidieregeling Bewonersinitiatieven;Welzijn en Zorg;stadsdeel Zuid;Jazzclub New Orleans;Eenmalig;4000.00;4000.00;NULL;2016;2017-03-27 01:00:12.527
-SB_MI_SUBSIDIEREGISTER;SBA-000082;(Particulier);Nadere regels subsidie Kunst Cultuur West;Cultuur;stadsdeel West;filmactiviteit;Eenmalig;10000.00;10000.00;NULL;2016;2017-03-27 01:00:12.527
+SB_MI_SUBSIDIEREGISTER;SBA-000082;(Particulier);Nadere regels subsidie Kunst Cultuur West;Cultuur;stadsdeel West;filmactiviteit;Eenmalig;10000.00;10000.00;NULL;2016;2017-03-27 01:00:12.537
 SB_MI_SUBSIDIEREGISTER;SBA-000222;(Particulier);Eenmalige Initiatieven SD Zuid;Algemeen;stadsdeel Zuid;Biesbosch straatdiner;Eenmalig;1479.00;1479.00;NULL;2016;2017-03-27 01:00:12.527
 SB_MI_SUBSIDIEREGISTER;SBA-000257;(Particulier);Nadere regels subsidie Kunst Cultuur West;Cultuur;stadsdeel West;community art;Eenmalig;4000.00;4000.00;NULL;2016;2017-03-27 01:00:12.527
 SB_MI_SUBSIDIEREGISTER;SBA-000308;(Particulier);Subsidieregeling Burgerschap en Diversiteit;Participatie;Onderwijs, Jeugd en Zorg;Filmvertoning en discussieavond met Cecile Emeke;Eenmalig;1400.00;1400.00;NULL;2016;2017-03-27 01:00:12.527
