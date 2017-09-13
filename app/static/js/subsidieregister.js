@@ -235,7 +235,7 @@ function buildFilters(){
     jaarFilter.innerHTML= "<label class='filter_label'>Jaar</label><select id='jaar'></select><hr></div>"
     divHolder.appendChild( jaarFilter ) 
     
-    var high = "2017"
+    var high = "2018"
     d3.select("#jaar")
                 .selectAll("option")
                 .data(jaren).enter()
