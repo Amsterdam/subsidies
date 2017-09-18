@@ -4,7 +4,7 @@ var data_vraag_verleend = [];
 var graph_aangevraagd_toegekend = null;
 var graph_periodiek = null;
 var graph_thema = null;
-
+var currentYear = (new Date()).getFullYear().toString();
 
 $(document).ready(function () {
     $('.navigation-toggle li a').click(function(e) {
@@ -88,7 +88,7 @@ function readData() {
     var ssv = d3.dsv(';');
     ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
         if (error) { throw error; } ;
-        data = data_csv
+        data = data_csv;
         
         jaren = d3.nest()
             .key( function(d){return d.SUBSIDIEJAAR;})
@@ -135,12 +135,11 @@ function buildPage() {
 function buildGraphs(){
     
     var select_i = d3.select('#fltrJaar').on('change',dataPrep);
-    var high = d3.max(jaren, function(d){ return d.key });
-
+    
     select_i.selectAll("option")
         .data(jaren).enter()
         .append('option')
-        .property("selected", function(d){ return d.key === high; })
+        .property("selected", function(d){ return d.key === currentYear; })
         .text(function(d){return d.key;});
     
     initCharts();
@@ -196,14 +195,22 @@ function giveData( data_vraag_verleend, data_periode, data_thema ){
     graph_periodiek.setData(data_periode);
     graph_thema.setData(data_thema);
     
-    d3.select('#aangevraagd_cell').text(eur(data_vraag_verleend[0].values * 1000))
-    d3.select('#verleend_cell').text(eur(data_vraag_verleend[1].values * 1000))
-    d3.select('#vastgesteld_cell').text(eur(data_vraag_verleend[2].values * 1000))
+    if (data_vraag_verleend[1]) {
+        d3.select('#aangevraagd_cell').text(eur(data_vraag_verleend[0].values * 1000))
+    }
+    if (data_vraag_verleend[1]) {
+        d3.select('#verleend_cell').text(eur(data_vraag_verleend[1].values * 1000))
+    }
+    if (data_vraag_verleend[2]) {
+        d3.select('#vastgesteld_cell').text(eur(data_vraag_verleend[2].values * 1000))
+    }
+    if (data_periode[0]) {
+        d3.select('#eenmalig_cell').text(eur(data_periode[0].values * 1000))
+    }
+    if (data_periode[1]) {
+        d3.select('#periodiek_cell').text(eur(data_periode[1].values * 1000))
+    }
     
-    d3.select('#eenmalig_cell').text(eur(data_periode[0].values * 1000))
-    d3.select('#periodiek_cell').text(eur(data_periode[1].values * 1000))
-    
-        
 };
 
 //----
@@ -235,12 +242,11 @@ function buildFilters(){
     jaarFilter.innerHTML= "<label class='filter_label'>Jaar</label><select id='jaar'></select><hr></div>"
     divHolder.appendChild( jaarFilter ) 
     
-    var high = "2018"
     d3.select("#jaar")
                 .selectAll("option")
                 .data(jaren).enter()
                 .append('option')
-                .property("selected", function(d){ return d.key === high; })
+                .property("selected", function(d){ return d.key === currentYear; })
                 .text(function(d){ return d.key;});
     
     var bedragFilter = document.createElement('div')
@@ -322,12 +328,12 @@ function buildTables(data) {
                 "lengthMenu": [[25, 50, -1], [25, 50, "All"]],
                 "language": {"url": "static/DataTables/language.json"},
                 "columns": [ {"data":"AANVRAGER", "width": "10%"},
-                             {"data":"PROJECT_NAAM", "width": "10%"},	
+                             {"data":"PROJECT_NAAM", "width": "10%"},   
                              {"data":"REGELINGNAAM", "width": "15%"},
                              {"data":"ORGANISATIEONDERDEEL", "width": "10%"}, 
                              {"data":"BELEIDSTERREIN", "width": "10%"}, 
                              {"data":"SUBSIDIEJAAR", "width": "5%"}, 
-                             {"data":"TYPE_PERIODICITEIT", "width": "5%"},	
+                             {"data":"TYPE_PERIODICITEIT", "width": "5%"},  
                              {"data":function(row, type, val, meta ){ 
                                  if(type === 'set'){ 
                                      row.BEDRAG_AANGEVRAAGD = val; 
@@ -500,4 +506,3 @@ function resized(){
 
 
 readData();
-
