@@ -1,5 +1,6 @@
 # Subsidies City of Amsterdam #
 
+
 Subsite with d3.js graphs and DataTables representation of subsidies given by the City of Amsterdam.
 
 ### Install procedure ###
