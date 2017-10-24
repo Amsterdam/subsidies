@@ -7,7 +7,7 @@ Subsite with d3.js graphs and DataTables representation of subsidies given by th
 download and install <a href="https://www.docker.com">docker</a></br>
 
 ```
-git clone https://github.com/DatapuntAmsterdam/subsidies.git subsidies
+git clone https://github.com/Amsterdam/subsidies.git subsidies
 cd subsidies
 docker-compose build
 docker-compose up
