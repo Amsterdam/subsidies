@@ -1,4 +1,4 @@
-# Subsidies City of Amsterdam #
+#  Subsidies City of Amsterdam  #
 
 
 Subsite with d3.js graphs and DataTables representation of subsidies given by the City of Amsterdam.
@@ -14,3 +14,4 @@ docker-compose up -d
 ```
 The site can be found on http://localhost:8001</br>
 The data is loaded the included csv file.
+
