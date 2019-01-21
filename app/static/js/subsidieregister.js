@@ -82,11 +82,13 @@ function parseISO8601(dateStringInRange) {
 *  Basic function for reading the data from file
 *  Used to read data and place it in a local variable
 */
+
+
 function readData() {
     'use strict';
 //    console.log('reading data')
     var ssv = d3.dsv(';');
-    ssv("static/data/subsidie_out2.csv", type, function(error, data_csv) {
+    ssv("https://api.data.amsterdam.nl/dcatd/datasets/openbaar-subsidieregister-amsterdam/purls/72c8_AyB5gvJ4Q", type, function(error, data_csv) {
         if (error) { throw error; } ;
         data = data_csv;
         
@@ -503,6 +505,5 @@ function resized(){
     graph_periodiek.resized();
     graph_thema.resized();
 };
-
 
 readData();
