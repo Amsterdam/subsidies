@@ -90,8 +90,14 @@ function readData() {
     var ssv = d3.dsv(';');
     ssv("https://api.data.amsterdam.nl/dcatd/datasets/openbaar-subsidieregister-amsterdam/purls/72c8_AyB5gvJ4Q", type, function(error, data_csv) {
         if (error) { throw error; } ;
-        data = data_csv;
         
+        // Clean file removing non subsidie rows like empty rows
+        data = data_csv.filter(function(d){
+            if(!isNaN(parseInt(d.SUBSIDIEJAAR, 10)) && !d.PROJECT_NAAM == "")  {
+                return d;
+            }
+        });
+
         jaren = d3.nest()
             .key( function(d){return d.SUBSIDIEJAAR;})
             .rollup(function(leaves) { return leaves.length; })
@@ -121,9 +127,9 @@ function type( d ) {
 };
 
 //
-//Function used to build up the webpage
-//function places the basis structure of the page on 
-//a blank webpage
+// Function used to build up the webpage
+// function places the basis structure of the page on 
+// a blank webpage
 
 function buildPage() {
     'use strict';
@@ -180,7 +186,9 @@ function dataPrep(){
         
     data_thema.sort(function(a,b){return d3.descending(a.values, b.values);})
     
+    // get date from second row of data, first row contains ------
     var x = data[0].DATUM_OVERZICHT;
+
     document.getElementById('dataupdate').textContent = x.getDate().toString() + "-" + ( x.getMonth() + 1).toString() + "-" + x.getFullYear().toString();
     
     
