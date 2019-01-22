@@ -88,8 +88,8 @@ function readData() {
     'use strict';
 //    console.log('reading data')
     var ssv = d3.dsv(';');
-    ssv("https://api.data.amsterdam.nl/dcatd/datasets/openbaar-subsidieregister-amsterdam/purls/72c8_AyB5gvJ4Q", type, function(error, data_csv) {
-        if (error) { throw error; } ;
+    ssv("https://api.data.amsterdam.nl/dcatd/datasets/openbaar-subsidieregister-amsterdam/purls/72c8_AyB5gvJ4Q", type, function(data_csv) { //function(error, data_csv) {
+        // if (error) { throw error; } ;
         
         // Clean file removing non subsidie rows like empty rows
         data = data_csv.filter(function(d){
