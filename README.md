@@ -6,7 +6,7 @@ Subsite with d3.js graphs and DataTables representation of subsidies given by th
 To see the site live:
 http://subsidie-feiten.amsterdam.nl
 
-The data is obtained through a CSV via a persistant link from [our data portal](https://data.amsterdam.nl/#?dte=dcatd%2Fdatasets%2Fopenbaar-subsidieregister-amsterdam&dtfs=T&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945):
+The data is obtained through a CSV via a persistant link from [our data portal](https://data.amsterdam.nl/datasets/yvlbMxqPKn1ULw):
 
 
 ### Install procedure ###
