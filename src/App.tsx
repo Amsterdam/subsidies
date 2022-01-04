@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Column, Row, themeColor } from "@amsterdam/asc-ui";
 
 import Lijst from "./Lijst";
-import Feiten from "./Feiten";
+import Feiten from "./Feiten/Index";
 
 const OuterWrapper = styled.div`
   background-color: ${themeColor("tint", "level3")};
