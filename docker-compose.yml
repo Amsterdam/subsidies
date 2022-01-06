@@ -1,6 +1,8 @@
-version: '3.0'
+version: "3.5"
 services:
-  subsidies:
-    build: .
+  web:
+    build:
+      context: .
     ports:
-      - "80:80"
+      - "8080:80"
+    ipc: host
