@@ -1,6 +1,7 @@
 import { List, ListItem } from "@amsterdam/asc-ui";
+import AangevraagdVerleendVastgesteldChart from "../Components/AangevraagdVerleendVastgesteldChart";
 
-const AangevraagdVerleendVastgesteld = () => {
+const AangevraagdVerleendVastgesteld = ({ jaar }) => {
   return (
     <>
       <h2>Aangevraagd, verleend en vastgesteld</h2>
@@ -12,6 +13,8 @@ const AangevraagdVerleendVastgesteld = () => {
           gesubsidieerde activiteiten
         </ListItem>
       </List>
+
+      <AangevraagdVerleendVastgesteldChart jaar={jaar} />
     </>
   );
 };

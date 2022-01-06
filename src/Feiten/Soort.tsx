@@ -1,6 +1,7 @@
 import { List, ListItem } from "@amsterdam/asc-ui";
+import EenmaligPeriodiekChart from "../Components/EenmaligPeriodiekChart";
 
-const Soort = () => {
+const Soort = ({ jaar }) => {
   return (
     <>
       <h2>Soort</h2>
@@ -15,6 +16,8 @@ const Soort = () => {
           een aantal boekjaren aan een aanvrager worden verstrekt met een maximum van vier jaar
         </ListItem>
       </List>
+
+      <EenmaligPeriodiekChart jaar={jaar} />
     </>
   );
 };

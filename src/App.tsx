@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import { vega } from "vega-embed";
 import { Column, Row, themeColor } from "@amsterdam/asc-ui";
 
 import Lijst from "./Lijst";
@@ -18,6 +19,13 @@ const InnerWrapper = styled.div`
 `;
 
 const App = () => {
+  vega.formatLocale({
+    decimal: ",",
+    thousands: ".",
+    grouping: [3],
+    currency: ["\u00a0€", ""],
+  });
+
   return (
     <OuterWrapper>
       <Row>

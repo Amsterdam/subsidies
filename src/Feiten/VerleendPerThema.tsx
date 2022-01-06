@@ -1,4 +1,6 @@
-const VerleendPerThema = () => {
+import VerleendPerThemaChart from "../Components/VerleendPerThemaChart";
+
+const VerleendPerThema = ({ jaar }) => {
   return (
     <>
       <h2>Verleend bedrag per thema</h2>
@@ -7,6 +9,8 @@ const VerleendPerThema = () => {
         de overige categorieën beter zichtbaar wordt. Door nogmaals op de balk te klikken krijgt de categorie zijn
         oorspronkelijke schaal.
       </p>
+
+      <VerleendPerThemaChart jaar={jaar} />
     </>
   );
 };
