@@ -18,7 +18,7 @@ RUN git config --global url."https://github.com/".insteadOf git@github.com:
 
 
 # Install NPM dependencies.
-RUN npm --production --unsafe-perm ci && \
+RUN npm --production=false --unsafe-perm ci && \
   npm cache clean --force
 
 COPY . /app
