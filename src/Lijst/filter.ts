@@ -30,6 +30,10 @@ function filter(filters: Filter, data: Subisidie[]) {
     });
   }
 
+  if (filters.themas && filters.themas.length > 0) {
+    filteredData = filteredData.filter((d) => filters.themas.includes(d.BELEIDSTERREIN));
+  }
+
   console.log(`Total after filtering: ${filteredData.length}`);
 
   return filteredData;

@@ -14,6 +14,7 @@ const Lijst = () => {
     periodiek: false,
     eenmalig: false,
     jaar: `${new Date().getFullYear() - 1}`,
+    themas: [],
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
 
@@ -44,6 +45,8 @@ const Lijst = () => {
               <span>{d.BEDRAG_VERLEEND}</span>
               <span>&nbsp;</span>
               <span>{d.TYPE_PERIODICITEIT}</span>
+              <span>&nbsp;</span>
+              <span>{d.BELEIDSTERREIN}</span>
             </p>
           ))}
         </div>

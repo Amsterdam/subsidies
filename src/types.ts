@@ -21,4 +21,5 @@ export type Filter = {
   maximaal?: number;
   periodiek?: boolean;
   eenmalig?: boolean;
+  themas: string[];
 };

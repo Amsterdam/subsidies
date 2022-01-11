@@ -123,7 +123,20 @@ const FilterModal = ({
             {themes &&
               themes.map((theme, index) => (
                 <FullWithLabel key={`theme_${index}`} htmlFor={`theme_${index}`} label={theme}>
-                  <Checkbox id={`theme_${index}`} />
+                  <Checkbox
+                    id={`theme_${index}`}
+                    checked={localFilters.themas.includes(theme)}
+                    onChange={() => {
+                      if (localFilters.themas.includes(theme)) {
+                        setLocalFilters({
+                          ...localFilters,
+                          themas: localFilters.themas.filter((t) => t !== theme),
+                        });
+                      } else {
+                        setLocalFilters({ ...localFilters, themas: [...localFilters.themas, theme] });
+                      }
+                    }}
+                  />
                 </FullWithLabel>
               ))}
           </Column>
