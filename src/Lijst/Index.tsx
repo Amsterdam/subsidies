@@ -14,7 +14,7 @@ const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
-  const [numberOfItems, setNumberOfItems] = useState(25);
+  const numberOfItems = 50;
   const filteredData = filter(filters, data).splice(0, numberOfItems)
 
   // args={{ page: 1, pageSize: 20, collectionSize: 60 }}
