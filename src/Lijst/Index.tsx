@@ -14,52 +14,11 @@ const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
-  console.log("liijst", data);
+  const [numberOfItems, setNumberOfItems] = useState(25);
 
-  // <Table>
-  //   <TableHeader>
-  //     <TableRow>
-  //       <TableCell as="th">One</TableCell>
-  //       <TableCell as="th">Two</TableCell>
-  //       <TableCell as="th">Three</TableCell>
-  //       <TableCell as="th">Four</TableCell>
-  //     </TableRow>
-  //   </TableHeader>
-  //   <TableBody>
-  //     <TableRow>
-  //       <TableCell>A looooooong text</TableCell>
-  //       <TableCell>1</TableCell>
-  //       <TableCell>
-  //         <Link variant="inline" href="/">
-  //           Lorem ipsum dolor sit amet.
-  //         </Link>
-  //       </TableCell>
-  //       <TableCell>2000</TableCell>
-  //     </TableRow>
-  //     <TableRow>
-  //       <TableCell>Foo</TableCell>
-  //       <TableCell>1</TableCell>
-  //       <TableCell>Baz</TableCell>
-  //       <TableCell>2000</TableCell>
-  //     </TableRow>
-  //   </TableBody>
-  // </Table>
+  const filteredData = filter(filters, data).splice(0, numberOfItems)
 
-  // AANVRAGER: "(Particulier)"
-  // BEDRAG_AANGEVRAAGD: 4000
-  // BEDRAG_VASTGESTELD: 4000
-  // BEDRAG_VERLEEND: 4000
-  // BELEIDSTERREIN: "Welzijn en Zorg"
-  // DATUM_OVERZICHT: "2022-01-10 01:00:59.190"
-  // DOSSIERNUMMER: "SBA-000019"
-  // ORGANISATIEONDERDEEL: "stadsdeel Zuid"
-  // PROJECT_NAAM: "Jazzclub New Orleans"
-  // REGELINGNAAM: "Subsidieregeling Bewonersinitiatieven"
-  // SUBSIDIEJAAR: "2016"
-  // TABLE_NAME: "SB_MI_SUBSIDIEREGISTER"
-  // TYPE_PERIODICITEIT: "Eenmalig"
-
-  const filteredData = filter(filters, data);
+  console.log("D", filteredData);
 
   return (
     <PageTemplate>
@@ -83,7 +42,7 @@ const Lijst = () => {
             {filteredData.map((d) => (
               <TableRow key={d.DOSSIERNUMMER}>
                 <TableCell>
-                  {d.PROJECT_NAAM}
+                  <b>{d.PROJECT_NAAM}</b>
                   <br />
                   {d.AANVRAGER}
                 </TableCell>
