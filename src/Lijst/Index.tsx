@@ -42,6 +42,8 @@ const Lijst = () => {
               <span>{d.SUBSIDIEJAAR}</span>
               <span>&nbsp;</span>
               <span>{d.BEDRAG_VERLEEND}</span>
+              <span>&nbsp;</span>
+              <span>{d.TYPE_PERIODICITEIT}</span>
             </p>
           ))}
         </div>

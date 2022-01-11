@@ -14,6 +14,22 @@ function filter(filters: Filter, data: Subisidie[]) {
     filteredData = filteredData.filter((d) => d.BEDRAG_VERLEEND < (filters.maximaal || 0));
   }
 
+  if (filters.eenmalig || filters.periodiek) {
+    filteredData = filteredData.filter((d) => {
+      if (filters.eenmalig && filters.periodiek) {
+        return true;
+      }
+
+      if (filters.eenmalig) {
+        return d.TYPE_PERIODICITEIT === "Eenmalig";
+      }
+
+      if (filters.periodiek) {
+        return d.TYPE_PERIODICITEIT === "Periodiek";
+      }
+    });
+  }
+
   console.log(`Total after filtering: ${filteredData.length}`);
 
   return filteredData;

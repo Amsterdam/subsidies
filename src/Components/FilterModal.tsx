@@ -103,6 +103,7 @@ const FilterModal = ({
             <Label htmlFor="periodiek" label="Periodiek">
               <Checkbox
                 id="periodiek"
+                checked={localFilters.periodiek}
                 onChange={() => {
                   setLocalFilters({ ...localFilters, periodiek: !localFilters?.periodiek });
                 }}
@@ -111,6 +112,7 @@ const FilterModal = ({
             <Label htmlFor="eenmalig" label="Eenmalig">
               <Checkbox
                 id="eenmalig"
+                checked={localFilters.eenmalig}
                 onChange={() => {
                   setLocalFilters({ ...localFilters, eenmalig: !localFilters?.eenmalig });
                 }}
