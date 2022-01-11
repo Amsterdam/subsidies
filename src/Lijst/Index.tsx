@@ -15,14 +15,20 @@ const Lijst = () => {
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
   const [numberOfItems, setNumberOfItems] = useState(25);
-
   const filteredData = filter(filters, data).splice(0, numberOfItems)
 
-  console.log("D", filteredData);
+  // args={{ page: 1, pageSize: 20, collectionSize: 60 }}
+  // <CompactPager {...args} />
+  // onPageChange
+
+  // args={{ page: 1, pageSize: 20, collectionSize: 60 }}
+  // <Pagination collectionSize={300} pageSize={10} page={2} />
+  // onPageChange
+
+  console.log("filteredData", filteredData);
 
   return (
     <PageTemplate>
-      <div>Lijst test</div>
       {!isLoading && (
         <Table>
           <TableHeader>
