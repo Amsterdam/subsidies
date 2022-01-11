@@ -81,17 +81,21 @@ const FilterModal = ({
             <Label htmlFor="minimaal" label="Minimaal" />
             <Input
               id="minimaal"
-              value={localFilters?.minimaal}
+              value={localFilters?.minimaal || 0}
+              type="number"
               onChange={(e: FormEvent<HTMLInputElement>) => {
-                setLocalFilters({ ...localFilters, minimaal: e.currentTarget.value });
+                const val = parseInt(e.currentTarget.value);
+                setLocalFilters({ ...localFilters, minimaal: val });
               }}
             />
             <Label htmlFor="maximaal" label="Maximaal" />
             <Input
               id="maximaal"
-              value={localFilters?.maximaal}
+              value={localFilters?.maximaal || 0}
+              type="number"
               onChange={(e: FormEvent<HTMLInputElement>) => {
-                setLocalFilters({ ...localFilters, maximaal: e.currentTarget.value });
+                const val = parseInt(e.currentTarget.value);
+                setLocalFilters({ ...localFilters, maximaal: val });
               }}
             />
 

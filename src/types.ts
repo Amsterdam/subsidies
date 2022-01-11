@@ -17,8 +17,8 @@ export type Subisidie = {
 export type Filter = {
   zoeken?: string;
   jaar: string;
-  minimaal?: string;
-  maximaal?: string;
+  minimaal?: number;
+  maximaal?: number;
   periodiek?: boolean;
   eenmalig?: boolean;
 };
