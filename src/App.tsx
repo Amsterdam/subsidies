@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { vega } from "vega-embed";
 import { Column, Row, themeColor } from "@amsterdam/asc-ui";
 
-import Lijst from "./Lijst";
+import Lijst from "./Lijst/Index";
 import Feiten from "./Feiten/Index";
 
 const OuterWrapper = styled.div`
