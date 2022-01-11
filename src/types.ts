@@ -13,3 +13,12 @@ export type Subisidie = {
   SUBSIDIEJAAR: string;
   DATUM_OVERZICHT: string;
 };
+
+export type Filter = {
+  zoeken?: string;
+  jaar: string;
+  minimaal?: string;
+  maximaal?: string;
+  periodiek?: boolean;
+  eenmalig?: boolean;
+};
