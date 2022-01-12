@@ -13,6 +13,7 @@ import {
 
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
+import { Subisidie } from "../types";
 
 // TODO: Move this function to a file
 function filter(filters, data) {
@@ -41,7 +42,7 @@ const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Subisidie[]>([]);
 
   useEffect(() => {
     onPageChange(1);
@@ -75,7 +76,7 @@ const Lijst = () => {
             </TableHeader>
 
             <TableBody>
-              {items.map((d: any) => (
+              {items.map((d) => (
                 <TableRow key={d.DOSSIERNUMMER}>
                   <TableCell>
                     <b>{d.PROJECT_NAAM}</b>
