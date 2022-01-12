@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Table, TableCell, TableBody, TableHeader, TableRow, Pagination } from "@amsterdam/asc-ui";
+import { Table, TableCell, TableBody, TableHeader, TableRow, Pagination, themeSpacing, themeColor } from "@amsterdam/asc-ui";
 
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
@@ -11,12 +11,14 @@ function filter(filters, data) {
 }
 
 const StyledTable = styled(Table)`
+  margin-bottom: ${themeSpacing(10)};
+
   tr:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: ${themeColor('tint', 'level2')};
   }
 
   th {
-    border-bottom: 2px solid black !important;
+    border-bottom: 2px solid ${themeColor('tint', 'level7')} !important;
   }
 
   td {
@@ -39,7 +41,7 @@ const Lijst = () => {
   }, [data]);
 
   const onPageChange = (page: number) => {
-    const offset = (page - 1) * numberOfItems + 1;
+    const offset: number = (page - 1) * numberOfItems + 1;
     setItems(filter(filters, data).slice(offset, offset + numberOfItems));
   };
 
