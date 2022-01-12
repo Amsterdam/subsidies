@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Table, TableCell, TableBody, TableHeader, TableRow, Pagination, themeSpacing, themeColor } from "@amsterdam/asc-ui";
+import {
+  Table,
+  TableCell,
+  TableBody,
+  TableHeader,
+  TableRow,
+  Pagination,
+  themeSpacing,
+  themeColor,
+} from "@amsterdam/asc-ui";
 
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
@@ -14,11 +23,11 @@ const StyledTable = styled(Table)`
   margin-bottom: ${themeSpacing(10)};
 
   tr:nth-child(even) {
-    background-color: ${themeColor('tint', 'level2')};
+    background-color: ${themeColor("tint", "level2")};
   }
 
   th {
-    border-bottom: 2px solid ${themeColor('tint', 'level7')} !important;
+    border-bottom: 2px solid ${themeColor("tint", "level7")} !important;
   }
 
   td {
