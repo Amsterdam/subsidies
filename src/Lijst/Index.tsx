@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "styled-components";
 import { Table, TableCell, TableBody, TableHeader, TableRow } from "@amsterdam/asc-ui";
 
 import { useSubsidieContext } from "../DataProvider";
@@ -8,6 +9,20 @@ import PageTemplate from "../PageTemplate";
 function filter(filters, data) {
   return data;
 }
+
+const StyledTable = styled(Table)`
+  tr:nth-child(even) {
+    background-color: #F5F5F5;
+  }
+
+  th {
+    border-bottom: 2px solid black !important;
+  }
+
+  td {
+    border-bottom: none !important;
+  }
+`;
 
 const Lijst = () => {
   // TODO: Maybe move this hook to the filter function? Maybe make that function a hook?
@@ -30,7 +45,7 @@ const Lijst = () => {
   return (
     <PageTemplate>
       {!isLoading && (
-        <Table>
+        <StyledTable>
           <TableHeader>
             <TableRow>
               <TableCell as="th">Project en naam</TableCell>
@@ -66,7 +81,7 @@ const Lijst = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+        </StyledTable>
       )}
     </PageTemplate>
   );
