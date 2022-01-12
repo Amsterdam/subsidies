@@ -75,7 +75,7 @@ const Lijst = () => {
             </TableHeader>
 
             <TableBody>
-              {items.map((d) => (
+              {items.map((d: any) => (
                 <TableRow key={d.DOSSIERNUMMER}>
                   <TableCell>
                     <b>{d.PROJECT_NAAM}</b>
