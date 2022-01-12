@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Table, TableCell, TableBody, TableHeader, TableRow } from "@amsterdam/asc-ui";
+import { Table, TableCell, TableBody, TableHeader, TableRow, Pagination } from "@amsterdam/asc-ui";
 
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
@@ -12,7 +12,7 @@ function filter(filters, data) {
 
 const StyledTable = styled(Table)`
   tr:nth-child(even) {
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
   }
 
   th {
@@ -25,63 +25,73 @@ const StyledTable = styled(Table)`
 `;
 
 const Lijst = () => {
+  const numberOfItems = 10;
   // TODO: Maybe move this hook to the filter function? Maybe make that function a hook?
   const { data, isLoading } = useSubsidieContext();
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
-  const numberOfItems = 50;
-  const filteredData = filter(filters, data).splice(0, numberOfItems)
+  const [items, setItems] = useState([]);
+  // const filteredData = filter(filters, data).slice(0, numberOfItems)
 
-  // args={{ page: 1, pageSize: 20, collectionSize: 60 }}
-  // <CompactPager {...args} />
-  // onPageChange
+  useEffect(() => {
+    setItems(filter(filters, data).slice(0, numberOfItems));
 
-  // args={{ page: 1, pageSize: 20, collectionSize: 60 }}
-  // <Pagination collectionSize={300} pageSize={10} page={2} />
-  // onPageChange
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
-  console.log("filteredData", filteredData);
+  const onPageChange = (page) => {
+    const offset = (page - 1) * numberOfItems + 1;
+    console.log("onPageChange", page, offset);
+    setItems(filter(filters, data).slice(offset, offset + numberOfItems));
+  };
+
+  console.log("items", items);
 
   return (
     <PageTemplate>
       {!isLoading && (
-        <StyledTable>
-          <TableHeader>
-            <TableRow>
-              <TableCell as="th">Project en naam</TableCell>
-              <TableCell as="th">Regeling en organisatie</TableCell>
-              <TableCell as="th">Thema</TableCell>
-              <TableCell as="th">Jaar</TableCell>
-              <TableCell as="th">Soort</TableCell>
-              <TableCell as="th">Aangevraagd</TableCell>
-              <TableCell as="th">Verleend</TableCell>
-              <TableCell as="th">Vastgesteld</TableCell>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody>
-            {filteredData.map((d) => (
-              <TableRow key={d.DOSSIERNUMMER}>
-                <TableCell>
-                  <b>{d.PROJECT_NAAM}</b>
-                  <br />
-                  {d.AANVRAGER}
-                </TableCell>
-                <TableCell>
-                  {d.REGELINGNAAM}
-                  <br />
-                  {d.ORGANISATIEONDERDEEL}
-                </TableCell>
-                <TableCell>{d.BELEIDSTERREIN}</TableCell>
-                <TableCell>{d.SUBSIDIEJAAR}</TableCell>
-                <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
-                <TableCell>{d.BEDRAG_AANGEVRAAGD}</TableCell>
-                <TableCell>{d.BEDRAG_VERLEEND}</TableCell>
-                <TableCell>{d.BEDRAG_VASTGESTELD}</TableCell>
+        <>
+          <StyledTable>
+            <TableHeader>
+              <TableRow>
+                <TableCell as="th">Project en naam</TableCell>
+                <TableCell as="th">Regeling en organisatie</TableCell>
+                <TableCell as="th">Thema</TableCell>
+                <TableCell as="th">Jaar</TableCell>
+                <TableCell as="th">Soort</TableCell>
+                <TableCell as="th">Aangevraagd</TableCell>
+                <TableCell as="th">Verleend</TableCell>
+                <TableCell as="th">Vastgesteld</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </StyledTable>
+            </TableHeader>
+
+            <TableBody>
+              {items.map((d) => (
+                <TableRow key={d.DOSSIERNUMMER}>
+                  <TableCell>
+                    <b>{d.PROJECT_NAAM}</b>
+                    <br />
+                    {d.AANVRAGER}
+                  </TableCell>
+                  <TableCell>
+                    {d.REGELINGNAAM}
+                    <br />
+                    {d.ORGANISATIEONDERDEEL}
+                  </TableCell>
+                  <TableCell>{d.BELEIDSTERREIN}</TableCell>
+                  <TableCell>{d.SUBSIDIEJAAR}</TableCell>
+                  <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
+                  <TableCell>{d.BEDRAG_AANGEVRAAGD}</TableCell>
+                  <TableCell>{d.BEDRAG_VERLEEND}</TableCell>
+                  <TableCell>{d.BEDRAG_VASTGESTELD}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </StyledTable>
+
+          <Pagination collectionSize={data.length} pageSize={numberOfItems} page={1} onPageChange={onPageChange} />
+        </>
+        // onPageChange
       )}
     </PageTemplate>
   );
