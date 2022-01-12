@@ -31,7 +31,6 @@ const Lijst = () => {
   // TODO: Define the correct type for the filters object
   const [filters, setFilters] = useState({});
   const [items, setItems] = useState([]);
-  // const filteredData = filter(filters, data).slice(0, numberOfItems)
 
   useEffect(() => {
     setItems(filter(filters, data).slice(0, numberOfItems));
@@ -39,9 +38,8 @@ const Lijst = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const onPageChange = (page) => {
+  const onPageChange = (page: number) => {
     const offset = (page - 1) * numberOfItems + 1;
-    console.log("onPageChange", page, offset);
     setItems(filter(filters, data).slice(offset, offset + numberOfItems));
   };
 
