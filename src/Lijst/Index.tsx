@@ -44,13 +44,13 @@ const Lijst = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    setItems(filter(filters, data).slice(0, numberOfItems));
+    onPageChange(1);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const onPageChange = (page: number) => {
-    const offset: number = (page - 1) * numberOfItems + 1;
+    const offset: number = (page - 1) * numberOfItems;
     setItems(filter(filters, data).slice(offset, offset + numberOfItems));
   };
 
