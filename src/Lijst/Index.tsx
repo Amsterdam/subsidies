@@ -4,12 +4,11 @@ import FilterModal from "../Components/FilterModal";
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { Filter } from "../types";
-import filter from "./filter";
+import useFilter from "./useFilter";
 
 const Lijst = () => {
-  // TODO: Maybe move this hook to the filter function? Maybe make that function a hook?
   const { data, isLoading } = useSubsidieContext();
-  // TODO: Define the correct type for the filters object
+
   const [filters, setFilters] = useState<Filter>({
     periodiek: false,
     eenmalig: false,
@@ -18,7 +17,7 @@ const Lijst = () => {
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
 
-  const filteredData = filter(filters, data);
+  const filteredData = useFilter(filters, data);
 
   return (
     <PageTemplate>

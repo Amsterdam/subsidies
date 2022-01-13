@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Checkbox, Input, Label, Modal, Select, themeSpacing } from "@amsterdam/asc-ui";
+import { Button, Checkbox, Input, Label, Modal, Select, themeColor, themeSpacing } from "@amsterdam/asc-ui";
 import { FormEvent, useState } from "react";
 import useGetDistinctYears from "../Hooks/useGetDistinctYears";
 import useGetDistinctThemes from "../Hooks/useGetDistinctThemes";
@@ -10,16 +10,42 @@ const ModalContent = styled.div`
   padding: ${themeSpacing(5)};
 `;
 
+const ModalHeader = styled.div`
+  padding-left: ${themeSpacing(5)};
+  padding-right: ${themeSpacing(5)};
+
+  border-bottom: 2px solid ${themeColor("tint", "level3")};
+
+  & h2 {
+    margin-top: ${themeSpacing(3)};
+    margin-bottom: ${themeSpacing(3)};
+  }
+`;
+
+const ModalFooter = styled.div`
+  border-top: 4px solid ${themeColor("tint", "level3")};
+`;
+
 const Row = styled.div`
   display: flex;
 `;
 
 const Column = styled.div`
   width: 50%;
+
+  margin-right: ${themeSpacing(7)};
+
+  &:last-child {
+    margin-right: 0px;
+  }
 `;
 
 const FullWithLabel = styled(Label)`
   display: flex;
+`;
+
+const WideModal = styled(Modal)`
+  max-width: 800px;
 `;
 
 const FilterModal = ({
@@ -39,7 +65,10 @@ const FilterModal = ({
   const [localFilters, setLocalFilters] = useState<Filter>(filters);
 
   return (
-    <Modal disablePortal open={showModal} backdropOpacity={0.3} onClose={() => setShowModal(false)}>
+    <WideModal disablePortal open={showModal} backdropOpacity={0.3} onClose={() => setShowModal(false)}>
+      <ModalHeader>
+        <h2>Filters</h2>
+      </ModalHeader>
       <ModalContent>
         <div>
           <Button
@@ -171,7 +200,7 @@ const FilterModal = ({
           </Column>
         </Row>
       </ModalContent>
-    </Modal>
+    </WideModal>
   );
 };
 
