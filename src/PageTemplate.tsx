@@ -1,29 +1,26 @@
 import styled from "styled-components";
+import { Row, Column, themeSpacing, themeColor } from "@amsterdam/asc-ui";
 
-import { Header, Footer, FooterTop, Row, Column, FooterSection, themeSpacing, themeColor } from "@amsterdam/asc-ui";
-import { Link } from "react-router-dom";
-
-const StyledFooter = styled(Footer)`
-  margin-top: ${themeSpacing(18)};
-
-  @media print {
-    display: none;
-  }
-`;
+import SubsidieFooter from "./Components/SubsidieFooter";
+import SubsidieHeader from "./Components/SubsidieHeader";
 
 const Page = styled.div`
-  height: 100vh;
-  display: grid;
-  grid-template-rows: [header] auto [main] 1fr [footer] auto;
-`;
-
-const ContentArea = styled.div`
-  grid-area: main;
-  overflow: auto;
+  background-color: ${themeColor("tint", "level3")};
 
   @media print {
-    overflow: initial;
+    background-color: ${themeColor("tint", "level1")};
   }
+`;
+
+const InnerWrapper = styled.div`
+  width: 100%;
+  background-color: ${themeColor("tint", "level1")};
+`;
+
+const HeaderRow = styled(Row)`
+  position: sticky;
+  top: 0;
+  z-index: 20;
 `;
 
 const Content = styled.div`
@@ -31,80 +28,25 @@ const Content = styled.div`
   padding-right: ${themeSpacing(11)};
 `;
 
-const HeaderArea = styled.div`
-  grid-area: header;
-`;
-
-const HeaderLink = styled(Link)`
-  margin-right: ${themeSpacing(4)};
-  color: ${themeColor("tint", "level5")};
-  text-decoration: none;
-  font-weight: 500;
-
-  &:last-child {
-    margin-right: 0;
-  }
-`;
-
-const SubsidieHeader = styled(Header)`
-  padding-left: ${themeSpacing(11)};
-  padding-right: ${themeSpacing(11)} !important;
-
-  margin-bottom: ${themeSpacing(12)};
-`;
-
 const PageTemplate = ({ children }) => {
   return (
     <Page>
-      <HeaderArea>
-        <SubsidieHeader
-          tall={false}
-          title="Subsidieregister"
-          homeLink=""
-          fullWidth
-          css={{ zIndex: 20 }}
-          navigation={
-            <>
-              <HeaderLink to="/">Feiten</HeaderLink>
-              <HeaderLink to="/lijst">Lijst</HeaderLink>
-            </>
-          }
-        />
-      </HeaderArea>
-      <ContentArea>
-        <Content>{children}</Content>
-        <StyledFooter>
-          <FooterTop>
-            <Row>
-              <Column span={6}>
-                <FooterSection title="Contact">
-                  <p>Hebt u een vraag en kunt u het antwoord niet vinden op onze website?</p>
-                  <ul>
-                    <li>Bel dan het gemeentelijk informatienummer 14 020, op werkdagen van 08.00 tot 18.00 uur.</li>
-                    <li>
-                      Of stuur een e-mail naar:{" "}
-                      <a href="mailto:mailto:subsidies@amsterdam.nl?Subject=Vraag%20subsidieregister">
-                        Mailbox subsidieregister
-                      </a>
-                      .
-                    </li>
-                  </ul>
-                </FooterSection>
-              </Column>
-              <Column span={6}>
-                <FooterSection title="Amsterdam.nl">
-                  <p>
-                    Amsterdam.nl is de plek online waar u alle nieuws en publieksinformatie van de gemeente en
-                    stadsdelen vindt.
-                  </p>
+      <HeaderRow>
+        <Column span={12}>
+          <InnerWrapper>
+            <SubsidieHeader />
+          </InnerWrapper>
+        </Column>
+      </HeaderRow>
 
-                  <a href="https://www.amsterdam.nl/">&gt; Naar Amsterdam.nl</a>
-                </FooterSection>
-              </Column>
-            </Row>
-          </FooterTop>
-        </StyledFooter>
-      </ContentArea>
+      <Row>
+        <Column span={12}>
+          <InnerWrapper>
+            <Content>{children}</Content>
+            <SubsidieFooter />
+          </InnerWrapper>
+        </Column>
+      </Row>
     </Page>
   );
 };

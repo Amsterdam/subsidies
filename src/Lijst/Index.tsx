@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import {
   Heading,
@@ -78,10 +78,6 @@ const Lijst = () => {
     <PageTemplate>
       {!isLoading && (
         <>
-          <Button variant="primary" onClick={() => setShowFilterModal(true)}>
-            Filter
-          </Button>
-
           <StyledRight>
             {renderDate(data[0].DATUM_OVERZICHT)}
             <br />
@@ -91,6 +87,10 @@ const Lijst = () => {
           </StyledRight>
 
           <Heading as="h1">Lijst</Heading>
+
+          <Button variant="primary" onClick={() => setShowFilterModal(true)}>
+            Filter
+          </Button>
 
           <div>{data.length} resultaten</div>
 
