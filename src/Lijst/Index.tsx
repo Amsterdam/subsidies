@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import {
+  Heading,
   Table,
   TableCell,
   TableBody,
@@ -50,10 +51,10 @@ const Lijst = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const onPageChange = (page: number) => {
+  const onPageChange = useCallback((page: number) => {
     const offset: number = (page - 1) * numberOfItems;
     setItems(filter(filters, data).slice(offset, offset + numberOfItems));
-  };
+  }, [data, filters]);
 
   console.log("items", items);
 
@@ -61,6 +62,9 @@ const Lijst = () => {
     <PageTemplate>
       {!isLoading && (
         <>
+          <Heading as="h1">Lijst</Heading>
+          Bijgewerkt tot {items[0].DATUM_OVERZICHT}
+          
           <StyledTable>
             <TableHeader>
               <TableRow>
