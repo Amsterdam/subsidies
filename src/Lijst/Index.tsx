@@ -11,18 +11,15 @@ import {
   Pagination,
   themeSpacing,
   themeColor,
+  Button,
 } from "@amsterdam/asc-ui";
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { Filter } from "../types";
 import useFilter from "./useFilter";
+import FilterModal from "../Components/FilterModal";
 
-import { Subisidie } from "../types";
-
-// TODO: Move this function to a file
-function filter(filters, data) {
-  return data;
-}
+const numberOfItems = 50;
 
 const StyledRight = styled.div`
   float: right;
@@ -50,10 +47,8 @@ const StyledTable = styled(Table)`
 `;
 
 const Lijst = () => {
-  const numberOfItems = 50;
-  // TODO: Maybe move this hook to the filter function? Maybe make that function a hook?
   const { data, isLoading } = useSubsidieContext();
-  // TODO: Define the correct type for the filters object
+
   const [filters, setFilters] = useState<Filter>({
     periodiek: false,
     eenmalig: false,
@@ -61,34 +56,34 @@ const Lijst = () => {
     themas: [],
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [page, setPage] = useState(1);
 
   const filteredData = useFilter(filters, data);
 
-  useEffect(() => {
-    onPageChange(1);
+  const onPageChange = useCallback((page: number) => {
+    setPage(page);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  const onPageChange = useCallback(
-    (page: number) => {
-      const offset: number = (page - 1) * numberOfItems;
-      setItems(filter(filters, data).slice(offset, offset + numberOfItems));
-    },
-    [data, filters],
-  );
+    window.scrollTo(0, 0);
+  }, []);
 
   const renderDate = useCallback((date: string) => {
     const newDate = new Date(date);
     return <span>Bijgewerkt tot {`${newDate.getDate()}-${newDate.getMonth() + 1}-${newDate.getFullYear()}`}</span>;
   }, []);
 
+  const offset: number = (page - 1) * numberOfItems;
+  const paginatedData = filteredData.slice(offset, offset + numberOfItems);
+
   return (
     <PageTemplate>
       {!isLoading && (
         <>
+          <Button variant="primary" onClick={() => setShowFilterModal(true)}>
+            Filter
+          </Button>
+
           <StyledRight>
-            {renderDate(filteredData[0].DATUM_OVERZICHT)}
+            {renderDate(data[0].DATUM_OVERZICHT)}
             <br />
             <Link href="/" variant="inline">
               Download subsidieregister
@@ -98,6 +93,13 @@ const Lijst = () => {
           <Heading as="h1">Lijst</Heading>
 
           <div>{data.length} resultaten</div>
+
+          <FilterModal
+            showModal={showFilterModal}
+            setShowModal={setShowFilterModal}
+            filters={filters}
+            setFilters={setFilters}
+          />
 
           <StyledTable>
             <TableHeader>
@@ -114,7 +116,7 @@ const Lijst = () => {
             </TableHeader>
 
             <TableBody>
-              {filteredData.map((d) => (
+              {paginatedData.map((d) => (
                 <TableRow key={d.DOSSIERNUMMER}>
                   <TableCell>
                     <b>{d.PROJECT_NAAM}</b>
@@ -139,7 +141,6 @@ const Lijst = () => {
 
           <Pagination collectionSize={data.length} pageSize={numberOfItems} page={1} onPageChange={onPageChange} />
         </>
-        // onPageChange
       )}
     </PageTemplate>
   );
