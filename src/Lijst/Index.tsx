@@ -43,6 +43,7 @@ const StyledTable = styled(Table)`
 
   td {
     border-bottom: none !important;
+    vertical-align: top;
   }
 `;
 
