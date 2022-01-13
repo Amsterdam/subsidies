@@ -64,6 +64,7 @@ const Lijst = () => {
   const onPageChange = useCallback((page: number) => {
     setPage(page);
 
+    // Scroll to top on selection of different results page.
     window.scrollTo(0, 0);
   }, []);
 

@@ -3,6 +3,7 @@ import { Row, Column, themeSpacing, themeColor } from "@amsterdam/asc-ui";
 
 import SubsidieFooter from "./Components/SubsidieFooter";
 import SubsidieHeader from "./Components/SubsidieHeader";
+import { useEffect } from "react";
 
 const Page = styled.div`
   background-color: ${themeColor("tint", "level3")};
@@ -29,6 +30,11 @@ const Content = styled.div`
 `;
 
 const PageTemplate = ({ children }) => {
+  useEffect(() => {
+    // Scroll to top on page load.
+    window?.scrollTo(0, 0);
+  }, []);
+
   return (
     <Page>
       <HeaderRow>
