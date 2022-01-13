@@ -18,8 +18,14 @@ import PageTemplate from "../PageTemplate";
 import { Filter } from "../types";
 import useFilter from "./useFilter";
 import FilterModal from "../Components/FilterModal";
+import StylelessButton from "../Components/StylelessButton";
 
 const numberOfItems = 50;
+
+enum Order {
+  ASC = "ASC",
+  DSC = "DSC",
+}
 
 const StyledRight = styled.div`
   float: right;
@@ -58,6 +64,9 @@ const Lijst = () => {
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState({
+    project: Order.ASC,
+  });
 
   const filteredData = useFilter(filters, data);
 
@@ -75,6 +84,19 @@ const Lijst = () => {
 
   const offset: number = (page - 1) * numberOfItems;
   const paginatedData = filteredData.slice(offset, offset + numberOfItems);
+
+  // sort the data;
+  paginatedData.sort((a, b) => {
+    if (sort.project === Order.ASC) {
+      return a.PROJECT_NAAM < b.PROJECT_NAAM ? -1 : a.PROJECT_NAAM > b.PROJECT_NAAM ? 1 : 0;
+    }
+
+    if (sort.project === Order.DSC) {
+      return a.PROJECT_NAAM < b.PROJECT_NAAM ? 1 : a.PROJECT_NAAM > b.PROJECT_NAAM ? -1 : 0;
+    }
+
+    return 0;
+  });
 
   return (
     <PageTemplate>
@@ -106,7 +128,15 @@ const Lijst = () => {
           <StyledTable>
             <TableHeader>
               <TableRow>
-                <TableCell as="th">Project en naam</TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setSort({ ...sort, project: sort.project === Order.DSC ? Order.ASC : Order.DSC });
+                    }}
+                  >
+                    Project en naam
+                  </StylelessButton>
+                </TableCell>
                 <TableCell as="th">Regeling en organisatie</TableCell>
                 <TableCell as="th">Thema</TableCell>
                 <TableCell as="th">Jaar</TableCell>
