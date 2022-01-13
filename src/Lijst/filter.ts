@@ -34,6 +34,10 @@ function filter(filters: Filter, data: Subisidie[]) {
     filteredData = filteredData.filter((d) => filters.themas.includes(d.BELEIDSTERREIN));
   }
 
+  if (filters.organisations && filters.organisations.length > 0) {
+    filteredData = filteredData.filter((d) => filters.organisations?.includes(d.ORGANISATIEONDERDEEL));
+  }
+
   console.log(`Total after filtering: ${filteredData.length}`);
 
   return filteredData;

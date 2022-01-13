@@ -145,7 +145,27 @@ const FilterModal = ({
             {organisations &&
               organisations.map((organisation, index) => (
                 <FullWithLabel key={`org_${index}`} htmlFor={`org_${index}`} label={organisation}>
-                  <Checkbox id={`org_${index}`} />
+                  <Checkbox
+                    id={`org_${index}`}
+                    checked={localFilters.organisations?.includes(organisation)}
+                    onChange={() => {
+                      if (!localFilters.organisations) {
+                        localFilters.organisations = [organisation];
+                      }
+
+                      if (localFilters.organisations.includes(organisation)) {
+                        setLocalFilters({
+                          ...localFilters,
+                          organisations: localFilters.organisations.filter((t) => t !== organisation),
+                        });
+                      } else {
+                        setLocalFilters({
+                          ...localFilters,
+                          organisations: [...localFilters.organisations, organisation],
+                        });
+                      }
+                    }}
+                  />
                 </FullWithLabel>
               ))}
           </Column>

@@ -22,4 +22,5 @@ export type Filter = {
   periodiek?: boolean;
   eenmalig?: boolean;
   themas: string[];
+  organisations?: string[];
 };
