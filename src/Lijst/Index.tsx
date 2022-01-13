@@ -47,7 +47,7 @@ const StyledTable = styled(Table)`
 `;
 
 const Lijst = () => {
-  const numberOfItems = 10;
+  const numberOfItems = 50;
   // TODO: Maybe move this hook to the filter function? Maybe make that function a hook?
   const { data, isLoading } = useSubsidieContext();
   // TODO: Define the correct type for the filters object
@@ -69,11 +69,9 @@ const Lijst = () => {
   );
 
   const renderDate = useCallback((date: string) => {
-    const newDate = date;
-    return <span>Bijgewerkt tot {newDate}</span>;
+    const newDate = new Date(date);
+    return <span>Bijgewerkt tot {`${newDate.getDate()}-${newDate.getMonth() + 1}-${newDate.getFullYear()}`}</span>;
   }, []);
-
-  console.log("items", items);
 
   return (
     <PageTemplate>
