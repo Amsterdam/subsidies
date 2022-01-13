@@ -2,6 +2,7 @@ import { useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import {
   Heading,
+  Link,
   Table,
   TableCell,
   TableBody,
@@ -11,7 +12,6 @@ import {
   themeSpacing,
   themeColor,
 } from "@amsterdam/asc-ui";
-
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { Subisidie } from "../types";
@@ -20,6 +20,15 @@ import { Subisidie } from "../types";
 function filter(filters, data) {
   return data;
 }
+
+const StyledRight = styled.div`
+  float: right;
+  text-align: right;
+
+  span {
+    color: ${themeColor("tint", "level5")};
+  }
+`;
 
 const StyledTable = styled(Table)`
   margin-bottom: ${themeSpacing(10)};
@@ -51,10 +60,18 @@ const Lijst = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const onPageChange = useCallback((page: number) => {
-    const offset: number = (page - 1) * numberOfItems;
-    setItems(filter(filters, data).slice(offset, offset + numberOfItems));
-  }, [data, filters]);
+  const onPageChange = useCallback(
+    (page: number) => {
+      const offset: number = (page - 1) * numberOfItems;
+      setItems(filter(filters, data).slice(offset, offset + numberOfItems));
+    },
+    [data, filters],
+  );
+
+  const renderDate = useCallback((date: string) => {
+    const newDate = date;
+    return <span>Bijgewerkt tot {newDate}</span>;
+  }, []);
 
   console.log("items", items);
 
@@ -62,9 +79,18 @@ const Lijst = () => {
     <PageTemplate>
       {!isLoading && (
         <>
+          <StyledRight>
+            {renderDate(items[0].DATUM_OVERZICHT)}
+            <br />
+            <Link href="/" variant="inline">
+              Download subsidieregister
+            </Link>
+          </StyledRight>
+
           <Heading as="h1">Lijst</Heading>
-          Bijgewerkt tot {items[0].DATUM_OVERZICHT}
-          
+
+          <div>{data.length} resultaten</div>
+
           <StyledTable>
             <TableHeader>
               <TableRow>
