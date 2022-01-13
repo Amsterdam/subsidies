@@ -52,6 +52,7 @@ module.exports = {
       'react/react-in-jsx-scope': 'off',
       'react/display-name': 'off',
       'import/no-webpack-loader-syntax': 'off',
+      'react-hooks/exhaustive-deps': 'warn'
     },
     parserOptions: {
       ecmaVersion: 'latest',
