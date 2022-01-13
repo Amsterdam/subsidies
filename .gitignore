@@ -8,3 +8,4 @@ reports
 .jenkins/backups
 
 node_modules
+build
