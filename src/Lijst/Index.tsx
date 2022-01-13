@@ -15,17 +15,12 @@ import {
 } from "@amsterdam/asc-ui";
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
-import { Filter } from "../types";
+import { Filter, Order } from "../types";
 import useFilter from "./useFilter";
 import FilterModal from "../Components/FilterModal";
 import StylelessButton from "../Components/StylelessButton";
 
 const numberOfItems = 50;
-
-enum Order {
-  ASC = "ASC",
-  DSC = "DSC",
-}
 
 const StyledRight = styled.div`
   float: right;
@@ -131,7 +126,7 @@ const Lijst = () => {
                 <TableCell as="th">
                   <StylelessButton
                     onClick={() => {
-                      setSort({ ...sort, project: sort.project === Order.DSC ? Order.ASC : Order.DSC });
+                      setSort({ project: sort.project === Order.DSC ? Order.ASC : Order.DSC });
                     }}
                   >
                     Project en naam

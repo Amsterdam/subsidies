@@ -24,3 +24,8 @@ export type Filter = {
   themas: string[];
   organisations?: string[];
 };
+
+export enum Order {
+  ASC = "ASC",
+  DSC = "DSC",
+}
