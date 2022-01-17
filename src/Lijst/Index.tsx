@@ -26,6 +26,10 @@ const StyledRight = styled.div`
   float: right;
   text-align: right;
 
+  a {
+    padding-top: ${themeSpacing(2)};
+  }
+
   span {
     color: ${themeColor("tint", "level5")};
   }
@@ -34,8 +38,9 @@ const StyledRight = styled.div`
 const StyledLeft = styled.div`
   display: flex;
   margin-top: ${themeSpacing(10)};
-  
-  button, div {
+
+  button,
+  div {
     align-self: center;
   }
 
@@ -45,8 +50,8 @@ const StyledLeft = styled.div`
 `;
 
 const StyledTable = styled(Table)`
-margin-top: ${themeSpacing(3)};
-margin-bottom: ${themeSpacing(10)};
+  margin-top: ${themeSpacing(3)};
+  margin-bottom: ${themeSpacing(10)};
 
   tr:nth-child(even) {
     background-color: ${themeColor("tint", "level2")};
@@ -124,7 +129,7 @@ const Lijst = () => {
           </StyledRight>
 
           <Heading as="h1">Lijst</Heading>
-          
+
           <StyledLeft>
             <Button variant="primary" onClick={() => setShowFilterModal(true)}>
               Filter
