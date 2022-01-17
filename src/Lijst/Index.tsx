@@ -116,8 +116,7 @@ const Lijst = () => {
           </Button>
 
           <div>
-            {filteredData.length.toLocaleString('nl-NL')} resultaten
-            van totaal {data.length.toLocaleString('nl-NL')}
+            {filteredData.length.toLocaleString("nl-NL")} resultaten van totaal {data.length.toLocaleString("nl-NL")}
           </div>
 
           <FilterModal
@@ -165,9 +164,9 @@ const Lijst = () => {
                   <TableCell>{d.BELEIDSTERREIN}</TableCell>
                   <TableCell>{d.SUBSIDIEJAAR}</TableCell>
                   <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_AANGEVRAAGD.toLocaleString('nl-NL')}</TableCellRight>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VERLEEND.toLocaleString('nl-NL')}</TableCellRight>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VASTGESTELD.toLocaleString('nl-NL')}</TableCellRight>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_AANGEVRAAGD.toLocaleString("nl-NL")}</TableCellRight>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VERLEEND.toLocaleString("nl-NL")}</TableCellRight>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VASTGESTELD.toLocaleString("nl-NL")}</TableCellRight>
                 </TableRow>
               ))}
             </TableBody>
