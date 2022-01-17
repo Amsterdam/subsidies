@@ -115,7 +115,10 @@ const Lijst = () => {
             Filter
           </Button>
 
-          <div>{data.length.toLocaleString('nl-NL')} resultaten</div>
+          <div>
+            {filteredData.length.toLocaleString('nl-NL')} resultaten
+            van totaal {data.length.toLocaleString('nl-NL')}
+          </div>
 
           <FilterModal
             showModal={showFilterModal}
