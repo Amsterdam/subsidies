@@ -48,6 +48,10 @@ const StyledTable = styled(Table)`
   }
 `;
 
+const TableCellRight = styled(TableCell)`
+  text-align: right;
+`;
+
 const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
 
@@ -111,7 +115,7 @@ const Lijst = () => {
             Filter
           </Button>
 
-          <div>{data.length} resultaten</div>
+          <div>{data.length.toLocaleString('nl-NL')} resultaten</div>
 
           <FilterModal
             showModal={showFilterModal}
@@ -158,9 +162,9 @@ const Lijst = () => {
                   <TableCell>{d.BELEIDSTERREIN}</TableCell>
                   <TableCell>{d.SUBSIDIEJAAR}</TableCell>
                   <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
-                  <TableCell>{d.BEDRAG_AANGEVRAAGD}</TableCell>
-                  <TableCell>{d.BEDRAG_VERLEEND}</TableCell>
-                  <TableCell>{d.BEDRAG_VASTGESTELD}</TableCell>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_AANGEVRAAGD.toLocaleString('nl-NL')}</TableCellRight>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VERLEEND.toLocaleString('nl-NL')}</TableCellRight>
+                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VASTGESTELD.toLocaleString('nl-NL')}</TableCellRight>
                 </TableRow>
               ))}
             </TableBody>
