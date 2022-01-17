@@ -31,8 +31,22 @@ const StyledRight = styled.div`
   }
 `;
 
+const StyledLeft = styled.div`
+  display: flex;
+  margin-top: ${themeSpacing(10)};
+  
+  button, div {
+    align-self: center;
+  }
+
+  div {
+    margin-left: ${themeSpacing(6)};
+  }
+`;
+
 const StyledTable = styled(Table)`
-  margin-bottom: ${themeSpacing(10)};
+margin-top: ${themeSpacing(3)};
+margin-bottom: ${themeSpacing(10)};
 
   tr:nth-child(even) {
     background-color: ${themeColor("tint", "level2")};
@@ -110,14 +124,16 @@ const Lijst = () => {
           </StyledRight>
 
           <Heading as="h1">Lijst</Heading>
+          
+          <StyledLeft>
+            <Button variant="primary" onClick={() => setShowFilterModal(true)}>
+              Filter
+            </Button>
 
-          <Button variant="primary" onClick={() => setShowFilterModal(true)}>
-            Filter
-          </Button>
-
-          <div>
-            {filteredData.length.toLocaleString("nl-NL")} resultaten van totaal {data.length.toLocaleString("nl-NL")}
-          </div>
+            <div>
+              {filteredData.length.toLocaleString("nl-NL")} resultaten van totaal {data.length.toLocaleString("nl-NL")}
+            </div>
+          </StyledLeft>
 
           <FilterModal
             showModal={showFilterModal}
