@@ -193,7 +193,7 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          <Pagination collectionSize={data.length} pageSize={numberOfItems} page={1} onPageChange={onPageChange} />
+          <Pagination collectionSize={filteredData.length} pageSize={numberOfItems} page={1} onPageChange={onPageChange} />
         </>
       )}
     </PageTemplate>
