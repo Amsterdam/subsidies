@@ -29,3 +29,8 @@ export enum Order {
   ASC = "ASC",
   DSC = "DSC",
 }
+
+export type Sort = {
+  key: keyof Subisidie;
+  order: Order;
+};

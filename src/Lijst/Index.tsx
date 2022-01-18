@@ -1,75 +1,15 @@
 import { useCallback, useState } from "react";
-import styled from "styled-components";
-import {
-  Heading,
-  Link,
-  Table,
-  TableCell,
-  TableBody,
-  TableHeader,
-  TableRow,
-  Pagination,
-  themeSpacing,
-  themeColor,
-  Button,
-} from "@amsterdam/asc-ui";
-import { useSubsidieContext } from "../DataProvider";
-import PageTemplate from "../PageTemplate";
-import { Filter, Order } from "../types";
-import useFilter from "./useFilter";
+import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination, Button } from "@amsterdam/asc-ui";
+import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";
 import StylelessButton from "../Components/StylelessButton";
+import { StyledLeft, StyledRight, StyledTable, TableCellRight } from "../Components/StyledTable";
+import { useSubsidieContext } from "../DataProvider";
+import PageTemplate from "../PageTemplate";
+import { sortProjects } from "./sortProjects";
+import useFilter from "./useFilter";
 
 const numberOfItems = 50;
-
-const StyledRight = styled.div`
-  float: right;
-  text-align: right;
-
-  a {
-    padding-top: ${themeSpacing(2)};
-  }
-
-  span {
-    color: ${themeColor("tint", "level5")};
-  }
-`;
-
-const StyledLeft = styled.div`
-  display: flex;
-  margin-top: ${themeSpacing(10)};
-
-  button,
-  div {
-    align-self: center;
-  }
-
-  div {
-    margin-left: ${themeSpacing(6)};
-  }
-`;
-
-const StyledTable = styled(Table)`
-  margin-top: ${themeSpacing(3)};
-  margin-bottom: ${themeSpacing(10)};
-
-  tr:nth-child(even) {
-    background-color: ${themeColor("tint", "level2")};
-  }
-
-  th {
-    border-bottom: 2px solid ${themeColor("tint", "level7")} !important;
-  }
-
-  td {
-    border-bottom: none !important;
-    vertical-align: top;
-  }
-`;
-
-const TableCellRight = styled(TableCell)`
-  text-align: right;
-`;
 
 const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
@@ -82,8 +22,9 @@ const Lijst = () => {
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [page, setPage] = useState(1);
-  const [sort, setSort] = useState({
-    project: Order.ASC,
+  const [sort, setSort] = useState<Sort>({
+    key: "PROJECT_NAAM",
+    order: Order.ASC,
   });
 
   const filteredData = useFilter(filters, data);
@@ -100,21 +41,15 @@ const Lijst = () => {
     return <span>Bijgewerkt tot {`${newDate.getDate()}-${newDate.getMonth() + 1}-${newDate.getFullYear()}`}</span>;
   }, []);
 
+  // sort the data;
+  filteredData.sort(sortProjects(sort));
+
   const offset: number = (page - 1) * numberOfItems;
   const paginatedData = filteredData.slice(offset, offset + numberOfItems);
 
-  // sort the data;
-  paginatedData.sort((a, b) => {
-    if (sort.project === Order.ASC) {
-      return a.PROJECT_NAAM < b.PROJECT_NAAM ? -1 : a.PROJECT_NAAM > b.PROJECT_NAAM ? 1 : 0;
-    }
-
-    if (sort.project === Order.DSC) {
-      return a.PROJECT_NAAM < b.PROJECT_NAAM ? 1 : a.PROJECT_NAAM > b.PROJECT_NAAM ? -1 : 0;
-    }
-
-    return 0;
-  });
+  const setColumnSort = (key: keyof Subisidie) => {
+    return setSort({ key, order: sort.order === Order.DSC ? Order.ASC : Order.DSC });
+  };
 
   return (
     <PageTemplate>
@@ -153,19 +88,67 @@ const Lijst = () => {
                 <TableCell as="th">
                   <StylelessButton
                     onClick={() => {
-                      setSort({ project: sort.project === Order.DSC ? Order.ASC : Order.DSC });
+                      setColumnSort("PROJECT_NAAM");
                     }}
                   >
                     Project en naam
                   </StylelessButton>
                 </TableCell>
-                <TableCell as="th">Regeling en organisatie</TableCell>
-                <TableCell as="th">Thema</TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("REGELINGNAAM");
+                    }}
+                  >
+                    Regeling en organisatie
+                  </StylelessButton>
+                </TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("BELEIDSTERREIN");
+                    }}
+                  >
+                    Thema
+                  </StylelessButton>
+                </TableCell>
                 <TableCell as="th">Jaar</TableCell>
-                <TableCell as="th">Soort</TableCell>
-                <TableCell as="th">Aangevraagd</TableCell>
-                <TableCell as="th">Verleend</TableCell>
-                <TableCell as="th">Vastgesteld</TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("TYPE_PERIODICITEIT");
+                    }}
+                  >
+                    Soort
+                  </StylelessButton>
+                </TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("BEDRAG_AANGEVRAAGD");
+                    }}
+                  >
+                    Aangevraagd
+                  </StylelessButton>
+                </TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("BEDRAG_VERLEEND");
+                    }}
+                  >
+                    Verleend
+                  </StylelessButton>
+                </TableCell>
+                <TableCell as="th">
+                  <StylelessButton
+                    onClick={() => {
+                      setColumnSort("BEDRAG_VASTGESTELD");
+                    }}
+                  >
+                    Vastgesteld
+                  </StylelessButton>
+                </TableCell>
               </TableRow>
             </TableHeader>
 
