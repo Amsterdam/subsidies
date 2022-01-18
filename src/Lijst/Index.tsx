@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import XLSX from "xlsx";
+import XLSX from "sheetjs-style";
 import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination, Button } from "@amsterdam/asc-ui";
 import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";
@@ -74,6 +74,16 @@ const Lijst = () => {
                     Verleend: `€ ${Math.round(s.BEDRAG_VERLEEND)}`,
                     Vastgesteld: `€ ${Math.round(s.BEDRAG_VASTGESTELD)}`,
                   })),
+                );
+
+                // Update style of header row
+                ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].forEach(
+                  (letter) =>
+                    (sheet[`${letter}1`].s = {
+                      font: {
+                        bold: true,
+                      },
+                    }),
                 );
 
                 XLSX.utils.book_append_sheet(workbook, sheet);

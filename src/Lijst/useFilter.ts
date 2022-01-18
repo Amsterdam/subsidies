@@ -3,9 +3,6 @@ import { Filter, Subisidie } from "../types";
 
 function useFilter(filters: Filter, data: Subisidie[]) {
   return useMemo(() => {
-    console.log("Filter", filters);
-
-    console.log(`Total number of items: ${data.length}`);
     // First filter by year to reduce the amount of data we need to work with.
     let filteredData = data.filter((d) => d.SUBSIDIEJAAR === filters.jaar);
 
@@ -40,8 +37,6 @@ function useFilter(filters: Filter, data: Subisidie[]) {
     if (filters.organisations && filters.organisations.length > 0) {
       filteredData = filteredData.filter((d) => filters.organisations?.includes(d.ORGANISATIEONDERDEEL));
     }
-
-    console.log(`Total after filtering: ${filteredData.length}`);
 
     return filteredData;
   }, [filters, data]);
