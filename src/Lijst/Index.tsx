@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import XLSX from "xlsx";
 import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination, Button } from "@amsterdam/asc-ui";
 import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";
@@ -57,7 +58,31 @@ const Lijst = () => {
           <StyledRight>
             {renderDate(data[0].DATUM_OVERZICHT)}
             <br />
-            <Link href="/" variant="inline">
+            <Link
+              onClick={() => {
+                const workbook = XLSX.utils.book_new();
+                const sheet = XLSX.utils.json_to_sheet(
+                  filteredData.map((s) => ({
+                    Naam: s.AANVRAGER,
+                    Project: s.PROJECT_NAAM,
+                    Regeling: s.REGELINGNAAM,
+                    Organisatie: s.ORGANISATIEONDERDEEL,
+                    Thema: s.BELEIDSTERREIN,
+                    Jaar: s.SUBSIDIEJAAR,
+                    Periodiciteit: s.TYPE_PERIODICITEIT,
+                    Aangevraagd: `€ ${Math.round(s.BEDRAG_AANGEVRAAGD)}`,
+                    Verleend: `€ ${Math.round(s.BEDRAG_VERLEEND)}`,
+                    Vastgesteld: `€ ${Math.round(s.BEDRAG_VASTGESTELD)}`,
+                  })),
+                );
+
+                XLSX.utils.book_append_sheet(workbook, sheet);
+
+                XLSX.writeFile(workbook, "Subsidieregister.xlsx");
+                return false;
+              }}
+              variant="inline"
+            >
               Download subsidieregister
             </Link>
           </StyledRight>
