@@ -13,7 +13,6 @@ const numberOfItems = 50;
 
 const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
-
   const [filters, setFilters] = useState<Filter>({
     periodiek: false,
     eenmalig: false,
@@ -176,7 +175,12 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          <Pagination collectionSize={data.length} pageSize={numberOfItems} page={1} onPageChange={onPageChange} />
+          <Pagination
+            collectionSize={filteredData.length}
+            pageSize={numberOfItems}
+            page={1}
+            onPageChange={onPageChange}
+          />
         </>
       )}
     </PageTemplate>

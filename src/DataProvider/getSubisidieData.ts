@@ -31,7 +31,7 @@ function parseData(field, data) {
     return isNaN(number) ? 0 : number;
   }
 
-  return data;
+  return (data as string).trim();
 }
 
 export async function getSubisidieData(): Promise<Subisidie[]> {
