@@ -29,8 +29,6 @@ node {
         }
     }
 }
-String BRANCH = "${env.BRANCH_NAME}"
-if (BRANCH == "master") {
     node {
         stage("Deploy to ACC") {
         tryStep "deployment", {
@@ -43,6 +41,9 @@ if (BRANCH == "master") {
             }
         }
     }
+
+String BRANCH = "${env.BRANCH_NAME}"
+if (BRANCH == "master") {
     stage('Waiting for approval') {
         slackSend channel: '#ci-channel-app', color: 'warning', message: 'Subsidies is waiting for Production Release - please confirm'
         timeout ( time: 24, unit: "HOURS" )  {

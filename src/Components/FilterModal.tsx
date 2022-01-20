@@ -23,7 +23,17 @@ const ModalHeader = styled.div`
 `;
 
 const ModalFooter = styled.div`
-  border-top: 4px solid ${themeColor("tint", "level3")};
+  border-top: 2px solid ${themeColor("tint", "level3")};
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  z-index: 5;
+
+  padding-left: ${themeSpacing(5)};
+  padding-right: ${themeSpacing(5)};
+
+  padding-top: ${themeSpacing(3)};
+  padding-bottom: ${themeSpacing(3)};
 `;
 
 const Row = styled.div`
@@ -38,6 +48,24 @@ const Column = styled.div`
   &:last-child {
     margin-right: 0px;
   }
+
+  & h4 {
+    margin-bottom: ${themeSpacing(3)};
+  }
+
+  & h4:first-child {
+    margin-top: 0px;
+  }
+
+  & label:first-child {
+    & span {
+      margin-top: 0px;
+    }
+  }
+`;
+
+const CustomLabel = styled(Label)`
+  font-weight: bold;
 `;
 
 const FullWithLabel = styled(Label)`
@@ -70,19 +98,9 @@ const FilterModal = ({
         <h2>Filters</h2>
       </ModalHeader>
       <ModalContent>
-        <div>
-          <Button
-            onClick={() => {
-              setFilters(localFilters);
-              setShowModal(false);
-            }}
-          >
-            Filter
-          </Button>
-        </div>
         <Row>
           <Column>
-            <Label htmlFor="zoeken" label="Zoeken" />
+            <CustomLabel htmlFor="zoeken" label="Zoeken" />
             <Input
               id="zoeken"
               value={localFilters?.zoeken || ""}
@@ -91,7 +109,7 @@ const FilterModal = ({
               }}
             />
 
-            <Label htmlFor="jaar" label="Jaar" />
+            <CustomLabel htmlFor="jaar" label="Jaar" />
             <Select
               id="jaar"
               value={localFilters.jaar}
@@ -132,18 +150,24 @@ const FilterModal = ({
             <Label htmlFor="periodiek" label="Periodiek">
               <Checkbox
                 id="periodiek"
-                checked={localFilters.periodiek}
+                checked={localFilters.periodiciteit === "Periodiek"}
                 onChange={() => {
-                  setLocalFilters({ ...localFilters, periodiek: !localFilters?.periodiek });
+                  setLocalFilters({
+                    ...localFilters,
+                    periodiciteit: localFilters.periodiciteit === "Periodiek" ? undefined : "Periodiek",
+                  });
                 }}
               />
             </Label>
             <Label htmlFor="eenmalig" label="Eenmalig">
               <Checkbox
                 id="eenmalig"
-                checked={localFilters.eenmalig}
+                checked={localFilters.periodiciteit === "Eenmalig"}
                 onChange={() => {
-                  setLocalFilters({ ...localFilters, eenmalig: !localFilters?.eenmalig });
+                  setLocalFilters({
+                    ...localFilters,
+                    periodiciteit: localFilters.periodiciteit === "Eenmalig" ? undefined : "Eenmalig",
+                  });
                 }}
               />
             </Label>
@@ -154,15 +178,15 @@ const FilterModal = ({
                 <FullWithLabel key={`theme_${index}`} htmlFor={`theme_${index}`} label={theme}>
                   <Checkbox
                     id={`theme_${index}`}
-                    checked={localFilters.themas.includes(theme)}
+                    checked={localFilters.themas?.includes(theme)}
                     onChange={() => {
-                      if (localFilters.themas.includes(theme)) {
+                      if (localFilters.themas?.includes(theme)) {
                         setLocalFilters({
                           ...localFilters,
                           themas: localFilters.themas.filter((t) => t !== theme),
                         });
                       } else {
-                        setLocalFilters({ ...localFilters, themas: [...localFilters.themas, theme] });
+                        setLocalFilters({ ...localFilters, themas: [...(localFilters.themas || []), theme] });
                       }
                     }}
                   />
@@ -200,6 +224,17 @@ const FilterModal = ({
           </Column>
         </Row>
       </ModalContent>
+      <ModalFooter>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setFilters(localFilters);
+            setShowModal(false);
+          }}
+        >
+          Toon resultaat
+        </Button>
+      </ModalFooter>
     </WideModal>
   );
 };

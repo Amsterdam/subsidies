@@ -14,28 +14,27 @@ function useFilter(filters: Filter, data: Subisidie[]) {
       filteredData = filteredData.filter((d) => d.BEDRAG_VERLEEND < (filters.maximaal || 0));
     }
 
-    if (filters.eenmalig || filters.periodiek) {
+    if (filters.periodiciteit) {
       filteredData = filteredData.filter((d) => {
-        if (filters.eenmalig && filters.periodiek) {
-          return true;
-        }
-
-        if (filters.eenmalig) {
-          return d.TYPE_PERIODICITEIT === "Eenmalig";
-        }
-
-        if (filters.periodiek) {
-          return d.TYPE_PERIODICITEIT === "Periodiek";
-        }
+        return d.TYPE_PERIODICITEIT === filters.periodiciteit;
       });
     }
 
     if (filters.themas && filters.themas.length > 0) {
-      filteredData = filteredData.filter((d) => filters.themas.includes(d.BELEIDSTERREIN));
+      filteredData = filteredData.filter((d) => filters.themas?.includes(d.BELEIDSTERREIN));
     }
 
     if (filters.organisations && filters.organisations.length > 0) {
       filteredData = filteredData.filter((d) => filters.organisations?.includes(d.ORGANISATIEONDERDEEL));
+    }
+
+    if (filters.zoeken) {
+      filteredData = filteredData.filter(
+        (d) =>
+          d.PROJECT_NAAM.includes(filters.zoeken || "") ||
+          d.REGELINGNAAM.includes(filters.zoeken || "") ||
+          d.AANVRAGER.includes(filters.zoeken || ""),
+      );
     }
 
     return filteredData;

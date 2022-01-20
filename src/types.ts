@@ -19,9 +19,8 @@ export type Filter = {
   jaar: string;
   minimaal?: number;
   maximaal?: number;
-  periodiek?: boolean;
-  eenmalig?: boolean;
-  themas: string[];
+  periodiciteit?: "Periodiek" | "Eenmalig";
+  themas?: string[];
   organisations?: string[];
 };
 

@@ -15,10 +15,7 @@ const numberOfItems = 50;
 const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
   const [filters, setFilters] = useState<Filter>({
-    periodiek: false,
-    eenmalig: false,
     jaar: `${new Date().getFullYear() - 1}`,
-    themas: [],
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [page, setPage] = useState(1);
@@ -101,7 +98,13 @@ const Lijst = () => {
 
           <StyledLeft>
             <Button variant="primary" onClick={() => setShowFilterModal(true)}>
-              Filter
+              Filters (
+              {
+                Object.keys(filters)
+                  .map((k) => !!filters[k])
+                  .filter(Boolean).length
+              }
+              )
             </Button>
 
             <div>
