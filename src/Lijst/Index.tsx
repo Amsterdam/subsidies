@@ -9,13 +9,14 @@ import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { sortProjects } from "./sortProjects";
 import useFilter from "./useFilter";
+import downloadXlsx from "./downloadXlsx";
 
 const numberOfItems = 50;
 
 const Lijst = () => {
   const { data, isLoading } = useSubsidieContext();
   const [filters, setFilters] = useState<Filter>({
-    jaar: `${new Date().getFullYear() - 1}`,
+    jaar: `${new Date().getFullYear()}`,
   });
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [page, setPage] = useState(1);
@@ -57,40 +58,20 @@ const Lijst = () => {
             <br />
             <Link
               onClick={() => {
-                const workbook = XLSX.utils.book_new();
-                const sheet = XLSX.utils.json_to_sheet(
-                  filteredData.map((s) => ({
-                    Naam: s.AANVRAGER,
-                    Project: s.PROJECT_NAAM,
-                    Regeling: s.REGELINGNAAM,
-                    Organisatie: s.ORGANISATIEONDERDEEL,
-                    Thema: s.BELEIDSTERREIN,
-                    Jaar: s.SUBSIDIEJAAR,
-                    Periodiciteit: s.TYPE_PERIODICITEIT,
-                    Aangevraagd: `€ ${Math.round(s.BEDRAG_AANGEVRAAGD)}`,
-                    Verleend: `€ ${Math.round(s.BEDRAG_VERLEEND)}`,
-                    Vastgesteld: `€ ${Math.round(s.BEDRAG_VASTGESTELD)}`,
-                  })),
-                );
-
-                // Update style of header row
-                ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].forEach(
-                  (letter) =>
-                    (sheet[`${letter}1`].s = {
-                      font: {
-                        bold: true,
-                      },
-                    }),
-                );
-
-                XLSX.utils.book_append_sheet(workbook, sheet);
-
-                XLSX.writeFile(workbook, "Subsidieregister.xlsx");
-                return false;
+                downloadXlsx(data);
               }}
               variant="inline"
             >
               Download subsidieregister
+            </Link>
+            <br />
+            <Link
+              onClick={() => {
+                downloadXlsx(filteredData);
+              }}
+              variant="inline"
+            >
+              Download gefilterde gegevens
             </Link>
           </StyledRight>
 
