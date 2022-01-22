@@ -3,7 +3,7 @@ import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination,
 import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";
 import StylelessButton from "../Components/StylelessButton";
-import { StyledLeft, StyledRight, StyledTable, TableCellRight } from "../Components/StyledTable";
+import { StyledLeft, StyledRight, StyledTable, TableCellRight, NoResults } from "../Components/StyledTable";
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { sortProjects } from "./sortProjects";
@@ -193,12 +193,18 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          <Pagination
-            collectionSize={filteredData.length}
-            pageSize={numberOfItems}
-            page={1}
-            onPageChange={onPageChange}
-          />
+          {filteredData.length === 0 && 
+            <NoResults>er zijn geen resultaten gevonden</NoResults>
+          }
+
+          {filteredData.length > 0 && (
+            <Pagination
+              collectionSize={filteredData.length}
+              pageSize={numberOfItems}
+              page={1}
+              onPageChange={onPageChange}
+            />
+          )}
         </>
       )}
     </PageTemplate>
