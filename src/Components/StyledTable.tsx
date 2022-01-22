@@ -49,3 +49,7 @@ export const StyledTable = styled(Table)`
 export const TableCellRight = styled(TableCell)`
   text-align: right;
 `;
+
+export const NoResults = styled.div`
+  text-align: center;
+`;
