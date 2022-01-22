@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import XLSX from "sheetjs-style";
 import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination, Button } from "@amsterdam/asc-ui";
 import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";

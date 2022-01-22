@@ -6,6 +6,7 @@ async function readCsv(): Promise<{ titleRow: string[]; dataLines: string[][] }>
   try {
     res = await axios.get<string>("https://api.data.amsterdam.nl/dcatd/datasets/yvlbMxqPKn1ULw/purls/72c8_AyB5gvJ4Q");
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 
