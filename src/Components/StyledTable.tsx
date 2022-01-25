@@ -8,10 +8,6 @@ export const StyledRight = styled.div`
   a {
     padding-top: ${themeSpacing(2)};
   }
-
-  span {
-    color: ${themeColor("tint", "level5")};
-  }
 `;
 
 export const StyledLeft = styled.div`
