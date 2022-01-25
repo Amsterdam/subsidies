@@ -4,6 +4,8 @@ import { vega } from "vega-embed";
 import Lijst from "./Lijst/Index";
 import Feiten from "./Feiten/Index";
 
+import "./App.scss";
+
 const App = () => {
   vega.formatLocale({
     decimal: ",",

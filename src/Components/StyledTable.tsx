@@ -8,15 +8,11 @@ export const StyledRight = styled.div`
   a {
     padding-top: ${themeSpacing(2)};
   }
-
-  span {
-    color: ${themeColor("tint", "level5")};
-  }
 `;
 
 export const StyledLeft = styled.div`
   display: flex;
-  margin-top: ${themeSpacing(10)};
+  margin-top: ${themeSpacing(12)};
 
   button,
   div {
@@ -51,5 +47,6 @@ export const TableCellRight = styled(TableCell)`
 `;
 
 export const NoResults = styled.div`
+  margin: ${themeSpacing(15)} 0;
   text-align: center;
 `;

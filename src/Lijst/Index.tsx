@@ -9,6 +9,7 @@ import PageTemplate from "../PageTemplate";
 import { sortProjects } from "./sortProjects";
 import useFilter from "./useFilter";
 import downloadXlsx from "./downloadXlsx";
+import LatestUpdateDate from "../Components/UpdateDate";
 
 const numberOfItems = 50;
 
@@ -33,11 +34,6 @@ const Lijst = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const renderDate = useCallback((date: string) => {
-    const newDate = new Date(date);
-    return <span>Bijgewerkt tot {`${newDate.getDate()}-${newDate.getMonth() + 1}-${newDate.getFullYear()}`}</span>;
-  }, []);
-
   // sort the data;
   filteredData.sort(sortProjects(sort));
 
@@ -53,7 +49,7 @@ const Lijst = () => {
       {!isLoading && (
         <>
           <StyledRight>
-            {renderDate(data[0].DATUM_OVERZICHT)}
+            <LatestUpdateDate />
             <br />
             <Link
               onClick={() => {
@@ -61,7 +57,7 @@ const Lijst = () => {
               }}
               variant="inline"
             >
-              Download subsidieregister
+              Download complete subsidieregister
             </Link>
             <br />
             <Link
@@ -193,11 +189,9 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          {filteredData.length === 0 && 
+          {filteredData.length === 0 ? (
             <NoResults>er zijn geen resultaten gevonden</NoResults>
-          }
-
-          {filteredData.length > 0 && (
+          ) : (
             <Pagination
               collectionSize={filteredData.length}
               pageSize={numberOfItems}

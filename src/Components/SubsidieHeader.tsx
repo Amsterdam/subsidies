@@ -1,15 +1,21 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, matchPath, useLocation } from "react-router-dom";
 import { Header, themeSpacing, themeColor } from "@amsterdam/asc-ui";
 
 const HeaderLink = styled(Link)`
-  margin-right: ${themeSpacing(4)};
   color: ${themeColor("tint", "level5")};
   text-decoration: none;
   font-weight: 500;
+  height: 100%;
+  padding-top: ${themeSpacing(4)};
+  margin-right: ${themeSpacing(4)};
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &.selected {
+    border-bottom: 4px solid ${themeColor("primary")};
   }
 `;
 
@@ -22,6 +28,8 @@ const StyledHeader = styled(Header)`
 `;
 
 const SubsidieHeader = () => {
+  const location = useLocation();
+
   return (
     <StyledHeader
       tall={false}
@@ -31,8 +39,12 @@ const SubsidieHeader = () => {
       css={{ zIndex: 20 }}
       navigation={
         <>
-          <HeaderLink to="/">Feiten</HeaderLink>
-          <HeaderLink to="/lijst">Lijst</HeaderLink>
+          <HeaderLink to="/" className={!matchPath(location.pathname, "/lijst") ? "selected" : ""}>
+            Feiten
+          </HeaderLink>
+          <HeaderLink to="/lijst" className={matchPath(location.pathname, "/lijst") ? "selected" : ""}>
+            Lijst
+          </HeaderLink>
         </>
       }
     />
