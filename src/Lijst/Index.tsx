@@ -189,9 +189,9 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          {filteredData.length === 0 && <NoResults>er zijn geen resultaten gevonden</NoResults>}
-
-          {filteredData.length > 0 && (
+          {filteredData.length === 0 ? (
+            <NoResults>er zijn geen resultaten gevonden</NoResults>
+          ) : (
             <Pagination
               collectionSize={filteredData.length}
               pageSize={numberOfItems}
