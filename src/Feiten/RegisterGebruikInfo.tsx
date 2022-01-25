@@ -1,21 +1,22 @@
-import { List, ListItem } from "@amsterdam/asc-ui";
+import { ListItem } from "@amsterdam/asc-ui";
+import { StyledList } from "../Components/StyledList";
 
 const RegisterGebruikInfo = () => {
   return (
     <>
       <h2>Uitgangspunten voor een juist gebruik van het register</h2>
-      <List variant="bullet">
+      <StyledList variant="bullet">
         <ListItem>
           Nog niet alle subsidies worden verstrekt via het gemeentelijke subsidiebeheersysteem; de navolgende subsidies
           zitten dan ook niet in het openbaar subsidieregister:
-          <List variant="bullet">
+          <StyledList variant="bullet">
             <ListItem>Huisvestingsvoorzieningen Amsterdam Onderwijs 2016;</ListItem>
             <ListItem>Subsidies voor drinkwaterinstallaties;</ListItem>
             <ListItem>Erfpachtsubsidies;</ListItem>
             <ListItem>Subsidies voor gevelsanering tegen verkeerslawaai;</ListItem>
             <ListItem>Subsidies voor lang parkeren;</ListItem>
             <ListItem>Loonkostensubsidies.</ListItem>
-          </List>
+          </StyledList>
         </ListItem>
         <ListItem>
           Op advies van de Commissie Privacy Amsterdam zijn de namen van particuliere subsidieontvangers weggehaald.
@@ -40,7 +41,7 @@ const RegisterGebruikInfo = () => {
           het bijzonder niet aansprakelijk worden gesteld voor eventuele schade of consequenties ontstaan door direct of
           indirect gebruik van de inhoud van het openbaar subsidieregister.
         </ListItem>
-      </List>
+      </StyledList>
     </>
   );
 };
