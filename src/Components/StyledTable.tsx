@@ -47,5 +47,6 @@ export const TableCellRight = styled(TableCell)`
 `;
 
 export const NoResults = styled.div`
+  margin: ${themeSpacing(15)} 0;
   text-align: center;
 `;
