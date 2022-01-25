@@ -61,7 +61,7 @@ const Lijst = () => {
               }}
               variant="inline"
             >
-              Download subsidieregister
+              Download complete subsidieregister
             </Link>
             <br />
             <Link
@@ -193,9 +193,7 @@ const Lijst = () => {
             </TableBody>
           </StyledTable>
 
-          {filteredData.length === 0 && 
-            <NoResults>er zijn geen resultaten gevonden</NoResults>
-          }
+          {filteredData.length === 0 && <NoResults>er zijn geen resultaten gevonden</NoResults>}
 
           {filteredData.length > 0 && (
             <Pagination

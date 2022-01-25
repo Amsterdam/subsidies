@@ -16,7 +16,7 @@ export const StyledRight = styled.div`
 
 export const StyledLeft = styled.div`
   display: flex;
-  margin-top: ${themeSpacing(10)};
+  margin-top: ${themeSpacing(12)};
 
   button,
   div {
