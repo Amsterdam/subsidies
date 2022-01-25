@@ -2,15 +2,21 @@ import axios, { AxiosResponse } from "axios";
 import { Subisidie } from "../types";
 
 async function readCsv(): Promise<{ titleRow: string[]; dataLines: string[][] }> {
-  let res: AxiosResponse<string> | null = null;
+  let response: AxiosResponse<ArrayBuffer> | null = null;
   try {
-    res = await axios.get<string>("https://api.data.amsterdam.nl/dcatd/datasets/yvlbMxqPKn1ULw/purls/72c8_AyB5gvJ4Q");
+    response = await axios.get<ArrayBuffer>(
+      "https://api.data.amsterdam.nl/dcatd/datasets/yvlbMxqPKn1ULw/purls/72c8_AyB5gvJ4Q",
+      {
+        responseType: "arraybuffer",
+      },
+    );
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
   }
-
-  const csv: string = (res && res.data) || "";
+  // Need to decode using latin1 because source data is in that format.
+  const enc = new TextDecoder("latin1");
+  const csv: string = response && response.data ? enc.decode(new Int8Array(response.data)) : "";
 
   const lines = csv.trim().split("\r\n");
 
