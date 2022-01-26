@@ -7,6 +7,7 @@ export const StyledRight = styled.div`
 
   a {
     padding-top: ${themeSpacing(2)};
+    font-size: 16px;
   }
 `;
 
