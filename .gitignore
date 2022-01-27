@@ -6,3 +6,6 @@ reports
 *.iml
 .env
 .jenkins/backups
+
+node_modules
+build
