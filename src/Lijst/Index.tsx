@@ -66,7 +66,7 @@ const Lijst = () => {
               }}
               variant="inline"
             >
-              Download gefilterde gegevens
+              Download gefilterd resultaat
             </Link>
           </StyledRight>
 
