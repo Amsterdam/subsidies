@@ -31,9 +31,9 @@ function useFilter(filters: Filter, data: Subisidie[]) {
     if (filters.zoeken) {
       filteredData = filteredData.filter(
         (d) =>
-          d.PROJECT_NAAM.includes(filters.zoeken || "") ||
-          d.REGELINGNAAM.includes(filters.zoeken || "") ||
-          d.AANVRAGER.includes(filters.zoeken || ""),
+          d.PROJECT_NAAM.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || "") ||
+          d.REGELINGNAAM.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || "") ||
+          d.AANVRAGER.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || ""),
       );
     }
 
