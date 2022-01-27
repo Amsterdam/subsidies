@@ -77,7 +77,7 @@ const Lijst = () => {
               Filters (
               {
                 Object.keys(filters)
-                  .map((k) => !!filters[k])
+                  .map((k) => (Array.isArray(filters[k]) ? filters[k].length > 0 : !!filters[k]))
                   .filter(Boolean).length
               }
               )

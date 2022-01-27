@@ -29,11 +29,13 @@ function useFilter(filters: Filter, data: Subisidie[]) {
     }
 
     if (filters.zoeken) {
+      const searchTerm = filters.zoeken?.toLocaleLowerCase();
+
       filteredData = filteredData.filter(
         (d) =>
-          d.PROJECT_NAAM.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || "") ||
-          d.REGELINGNAAM.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || "") ||
-          d.AANVRAGER.toLocaleLowerCase().includes(filters.zoeken?.toLocaleLowerCase() || ""),
+          d.PROJECT_NAAM.toLocaleLowerCase().includes(searchTerm || "") ||
+          d.REGELINGNAAM.toLocaleLowerCase().includes(searchTerm || "") ||
+          d.AANVRAGER.toLocaleLowerCase().includes(searchTerm || ""),
       );
     }
 
