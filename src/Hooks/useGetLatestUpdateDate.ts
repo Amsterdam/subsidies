@@ -4,7 +4,7 @@ import { useSubsidieContext } from "../DataProvider";
 const useGetLatestUpdateDate = () => {
   const { data } = useSubsidieContext();
 
-  return new Date(data?.[0]?.DATUM_OVERZICHT);
+  return new Date(data?.[0]?.DATUM_OVERZICHT?.substring(0, 10));
 };
 
 export default useGetLatestUpdateDate;
