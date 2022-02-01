@@ -5,7 +5,7 @@ updates:
     target-branch: "master"
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
     assignees:
       - "jasperswart"
       - "janthijs"
