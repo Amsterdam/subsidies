@@ -50,12 +50,14 @@ const SubsidieHeader = () => {
           <MobileMenu>
             <MenuToggle>
               <MenuItem>
+                {/* @ts-ignore */}
                 <MenuButton as={Link} to="/" active={!matchPath(location.pathname, "/lijst")}>
                   Feiten
                 </MenuButton>
               </MenuItem>
               <MenuItem>
-                <MenuButton as={Link} to="/lijst" active={matchPath(location.pathname, "/lijst")}>
+                {/* @ts-ignore */}
+                <MenuButton as={Link} to="/lijst" active={!!matchPath(location.pathname, "/lijst")}>
                   Lijst
                 </MenuButton>
               </MenuItem>
@@ -64,12 +66,14 @@ const SubsidieHeader = () => {
 
           <WideOnlyMenu>
             <MenuItem>
+              {/* @ts-ignore */}
               <MenuButton as={Link} to="/" active={!matchPath(location.pathname, "/lijst")}>
                 Feiten
               </MenuButton>
             </MenuItem>
             <MenuItem>
-              <MenuButton as={Link} to="/lijst" active={matchPath(location.pathname, "/lijst")}>
+              {/* @ts-ignore */}
+              <MenuButton as={Link} to="/lijst" active={!!matchPath(location.pathname, "/lijst")}>
                 Lijst
               </MenuButton>
             </MenuItem>

@@ -28,6 +28,7 @@ export const StyledLeft = styled.div`
 export const StyledTable = styled(Table)`
   margin-top: ${themeSpacing(3)};
   margin-bottom: ${themeSpacing(10)};
+  background-color: white;
 
   tr:nth-child(even) {
     background-color: ${themeColor("tint", "level2")};
@@ -50,4 +51,9 @@ export const TableCellRight = styled(TableCell)`
 export const NoResults = styled.div`
   margin: ${themeSpacing(15)} 0;
   text-align: center;
+`;
+
+export const TableWrapper = styled.div`
+  width: 100%;
+  overflow: auto;
 `;

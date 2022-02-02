@@ -1,15 +1,33 @@
 import { useCallback, useState } from "react";
-import { Heading, Link, TableCell, TableBody, TableHeader, TableRow, Pagination, Button } from "@amsterdam/asc-ui";
+import {
+  Heading,
+  Link,
+  TableCell,
+  TableBody,
+  TableHeader,
+  TableRow,
+  Pagination,
+  Button,
+  CompactPager,
+} from "@amsterdam/asc-ui";
 import { Filter, Order, Sort, Subisidie } from "../types";
 import FilterModal from "../Components/FilterModal";
 import StylelessButton from "../Components/StylelessButton";
-import { StyledLeft, StyledRight, StyledTable, TableCellRight, NoResults } from "../Components/StyledTable";
+import {
+  StyledLeft,
+  StyledRight,
+  StyledTable,
+  TableCellRight,
+  NoResults,
+  TableWrapper,
+} from "../Components/StyledTable";
 import { useSubsidieContext } from "../DataProvider";
 import PageTemplate from "../PageTemplate";
 import { sortProjects } from "./sortProjects";
 import useFilter from "./useFilter";
 import downloadXlsx from "./downloadXlsx";
 import LatestUpdateDate from "../Components/UpdateDate";
+import { DisplayFromMobile, DisplayMobileOnly } from "../Components/ResponsiveWrappers";
 
 const numberOfItems = 50;
 
@@ -95,109 +113,123 @@ const Lijst = () => {
             setFilters={setFilters}
           />
 
-          <StyledTable>
-            <TableHeader>
-              <TableRow>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("PROJECT_NAAM");
-                    }}
-                  >
-                    Project en naam
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("REGELINGNAAM");
-                    }}
-                  >
-                    Regeling en organisatie
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("BELEIDSTERREIN");
-                    }}
-                  >
-                    Thema
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">Jaar</TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("TYPE_PERIODICITEIT");
-                    }}
-                  >
-                    Soort
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("BEDRAG_AANGEVRAAGD");
-                    }}
-                  >
-                    Aangevraagd
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("BEDRAG_VERLEEND");
-                    }}
-                  >
-                    Verleend
-                  </StylelessButton>
-                </TableCell>
-                <TableCell as="th">
-                  <StylelessButton
-                    onClick={() => {
-                      setColumnSort("BEDRAG_VASTGESTELD");
-                    }}
-                  >
-                    Vastgesteld
-                  </StylelessButton>
-                </TableCell>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody>
-              {paginatedData.map((d) => (
-                <TableRow key={d.DOSSIERNUMMER}>
-                  <TableCell>
-                    <b>{d.PROJECT_NAAM}</b>
-                    <br />
-                    {d.AANVRAGER}
+          <TableWrapper>
+            <StyledTable>
+              <TableHeader>
+                <TableRow>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("PROJECT_NAAM");
+                      }}
+                    >
+                      Project en naam
+                    </StylelessButton>
                   </TableCell>
-                  <TableCell>
-                    {d.REGELINGNAAM}
-                    <br />
-                    {d.ORGANISATIEONDERDEEL}
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("REGELINGNAAM");
+                      }}
+                    >
+                      Regeling en organisatie
+                    </StylelessButton>
                   </TableCell>
-                  <TableCell>{d.BELEIDSTERREIN}</TableCell>
-                  <TableCell>{d.SUBSIDIEJAAR}</TableCell>
-                  <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_AANGEVRAAGD.toLocaleString("nl-NL")}</TableCellRight>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VERLEEND.toLocaleString("nl-NL")}</TableCellRight>
-                  <TableCellRight>&euro;&nbsp;{d.BEDRAG_VASTGESTELD.toLocaleString("nl-NL")}</TableCellRight>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("BELEIDSTERREIN");
+                      }}
+                    >
+                      Thema
+                    </StylelessButton>
+                  </TableCell>
+                  <TableCell as="th">Jaar</TableCell>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("TYPE_PERIODICITEIT");
+                      }}
+                    >
+                      Soort
+                    </StylelessButton>
+                  </TableCell>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("BEDRAG_AANGEVRAAGD");
+                      }}
+                    >
+                      Aangevraagd
+                    </StylelessButton>
+                  </TableCell>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("BEDRAG_VERLEEND");
+                      }}
+                    >
+                      Verleend
+                    </StylelessButton>
+                  </TableCell>
+                  <TableCell as="th">
+                    <StylelessButton
+                      onClick={() => {
+                        setColumnSort("BEDRAG_VASTGESTELD");
+                      }}
+                    >
+                      Vastgesteld
+                    </StylelessButton>
+                  </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </StyledTable>
+              </TableHeader>
+
+              <TableBody>
+                {paginatedData.map((d) => (
+                  <TableRow key={d.DOSSIERNUMMER}>
+                    <TableCell>
+                      <b>{d.PROJECT_NAAM}</b>
+                      <br />
+                      {d.AANVRAGER}
+                    </TableCell>
+                    <TableCell>
+                      {d.REGELINGNAAM}
+                      <br />
+                      {d.ORGANISATIEONDERDEEL}
+                    </TableCell>
+                    <TableCell>{d.BELEIDSTERREIN}</TableCell>
+                    <TableCell>{d.SUBSIDIEJAAR}</TableCell>
+                    <TableCell>{d.TYPE_PERIODICITEIT}</TableCell>
+                    <TableCellRight>&euro;&nbsp;{d.BEDRAG_AANGEVRAAGD.toLocaleString("nl-NL")}</TableCellRight>
+                    <TableCellRight>&euro;&nbsp;{d.BEDRAG_VERLEEND.toLocaleString("nl-NL")}</TableCellRight>
+                    <TableCellRight>&euro;&nbsp;{d.BEDRAG_VASTGESTELD.toLocaleString("nl-NL")}</TableCellRight>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </StyledTable>
+          </TableWrapper>
 
           {filteredData.length === 0 ? (
             <NoResults>er zijn geen resultaten gevonden</NoResults>
           ) : (
-            <Pagination
-              collectionSize={filteredData.length}
-              pageSize={numberOfItems}
-              page={1}
-              onPageChange={onPageChange}
-            />
+            <>
+              <DisplayFromMobile>
+                <Pagination
+                  collectionSize={filteredData.length}
+                  pageSize={numberOfItems}
+                  page={page}
+                  onPageChange={onPageChange}
+                />
+              </DisplayFromMobile>
+              <DisplayMobileOnly>
+                <CompactPager
+                  collectionSize={filteredData.length}
+                  pageSize={numberOfItems}
+                  page={page}
+                  onPageChange={onPageChange}
+                />
+              </DisplayMobileOnly>
+            </>
           )}
         </>
       )}
