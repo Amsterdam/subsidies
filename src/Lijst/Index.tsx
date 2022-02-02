@@ -101,9 +101,9 @@ const Lijst = () => {
               )
             </Button>
 
-            <div>
+            <p>
               {filteredData.length.toLocaleString("nl-NL")} resultaten van totaal {data.length.toLocaleString("nl-NL")}
-            </div>
+            </p>
           </StyledLeft>
 
           <FilterModal
