@@ -27,6 +27,8 @@ const HeaderRow = styled(Row)`
 const Content = styled.div`
   padding-left: ${themeSpacing(11)};
   padding-right: ${themeSpacing(11)};
+
+  padding-top: ${themeSpacing(12)};
 `;
 
 const PageTemplate = ({ children }) => {

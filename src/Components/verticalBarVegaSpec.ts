@@ -1,6 +1,6 @@
 const spec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  width: 500,
+  width: "container",
   config: {
     axis: {
       labelFontSize: 14,
