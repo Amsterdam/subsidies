@@ -1,5 +1,7 @@
 #!groovy
 
+def PROJECT = "blackspots-unittests-${env.GIT_COMMIT}"
+
 def tryStep(String message, Closure block, Closure tearDown = null) {
     try {
         block();
@@ -28,6 +30,14 @@ node {
         image.push("acceptance")
         }
     }
+    stage('Test') {
+        steps {
+            script {
+                sh "docker-compose -p ${PROJECT} up --build --exit-code-from unittest"
+            }
+        }
+    }
+
 }
     node {
         stage("Deploy to ACC") {

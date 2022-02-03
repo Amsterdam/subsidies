@@ -6,3 +6,14 @@ services:
     ports:
       - "8080:80"
     ipc: host
+
+  unittest:
+    build:
+      context: .
+      target: builder
+    environment:
+      - NODE_ENV=test
+      - CI=true
+      - TZ=Europe/Amsterdam
+      - BUILD_ARG=acc
+    command: npm run test
