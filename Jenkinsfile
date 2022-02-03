@@ -1,6 +1,6 @@
 #!groovy
 
-def PROJECT = "blackspots-unittests-${env.GIT_COMMIT}"
+def PROJECT = "subsidies-unittests-${env.GIT_COMMIT}"
 
 def tryStep(String message, Closure block, Closure tearDown = null) {
     try {
