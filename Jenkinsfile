@@ -23,13 +23,13 @@ node {
     stage("Checkout") {
         checkout scm
     }
-    stage("Build develop image") {
-    tryStep "build", {
-        def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
-        image.push()
-        image.push("acceptance")
-        }
-    }
+    // stage("Build develop image") {
+    // tryStep "build", {
+    //     def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
+    //     image.push()
+    //     image.push("acceptance")
+    //     }
+    // }
     stage('Test') {
         steps {
             script {
