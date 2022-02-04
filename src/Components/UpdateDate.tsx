@@ -10,7 +10,13 @@ const Span = styled.span`
 const LatestUpdateDate = () => {
   const date = useGetLatestUpdateDate();
 
-  return <Span>Bijgewerkt tot {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Span>;
+  return (
+    <Span>
+      {date
+        ? `Bijgewerkt tot ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+        : "Gegevens worden geladen..."}
+    </Span>
+  );
 };
 
 export default LatestUpdateDate;
