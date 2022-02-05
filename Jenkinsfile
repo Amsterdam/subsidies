@@ -24,10 +24,10 @@ node {
         checkout scm
     }
     stage('Test') {
-        step {
-            script {
+        steps {
+            // script {
                 sh "docker-compose up --exit-code-from unittest"
-            }
+            // }
         }
     }
     stage("Build develop image") {
