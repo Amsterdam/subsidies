@@ -26,7 +26,7 @@ node {
     stage('Test') {
         steps {
             script {
-                sh "docker-compose up unittest"
+                sh "docker-compose up --exit-code-from unittest"
             }
         }
     }
