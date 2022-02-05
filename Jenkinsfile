@@ -1,6 +1,6 @@
 #!groovy
 
-def PROJECT = "subsidies-unittests-${env.GIT_COMMIT}"
+// def PROJECT = "subsidies-unittests-${env.GIT_COMMIT}"
 
 def tryStep(String message, Closure block, Closure tearDown = null) {
     try {
@@ -23,21 +23,20 @@ node {
     stage("Checkout") {
         checkout scm
     }
-    // stage("Build develop image") {
-    // tryStep "build", {
-    //     def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
-    //     image.push()
-    //     image.push("acceptance")
-    //     }
-    // }
     stage('Test') {
         steps {
             script {
-                sh "docker-compose -p ${PROJECT} up --build --exit-code-from unittest"
+                sh "docker-compose up --build --exit-code-from unittest"
             }
         }
     }
-
+    stage("Build develop image") {
+    tryStep "build", {
+        def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
+        image.push()
+        image.push("acceptance")
+        }
+    }
 }
     node {
         stage("Deploy to ACC") {
