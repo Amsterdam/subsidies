@@ -4,6 +4,10 @@ import { useSubsidieContext } from "../DataProvider";
 const useGetLatestUpdateDate = () => {
   const { data } = useSubsidieContext();
 
+  if (!data || !data[0]) {
+    return;
+  }
+
   return new Date(data?.[0]?.DATUM_OVERZICHT?.substring(0, 10));
 };
 

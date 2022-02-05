@@ -1,6 +1,6 @@
 const spec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  width: 600,
+  width: "container",
   height: 500,
   config: {
     axis: {

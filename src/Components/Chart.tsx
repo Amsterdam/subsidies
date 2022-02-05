@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import vegaEmbed from "vega-embed";
+import styled from "styled-components";
 import { Spinner } from "@amsterdam/asc-ui";
 
 import verticalBarVegaSpec from "./verticalBarVegaSpec";
+
+const ChartContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const vegaEmbedOptions = {
   actions: false,
@@ -50,10 +56,10 @@ const VerticalBarChart = ({
 
   return (
     <figure>
-      <div className="chart-container">
+      <div>
         {isLoading ? <Spinner /> : null}
         {showError && <p>Er ging iets mis met het ophalen van de data.</p>}
-        {!showError && <div ref={chartRef}></div>}
+        {!showError && <ChartContainer ref={chartRef}></ChartContainer>}
       </div>
     </figure>
   );

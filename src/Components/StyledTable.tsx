@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Table, TableCell, themeSpacing, themeColor } from "@amsterdam/asc-ui";
+import { Table, TableCell, themeSpacing, themeColor, breakpoint } from "@amsterdam/asc-ui";
 
 export const StyledRight = styled.div`
   float: right;
@@ -13,11 +13,18 @@ export const StyledRight = styled.div`
 
 export const StyledLeft = styled.div`
   display: flex;
+  flex-direction: column;
   margin-top: ${themeSpacing(12)};
+  width: 100%;
+  padding-top: ${themeSpacing(5)};
 
-  button,
-  div {
-    align-self: center;
+  @media screen and ${breakpoint("min-width", "tabletS")} {
+    flex-direction: row;
+    padding-top: 0px;
+
+    p {
+      margin-left: ${themeSpacing(4)};
+    }
   }
 
   div {
@@ -28,6 +35,7 @@ export const StyledLeft = styled.div`
 export const StyledTable = styled(Table)`
   margin-top: ${themeSpacing(3)};
   margin-bottom: ${themeSpacing(10)};
+  background-color: white;
 
   tr:nth-child(even) {
     background-color: ${themeColor("tint", "level2")};
@@ -50,4 +58,9 @@ export const TableCellRight = styled(TableCell)`
 export const NoResults = styled.div`
   margin: ${themeSpacing(15)} 0;
   text-align: center;
+`;
+
+export const TableWrapper = styled.div`
+  width: 100%;
+  overflow: auto;
 `;
