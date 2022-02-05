@@ -24,7 +24,7 @@ node {
         checkout scm
     }
     stage('Test') {
-        steps {
+        step {
             script {
                 sh "docker-compose up --exit-code-from unittest"
             }
