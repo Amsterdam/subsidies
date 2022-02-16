@@ -24,24 +24,22 @@ node {
         checkout scm
     }
     stage('Test') {
-        steps {
-            script {
-                sh "docker-compose up --exit-code-from unittest"
-            }
+        tryStep "unit-test", {         
+            sh "docker-compose up --exit-code-from unittest"            
         }
     }
     stage("Build develop image") {
-    tryStep "build", {
-        def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
-        image.push()
-        image.push("acceptance")
+        tryStep "build", {
+            def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
+            image.push()
+            image.push("acceptance")
         }
     }
 }
     node {
         stage("Deploy to ACC") {
-        tryStep "deployment", {
-            build job: 'Subtask_Openstack_Playbook',
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
