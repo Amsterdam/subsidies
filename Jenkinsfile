@@ -1,5 +1,7 @@
 #!groovy
 
+// def PROJECT = "subsidies-unittests-${env.GIT_COMMIT}"
+
 def tryStep(String message, Closure block, Closure tearDown = null) {
     try {
         block();
@@ -21,18 +23,28 @@ node {
     stage("Checkout") {
         checkout scm
     }
-    stage("Build develop image") {
-    tryStep "build", {
-        def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
-        image.push()
-        image.push("acceptance")
+  
+    stage('Test') {
+        tryStep "test", {
+            sh "docker-compose build && " +
+               "docker-compose run -u root --rm unittest"
+        }, {
+            sh "docker-compose down"
+        }
+    }
+
+    stage("Build acceptance image") {
+        tryStep "build", {
+            def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
+            image.push()
+            image.push("acceptance")
         }
     }
 }
     node {
         stage("Deploy to ACC") {
-        tryStep "deployment", {
-            build job: 'Subtask_Openstack_Playbook',
+            tryStep "deployment", {
+                build job: 'Subtask_Openstack_Playbook',
                     parameters: [
                             [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
                             [$class: 'StringParameterValue', name: 'PLAYBOOK', value: 'deploy.yml'],
