@@ -23,16 +23,18 @@ node {
     stage("Checkout") {
         checkout scm
     }
-    stage('Test') {
-        tryStep "unit-test", {         
-            sh "docker-compose up --exit-code-from unittest"            
-        }
-    }
-    stage("Build develop image") {
+  
+    stage("Build and test develop image") {
         tryStep "build", {
             def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
             image.push()
             image.push("acceptance")
+        }
+
+        tryStep "unit-test", {         
+            image.inside {
+                sh 'npm run test'
+            }         
         }
     }
 }
