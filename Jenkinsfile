@@ -33,7 +33,7 @@ node {
         }
     }
 
-    stage("Build and test develop image") {
+    stage("Build acceptance image") {
         tryStep "build", {
             def image = docker.build("docker-registry.secure.amsterdam.nl/dataservices/subsidies:${env.BUILD_NUMBER}")
             image.push()
