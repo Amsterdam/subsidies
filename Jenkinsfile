@@ -26,8 +26,7 @@ node {
   
     stage('Test') {
         tryStep "test", {
-            sh "docker-compose build && " +
-               "docker-compose run -u root --rm unittest"
+            sh "docker-compose up --abort-on-container-exit unittest"
         }, {
             sh "docker-compose down"
         }
