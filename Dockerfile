@@ -25,7 +25,7 @@ COPY . /app
 
 # Build
 RUN echo "run build"
-RUN npm run build
+RUN GENERATE_SOURCEMAP=false npm run build
 
 # Deploy
 FROM nginx:stable-alpine
