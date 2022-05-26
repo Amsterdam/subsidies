@@ -27,8 +27,6 @@ node {
     stage('Test') {
         tryStep "test", {
             sh "docker-compose up --abort-on-container-exit unittest"
-        }, {
-            sh "docker-compose down"
         }
     }
 
