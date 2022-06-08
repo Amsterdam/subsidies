@@ -24,11 +24,11 @@ node {
         checkout scm
     }
   
-    stage('Test') {
-        tryStep "test", {
-            sh "docker-compose up --abort-on-container-exit unittest"
-        }
-    }
+    // stage('Test') {
+    //     tryStep "test", {
+    //         sh "docker-compose up --abort-on-container-exit unittest"
+    //     }
+    // }
 
     stage("Build acceptance image") {
         tryStep "build", {
