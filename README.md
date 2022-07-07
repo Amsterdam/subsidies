@@ -1,7 +1,7 @@
 # Subsidies City of Amsterdam
 
-- PROD: [https://subsidiefeiten.amsterdam.nl](https://subsidiefeiten.amsterdam.nl)
-- ACC: [https://acc.subsidiefeiten.amsterdam.nl](https://acc.subsidiefeiten.amsterdam.nl)
+- PROD: [https://subsidie-feiten.amsterdam.nl](https://subsidie-feiten.amsterdam.nl)
+- ACC: [https://acc.subsidie-feiten.amsterdam.nl](https://acc.subsidie-feiten.amsterdam.nl)
 
 Subsite which shows the subsidies given by the City of Amsterdam. Data is presented in graphs and tables.
 
