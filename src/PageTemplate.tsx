@@ -34,7 +34,7 @@ const Content = styled.div`
 const PageTemplate = ({ children }) => {
   useEffect(() => {
     // Scroll to top on page load.
-    window?.scrollTo(0, 0);
+    typeof window?.scrollTo === "function" && window?.scrollTo(0, 0);
   }, []);
 
   return (
