@@ -49,7 +49,7 @@ const Lijst = () => {
     setPage(page);
 
     // Scroll to top on selection of different results page.
-    window.scrollTo(0, 0);
+    typeof window?.scrollTo === "function" && window.scrollTo(0, 0);
   }, []);
 
   // sort the data;
