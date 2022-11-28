@@ -47,7 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@amsterdam/asc-assets": "^0.37.0",
+    "@amsterdam/asc-assets": "^0.38.0",
     "@amsterdam/asc-ui": "^0.37.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
