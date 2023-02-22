@@ -6,6 +6,15 @@ services:
     ports:
       - "8080:80"
     ipc: host
+    image: ${REGISTRY:-127.0.0.1:5001}/${REPOSITORY:-subsidieregister}:${VERSION:-latest}
+
+  dev:
+    build:
+      context: .
+    ports:
+      - "8080:80"
+    ipc: host
+    image: ${REGISTRY:-127.0.0.1:5001}/${REPOSITORY:-subsidieregister}-dev:${VERSION:-latest}
 
   unittest:
     build:
