@@ -7,7 +7,7 @@ async function readCsv(): Promise<{ titleRow: string[]; dataLines: string[][] }>
     response = await axios.get<ArrayBuffer>(
       `${
         process.env.NODE_ENV === "test" ? "http://localhost" : "https://api.data.amsterdam.nl"
-      }/dcatd/datasets/yvlbMxqPKn1ULw/purls/72c8_AyB5gvJ4Q`,
+      }/dcatd/datasets/yvlbMxqPKn1ULw/purls/1`,
       {
         responseType: "arraybuffer",
       },
