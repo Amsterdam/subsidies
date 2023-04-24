@@ -64,7 +64,7 @@
     "eslint-plugin-react": "^7.32.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "nock": "^13.3.0",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1"
   }
 }
